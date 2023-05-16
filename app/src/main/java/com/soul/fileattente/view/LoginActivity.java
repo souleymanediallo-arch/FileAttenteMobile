@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -48,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userViewModel.doAgain();
+
+                //Profiter pour lancer une attente de 9sec avant de
+                waitForAWhile(9000L);
             }
         });
     }
@@ -66,5 +70,15 @@ public class LoginActivity extends AppCompatActivity {
                 Logger.getLogger(getLocalClassName()).log(Level.INFO,"------------------------------------> I got changed and my current value is Status = " + user.isUserStatus());
             }
         });
+    }
+
+    private void waitForAWhile(long delay){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                System.out.println("............................. I am done with the delay.......................");
+                userViewModel.getmUser().postValue(new User("BA", "Dieynaba", true));
+            }
+        }, delay);
     }
 }

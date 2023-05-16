@@ -10,6 +10,12 @@ public class User {
     public User() {
     }
 
+    public User(String userName, String userPwd, Boolean userStatus) {
+        this.userName = userName;
+        this.userPwd = userPwd;
+        this.userStatus = userStatus;
+    }
+
     public String getUserName() {
         return userName;
     }

@@ -26,14 +26,17 @@ public class UserViewModel extends ViewModel {
         mUser.postValue(aGivenUser);
     }
 
-    @MainThread
     public void doAgain(){
             mUserRepo = UserRepository.getInstance();
             User sampleUser = mUserRepo.getSelectedUser(1);
             mUser.postValue(sampleUser);
     }
 
-    public LiveData<User> getmUser() {
+//    public LiveData<User> getmUser() {
+//        return mUser;
+//    }
+
+    public MutableLiveData<User> getmUser() {
         return mUser;
     }
 }
