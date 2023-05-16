@@ -12,7 +12,8 @@ import com.soul.fileattente.repository.UserRepository;
 //Veiller à utiliser les MutableLiveData et liveData uniquement dans la ViewModel et surtout pas
 //Permettre à d'autres classe de renvoyer des MutableLive Data or des Live Data
 //D'aielleurs cela permet de ne pas denaturer ces Classes qui au demeurant ne savent rien des LiveData
-//Et devraient pouvoir etre utilisées à d'autres endroits
+//Et devraient pouvoir etre utilisées à d'autres endroits.
+//Par ailleurs c'est qui empechait l'application de fonctionner correctement des le debut
 public class UserViewModel extends ViewModel {
 
     private User aGivenUser;
