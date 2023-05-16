@@ -33,4 +33,13 @@ public class User {
     public void setUserStatus(boolean userStatus) {
         this.userStatus = userStatus;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", userPwd='" + userPwd + '\'' +
+                ", userStatus=" + userStatus +
+                '}';
+    }
 }
