@@ -2,50 +2,54 @@ package com.soul.fileattente.model;
 
 public class User {
 
-    private String userName;
-    private String userPwd;
-    private Boolean userStatus;
+    private String username;
+    private String password;
+    private Boolean userstatus;
 
 
     public User() {
     }
 
     public User(String userName, String userPwd, Boolean userStatus) {
-        this.userName = userName;
-        this.userPwd = userPwd;
-        this.userStatus = userStatus;
+        this.username = userName;
+        this.password = userPwd;
+        this.userstatus = userStatus;
     }
 
-    public String getUserName() {
-        return userName;
+    public User(String docteur, String passworddocteur) {
+
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getUsername() {
+        return username;
     }
 
-    public String getUserPwd() {
-        return userPwd;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
+    public String getPassword() {
+        return password;
     }
 
-    public boolean isUserStatus() {
-        return userStatus;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setUserStatus(boolean userStatus) {
-        this.userStatus = userStatus;
+    public boolean getUserstatus() {
+        return userstatus;
+    }
+
+    public void setUserstatus(boolean userstatus) {
+        this.userstatus = userstatus;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
-                ", userPwd='" + userPwd + '\'' +
-                ", userStatus=" + userStatus +
+                "userName='" + username + '\'' +
+                ", userPwd='" + password + '\'' +
+                ", userStatus=" + userstatus +
                 '}';
     }
 }

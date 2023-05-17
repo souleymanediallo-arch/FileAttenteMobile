@@ -1,23 +1,15 @@
 package com.soul.fileattente.viewmodel;
 
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
-import androidx.annotation.MainThread;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.soul.fileattente.api.RetrofitClient;
-import com.soul.fileattente.model.Results;
+import com.soul.fileattente.model.DemandeNumeroFile;
+import com.soul.fileattente.model.Login;
+import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.User;
+import com.soul.fileattente.repository.FileAttenteRepository;
 import com.soul.fileattente.repository.UserRepository;
-
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 //Write all Business Logic here and free the view from that
 //Veiller à utiliser les MutableLiveData et liveData uniquement dans la ViewModel et surtout pas
@@ -30,46 +22,56 @@ public class UserViewModel extends ViewModel {
     private User aGivenUser;
     private MutableLiveData<User> mUser = new MutableLiveData<>();
     private UserRepository mUserRepo;
+    private FileAttenteRepository mFileAttenteRepository;
 
-    private MutableLiveData<List<Results>> mListResults = new MutableLiveData<>();
+    //private MutableLiveData<List<Results>> mListResults = new MutableLiveData<>();
+    public static MutableLiveData<List<NumeroSuivantFile>> mListResults = new MutableLiveData<>();
 
-    public void init(){
+    public void initFromViewModel(){
         mUserRepo = UserRepository.getInstance();
         aGivenUser = mUserRepo.getSelectedUser(0);
         mUser.postValue(aGivenUser);
     }
 
-    public void doAgain(){
+    public void doAgainFromViewModel(){
             mUserRepo = UserRepository.getInstance();
             User sampleUser = mUserRepo.getSelectedUser(1);
             mUser.postValue(sampleUser);
     }
 
+    public void getAllNumerosSuivantsFromViewModel(){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.getAllNumerosSuivants();//Inside and because it's async, the postValue is done inside
+    }
 
-//    public LiveData<User> getmUser() {
-//        return mUser;
-//    }
+    public void authenticate(Login login){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.authenticate(login);//Inside and because it's async, the postValue is done inside
+    }
+
+    public void getAllbirthdays(){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.getAllbirthdays();//Inside and because it's async, the postValue is done inside
+    }
+
+    public void login(Login login){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.login(login);//Inside and because it's async, the postValue is done inside
+    }
+
+
+    public  void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.demandeNumerosSuivant(demandeNumeroFile);//Inside and because it's async, the postValue is done inside
+    }
+
+    //public LiveData<User> getmUser() { return mUser; }
 
     public MutableLiveData<User> getmUser() {
         return mUser;
     }
 
-    public MutableLiveData<List<Results>> getmListResults() {
+    public MutableLiveData<List<NumeroSuivantFile>> getmListResults() {
         return mListResults;
-    }
-
-    private void getSuperHeroes() {
-        Call<List<Results>> call = RetrofitClient.getInstance().getMyApi().getsuperHeroes();
-
-        call.enqueue(new Callback<List<Results>>() {
-            @Override
-            public void onResponse(Call<List<Results>> call, Response<List<Results>> response) {
-                List<Results> myheroList = response.body();
-                mListResults.postValue(myheroList);
-            }
-            @Override
-            public void onFailure(Call<List<Results>> call, Throwable t) {
-            }
-        });
     }
 }

@@ -5,7 +5,6 @@ import android.os.Handler;
 import com.soul.fileattente.model.User;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
-
 //Manage to get always one single instance of the
 //repository thanks to  Singleton Pattern
 public class UserRepository {
