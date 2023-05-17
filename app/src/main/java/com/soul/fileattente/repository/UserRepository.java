@@ -3,6 +3,7 @@ package com.soul.fileattente.repository;
 import android.os.Handler;
 
 import com.soul.fileattente.model.User;
+import com.soul.fileattente.viewmodel.UserViewModel;
 
 
 //Manage to get always one single instance of the

@@ -6,14 +6,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ActivityLoginBinding;
+import com.soul.fileattente.model.Results;
 import com.soul.fileattente.model.User;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,8 +40,11 @@ public class LoginActivity extends AppCompatActivity {
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(LoginActivity.this).get(UserViewModel.class);
 
-        //Be prepared to process the changes of the values for var in viewModel
+        //Be prepared to process the changes of the values for var in viewModel: User
         processWhenDataChanged();
+
+        //Be prepared to process the changes of the values for var in viewModel: Results
+        processWhenListHerosChanged();
 
         //Process with initialisation
         userViewModel.init();
@@ -48,10 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userViewModel.doAgain();
-
+                //userViewModel.doAgain();
                 //Profiter pour lancer une attente de 9sec avant de
-                waitForAWhile(9000L);
+                //waitForAWhile(9000L);
+                userViewModel.getmListResults();
             }
         });
     }
@@ -68,6 +74,19 @@ public class LoginActivity extends AppCompatActivity {
                 Logger.getLogger(getLocalClassName()).log(Level.INFO,"------------------------------------> I got changed and my current value is Name = " + user.getUserName());
                 Logger.getLogger(getLocalClassName()).log(Level.INFO,"------------------------------------> I got changed and my current value is Pwd = " + user.getUserPwd());
                 Logger.getLogger(getLocalClassName()).log(Level.INFO,"------------------------------------> I got changed and my current value is Status = " + user.isUserStatus());
+            }
+        });
+    }
+
+    void processWhenListHerosChanged(){
+        userViewModel.getmListResults().observe(this, new Observer<List<Results>>() {
+            @Override
+            public void onChanged(List<Results> results) {
+                Log.e("", "I got changed and my current value is Name = ");
+                for(Results aResults: results){
+                    System.out.printf("------------------------> "  + aResults.getName());
+                    Logger.getLogger(getLocalClassName()).log(Level.INFO,"------------------------------------> " + aResults.getName());
+                }
             }
         });
     }
