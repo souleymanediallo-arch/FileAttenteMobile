@@ -3,7 +3,11 @@ package com.soul.fileattente.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.soul.fileattente.model.Demande;
+import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
+import com.soul.fileattente.model.DemandeParam;
+import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.User;
@@ -64,6 +68,33 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.demandeNumerosSuivant(demandeNumeroFile);//Inside and because it's async, the postValue is done inside
     }
+
+    public  void demandeAllParams(DemandeParam demandeParam){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.demandeAllParams(demandeParam);//Inside and because it's async, the postValue is done inside
+    }
+
+    public  void demandeAllServicesDestination(DemandeService demandeService){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.demandeAllServicesDestination(demandeService);//Inside and because it's async, the postValue is done inside
+    }
+
+    public  void appelerNumero(NumeroSuivantFile numeroSuivantFile){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.appelerNumero(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
+    }
+
+    public  void annulerAppelNumero(NumeroSuivantFile numeroSuivantFile){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.annulerAppelNumero(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
+    }
+
+
+    public  void demandeAllNumerosSuivants(DemandeNumSuiv demandeNumSuiv){
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.demandeAllNumerosSuivants(demandeNumSuiv);//Inside and because it's async, the postValue is done inside
+    }
+
 
     //public LiveData<User> getmUser() { return mUser; }
 

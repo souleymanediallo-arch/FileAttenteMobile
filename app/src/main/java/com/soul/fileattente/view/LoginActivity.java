@@ -10,7 +10,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.soul.fileattente.databinding.ActivityLoginBinding;
+import com.soul.fileattente.model.Demande;
+import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
+import com.soul.fileattente.model.DemandeParam;
+import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.User;
@@ -62,7 +66,12 @@ public class LoginActivity extends AppCompatActivity {
                 //userViewModel.login(new Login("docteur", "Passworddocteur"));
                 //userViewModel.demandeNumerosSuivant(new DemandeNumeroFile("Vision Medicale Coumba", "0122455789632111441251", "Pediatrie", "+221766752276", "2023-05-13T10:35:02.678Z" ));
                 //userViewModel.authenticate(new Login("admin", "admin"));
-                userViewModel.getAllbirthdays();
+                //userViewModel.getAllbirthdays(); //Ajust with necassayr modications for BaseURL and so on...
+                //userViewModel.demandeAllParams(new DemandeParam("Vision Medicale Coumba","0122455789632111441251","2023-05-13T10:35:02.678Z"));
+                //userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba","0122455789632111441251","2023-05-13T10:35:02.678Z"));
+                //userViewModel.appelerNumero(new NumeroSuivantFile("0001","2023-05-13T10:36:02.678Z","100", "300", "250", "Vision Medicale Coumba", "0122455789632111441251","Pediatrie","+221766752276", "2023-05-13T10:35:02.678Z" ));
+                //userViewModel.annulerAppelNumero(new NumeroSuivantFile("0001","2023-05-13T10:36:02.678Z","100", "300", "250", "Vision Medicale Coumba", "0122455789632111441251","Pediatrie","+221766752276", "2023-05-13T10:35:02.678Z" ));
+                //userViewModel.demandeAllNumerosSuivants(new DemandeNumSuiv("Vision Medicale Coumba","Pediatrie","0122455789632111441251","2023-05-13T10:35:02.678Z"));
             }
         });
     }

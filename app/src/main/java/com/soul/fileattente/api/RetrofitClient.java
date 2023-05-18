@@ -35,6 +35,7 @@ public class RetrofitClient {
             public okhttp3.Response intercept(Chain chain) throws IOException {
                 Request originalRequest = chain.request();
 
+                //HTP codesUltimate Reference : https://netnut.io/how-to-solve-proxy-error-codes/
                 //Go the website : https://www.infobip.com/docs/essentials/api-authentication for muich more details and Check Auth 2.0(https://datatracker.ietf.org/doc/html/rfc6749)
                 //Request.Builder builder = originalRequest.newBuilder().header("Authorization",
                 //        Credentials.basic("aUsername", "aPassword"));
