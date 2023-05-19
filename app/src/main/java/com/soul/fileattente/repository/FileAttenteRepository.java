@@ -144,6 +144,7 @@ public class FileAttenteRepository {
             @Override
             public void onResponse(Call<List<ServiceDestination>> call, Response<List<ServiceDestination>> response) {
                 System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
+                UserViewModel.mListServiceDestination.postValue(response.body());
             }
 
             @Override

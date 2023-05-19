@@ -10,6 +10,7 @@ import com.soul.fileattente.model.DemandeParam;
 import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.NumeroSuivantFile;
+import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.model.User;
 import com.soul.fileattente.repository.FileAttenteRepository;
 import com.soul.fileattente.repository.UserRepository;
@@ -30,6 +31,7 @@ public class UserViewModel extends ViewModel {
 
     //private MutableLiveData<List<Results>> mListResults = new MutableLiveData<>();
     public static MutableLiveData<List<NumeroSuivantFile>> mListResults = new MutableLiveData<>();
+    public static MutableLiveData<List<ServiceDestination>> mListServiceDestination = new MutableLiveData<>();
 
     public void initFromViewModel(){
         mUserRepo = UserRepository.getInstance();
@@ -104,5 +106,9 @@ public class UserViewModel extends ViewModel {
 
     public MutableLiveData<List<NumeroSuivantFile>> getmListResults() {
         return mListResults;
+    }
+
+    public static MutableLiveData<List<ServiceDestination>> getmListServiceDestination() {
+        return mListServiceDestination;
     }
 }

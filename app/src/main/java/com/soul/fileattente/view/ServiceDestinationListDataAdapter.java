@@ -12,14 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.soul.fileattente.R;
 
-public class ServiceListDataAdapter extends RecyclerView.Adapter<ServiceListDataAdapter.ViewHolder> {
+import java.util.ArrayList;
 
-    private ServiceListData[] listdata;
+public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<ServiceDestinationListDataAdapter.ViewHolder> {
+
+    private ArrayList<ServiceDestinationListData> listdata;
 
     // RecyclerView recyclerView;
-    public ServiceListDataAdapter(ServiceListData[] listdata) {
+//    public ServiceListDataAdapter(ServiceListData[] listdata) {
+//        this.listdata = listdata;
+//    }
+
+    public ServiceDestinationListDataAdapter(ArrayList<ServiceDestinationListData> listdata) {
         this.listdata = listdata;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
@@ -28,23 +35,40 @@ public class ServiceListDataAdapter extends RecyclerView.Adapter<ServiceListData
         return viewHolder;
     }
 
+//    @Override
+//    public void onBindViewHolder(ViewHolder holder, int position) {
+//        final ServiceListData ServiceListData = listdata[position];
+//        holder.textView.setText(listdata[position].getDescription());
+//        holder.imageView.setImageResource(listdata[position].getImgId());
+//        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(view.getContext(),"click on item: "+ServiceListData.getDescription(),Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final ServiceListData ServiceListData = listdata[position];
-        holder.textView.setText(listdata[position].getDescription());
-        holder.imageView.setImageResource(listdata[position].getImgId());
+        final ServiceDestinationListData serviceDestinationListData = listdata.get(position);
+        holder.textView.setText(listdata.get(position).getNomService() + " -- " + listdata.get(position).getStatutService());
+        holder.imageView.setImageResource(listdata.get(position).getImgId());
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),"click on item: "+ServiceListData.getDescription(),Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(),"click on item: "+ serviceDestinationListData.getNomService(),Toast.LENGTH_LONG).show();
             }
         });
     }
 
+//    @Override
+//    public int getItemCount() {
+//        return listdata.length;
+//    }
 
     @Override
     public int getItemCount() {
-        return listdata.length;
+        return listdata.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

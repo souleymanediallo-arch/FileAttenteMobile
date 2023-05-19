@@ -5,6 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.databinding.ActivityEcranPrincipalListBinding;
+import com.soul.fileattente.model.DemandeService;
+import com.soul.fileattente.model.NumeroSuivantFile;
+import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.viewmodel.UserViewModel;
 
 //public class EcranPrincipalActivityList extends AppCompatActivity {
 //
@@ -16,52 +21,66 @@ import com.soul.fileattente.R;
 //}
 
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //https://www.javatpoint.com/android-recyclerview-list-example
 public class EcranPrincipalActivityList extends AppCompatActivity {
 
+    private UserViewModel userViewModel;
+    private ActivityEcranPrincipalListBinding binding;
+    private ServiceDestinationListDataAdapter adapter;
+    //private ServiceListData[] serviceListData;
+    private ArrayList<ServiceDestinationListData> serviceDestinationListData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ecran_principal_list);
+        binding = ActivityEcranPrincipalListBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
-        ServiceListData[] serviceListData = new ServiceListData[] {
-//                new ServiceListData("GYNECOLOGIE", android.R.drawable.ic_dialog_email),
-//                new ServiceListData("PADIATRIE", android.R.drawable.ic_dialog_info),
-//                new ServiceListData("LABORATOIRE", android.R.drawable.ic_delete),
-//                new ServiceListData("RETRAIT DE RESULTAT", android.R.drawable.ic_dialog_dialer),
-//                new ServiceListData("SERVICE_ON_0", android.R.drawable.ic_dialog_alert),
-//                new ServiceListData("SERVICE_ON_1", android.R.drawable.ic_dialog_map),
-//                new ServiceListData("SERVICE_ON_2", android.R.drawable.ic_dialog_email),
-//                new ServiceListData("............", android.R.drawable.ic_dialog_info),
-//                new ServiceListData("............", android.R.drawable.ic_delete),
-//                new ServiceListData("............", android.R.drawable.ic_dialog_dialer),
-//                new ServiceListData("............", android.R.drawable.ic_dialog_alert),
-//                new ServiceListData("............", android.R.drawable.ic_dialog_map),
+        //Getting Instance of the viewModel that will manage the Business of the aapplication
+        userViewModel = new ViewModelProvider(EcranPrincipalActivityList.this).get(UserViewModel.class);
+        userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba","0122455789632111441251","2023-05-13T10:35:02.678Z"));
+        processWhenListServiceDestination();
 
-                new ServiceListData("GYNECOLOGIE", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("PADIATRIE", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("LABORATOIRE", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("RETRAIT DE RESULTAT", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("SERVICE_ON_0", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("SERVICE_ON_1",R.drawable.ic_baseline_timer_24),
-                new ServiceListData("SERVICE_ON_2", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("............", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("............", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("............", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("............", R.drawable.ic_baseline_timer_24),
-                new ServiceListData("............", R.drawable.ic_baseline_timer_24),
-        };
+//        serviceListData = new ServiceListData[] {};
+        serviceDestinationListData = new ArrayList<>();
+        adapter = new ServiceDestinationListDataAdapter(serviceDestinationListData);
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerView.setAdapter(adapter);
+    }
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        ServiceListDataAdapter adapter = new ServiceListDataAdapter(serviceListData);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+
+    void processWhenListServiceDestination(){
+        userViewModel.getmListServiceDestination().observe(this, new Observer<List<ServiceDestination>>() {
+            @Override
+            public void onChanged(List<ServiceDestination> serviceDestinations) {
+                Log.d("SER_DEST", "getmListServiceDestination got changed ");
+                for(ServiceDestination serviceDestination: serviceDestinations){
+                    System.out.println("---------------------> " + serviceDestination.getNomService());
+                    serviceDestinationListData.add(new ServiceDestinationListData(serviceDestination, R.drawable.ic_baseline_timer_24));
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    void processWhenListHerosChanged(){
+        userViewModel.getmListResults().observe(this, new Observer<List<NumeroSuivantFile>>() {
+            @Override
+            public void onChanged(List<NumeroSuivantFile> results) {
+                Log.e("", "I got changed and my current value is Name = ");
+            }
+        });
     }
 }
