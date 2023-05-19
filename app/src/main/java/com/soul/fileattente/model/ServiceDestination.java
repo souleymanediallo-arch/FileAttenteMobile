@@ -1,6 +1,8 @@
 package com.soul.fileattente.model;
 
-public class ServiceDestination {
+import java.io.Serializable;
+
+public class ServiceDestination implements Serializable {
 
     String nomService;
     String libelleService;

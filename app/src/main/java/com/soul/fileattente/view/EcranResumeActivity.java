@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.model.ServiceDestination;
 
 public class EcranResumeActivity extends AppCompatActivity {
 
@@ -23,13 +25,16 @@ public class EcranResumeActivity extends AppCompatActivity {
         txtResumeLabell =  (TextView)findViewById(R.id.textView5);
         //Getting selected service
         Intent intent = getIntent();
-        String service = intent.getStringExtra(Global.SELECTED_SERVICE_KEY);
+        //String service = intent.getStringExtra(Global.SELECTED_SERVICE_KEY);
+        ServiceDestination selectedServiceDestination  = (ServiceDestination) intent.getSerializableExtra(Global.SELECTED_SERVICE_DESTINATION_KEY);
+        System.out.printf("---------------------------------------> selectedServiceDestination = "  + selectedServiceDestination);
+        Log.d("TAG","---------------------------------------> selectedServiceDestination = "  + selectedServiceDestination);
         //Getting provided telephone
         String telephone = intent.getStringExtra(Global.PROVIDED_TELEPHONE_NUMBER_KEY);
         //Getting generated number
         String numeroPourLeService = intent.getStringExtra(Global.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY);
 
-        txtResumeLabell.setText("Sms envoyé pour le service [" + service + "] au numero [" + telephone + "]");
+        txtResumeLabell.setText("Sms envoyé pour le service [" + selectedServiceDestination.getLibelleService() + "] au numero [" + telephone + "]");
         txtGenNumeroLabel.setText(numeroPourLeService);
         launchAutomaticallyMainScreen();
 
@@ -41,9 +46,9 @@ public class EcranResumeActivity extends AppCompatActivity {
             public void run() {
                 finish();
                 //Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalFilesAllServicesActivity.class);
-                Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalActivity.class);
+                Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalActivityList.class);
                 EcranResumeActivity.this.startActivity(intent);
             }
-        }, 50000);
+        }, 20000);
     }
 }

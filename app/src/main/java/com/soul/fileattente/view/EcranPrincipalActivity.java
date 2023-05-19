@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.model.ServiceDestination;
 
 public class EcranPrincipalActivity extends AppCompatActivity {
 
@@ -24,9 +25,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecran_principal);
 
-        //Getting selected service
+        //Getting selected selectedServiceDestination
         Intent intent = getIntent();
-        String service = intent.getStringExtra("service"); //if it's a string you stored.
+        ServiceDestination selectedServiceDestination  = (ServiceDestination) intent.getSerializableExtra(Global.SELECTED_SERVICE_DESTINATION_KEY);
 
         //Gestion Button Generation de numero dans la Fille d'attente
         txtGenNumeroLabel =  (TextView)findViewById(R.id.textView);
@@ -58,7 +59,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                 if(valueGenNumero >= 10 && valueGenNumero < 100){
                     strValueGenNumero = "0"+valueGenNumero;
                 }
-                txtGenNumeroLabel.setText("Votre numéro pour le service [" + service + "] est :");
+                txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getLibelleService() + "] est :");
                 txtGenNumero.setText(strValueGenNumero);
                 btnGenNumero.setEnabled(false);
 
@@ -75,7 +76,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                Intent intent = new Intent(EcranPrincipalActivity.this, EcranGenrationNumeroSuivantActivity.class);
                 Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);
-                intent.putExtra(Global.SELECTED_SERVICE_KEY, service); //Optional parameters
+                intent.putExtra(Global.SELECTED_SERVICE_DESTINATION_KEY, selectedServiceDestination); //Optional parameters
                 intent.putExtra(Global.PROVIDED_TELEPHONE_NUMBER_KEY, editTextPhone.getText().toString()); //Optional parameters
                 intent.putExtra(Global.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY, String.valueOf(strValueGenNumero)); //Optional parameters
                 EcranPrincipalActivity.this.startActivity(intent);
