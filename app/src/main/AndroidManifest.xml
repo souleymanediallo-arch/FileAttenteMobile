@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.soul.fileattente">
-
     <!-- all permissions here -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,13 +13,30 @@
         android:theme="@style/Theme.FileAttente"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.EcranGenrationNumeroSuivantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.EcranResumeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.EcranPrincipalFilesAllServicesActivity"
+            android:exported="false">
+        </activity>>
+
+        <activity
+            android:name=".view.EcranPrincipalActivityList"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.EcranPrincipalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.LoginActivity"
+            android:exported="false">
         </activity>
     </application>
 
