@@ -1,5 +1,4 @@
 package com.soul.fileattente.model;
-import com.google.gson.annotations.SerializedName;
 
 public class NumeroSuivantFile {
 

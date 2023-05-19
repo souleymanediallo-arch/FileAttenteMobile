@@ -20,13 +20,11 @@
             android:exported="false" />
         <activity
             android:name=".view.EcranPrincipalFilesAllServicesActivity"
-            android:exported="false">
-        </activity>>
+            android:exported="false"></activity>>
 
         <activity
             android:name=".view.EcranPrincipalActivityList"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".view.EcranPrincipalActivity"
             android:exported="false" />

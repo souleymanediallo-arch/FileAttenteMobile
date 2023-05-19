@@ -5,7 +5,7 @@ public class Demande {
     //    "clinique": "Vision Medicale Coumba",
     //        "deviceId": "0122455789632111441251",
     //        "dateHeureDemande": "2023-05-13T10:35:02.678Z"
-   // }
+    // }
 
     String clinique;
     String deviceId;

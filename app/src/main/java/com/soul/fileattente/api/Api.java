@@ -2,10 +2,9 @@ package com.soul.fileattente.api;
 
 import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.Birthday;
-import com.soul.fileattente.model.Demande;
 import com.soul.fileattente.model.DemandeNumSuiv;
-import com.soul.fileattente.model.DemandeParam;
 import com.soul.fileattente.model.DemandeNumeroFile;
+import com.soul.fileattente.model.DemandeParam;
 import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.LoginResult;
@@ -14,6 +13,7 @@ import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceDestination;
 
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -24,12 +24,11 @@ public interface Api {
     String BASE_URL = "https://18c8ff90-b4d1-4f45-be00-9cb07599f97c.mock.pstmn.io/fileattente/";
     //String BASE_URL = "http://192.168.1.142:8080/api/";
 
+    @GET("birthdays") //A des fins de tests sur le BackEnd local qui n avait des chsoess que sur les Birthday
+    Call<List<Birthday>> getAllbirthdays();
+
     @POST("authenticate")
     Call<AutheticationResult> authenticate(@Body Login login);
-
-    //A des fins de tests sur le BackEnd local qui n avait des chsoess que sur les Birthday
-    @GET("birthdays")
-    Call<List<Birthday>> getAllbirthdays();
 
     @POST("login")
     Call<LoginResult> login(@Body Login login);

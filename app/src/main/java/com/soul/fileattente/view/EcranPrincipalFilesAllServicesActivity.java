@@ -1,8 +1,8 @@
 package com.soul.fileattente.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.soul.fileattente.R;
 

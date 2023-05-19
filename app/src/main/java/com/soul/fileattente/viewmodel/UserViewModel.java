@@ -3,17 +3,20 @@ package com.soul.fileattente.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.soul.fileattente.model.Demande;
+import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.DemandeParam;
 import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.Login;
+import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.NumeroSuivantFile;
+import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.model.User;
 import com.soul.fileattente.repository.FileAttenteRepository;
 import com.soul.fileattente.repository.UserRepository;
+
 import java.util.List;
 
 //Write all Business Logic here and free the view from that
@@ -24,91 +27,104 @@ import java.util.List;
 //Par ailleurs c'est qui empechait l'application de fonctionner correctement des le debut
 public class UserViewModel extends ViewModel {
 
-    private User aGivenUser;
-    private MutableLiveData<User> mUser = new MutableLiveData<>();
-    private UserRepository mUserRepo;
     private FileAttenteRepository mFileAttenteRepository;
 
-    //private MutableLiveData<List<Results>> mListResults = new MutableLiveData<>();
-    public static MutableLiveData<List<NumeroSuivantFile>> mListResults = new MutableLiveData<>();
-    public static MutableLiveData<List<ServiceDestination>> mListServiceDestination = new MutableLiveData<>();
+    private static MutableLiveData<AutheticationResult> autheticationResultForAuthenticate = new MutableLiveData<>();
+    private static MutableLiveData<LoginResult> loginResultForLogin = new MutableLiveData<>();
+    private static MutableLiveData<List<Param>> listParamForDemandeAllParams = new MutableLiveData<>();
+    private static MutableLiveData<List<ServiceDestination>> listServiceDestinationForDemandeAllServicesDestination = new MutableLiveData<>();
+    private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForDemandeNumerosSuivant = new MutableLiveData<>();
+    private static MutableLiveData<List<NumeroSuivantFile>> listNumeroSuivantFileForGetAllNumerosSuivants = new MutableLiveData<>();
+    private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForAppelerNumero = new MutableLiveData<>();
+    private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForAnnulerAppelNumero = new MutableLiveData<>();
+    private static MutableLiveData<List<NumeroSuivantFile>> listNumeroSuivantFileFordemandeAllNumerosSuivants = new MutableLiveData<>();
 
-    public void initFromViewModel(){
-        mUserRepo = UserRepository.getInstance();
-        aGivenUser = mUserRepo.getSelectedUser(0);
-        mUser.postValue(aGivenUser);
-    }
 
-    public void doAgainFromViewModel(){
-            mUserRepo = UserRepository.getInstance();
-            User sampleUser = mUserRepo.getSelectedUser(1);
-            mUser.postValue(sampleUser);
-    }
-
-    public void getAllNumerosSuivantsFromViewModel(){
+    public void getAllNumerosSuivants() {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.getAllNumerosSuivants();//Inside and because it's async, the postValue is done inside
     }
 
-    public void authenticate(Login login){
+    public void authenticate(Login login) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.authenticate(login);//Inside and because it's async, the postValue is done inside
     }
 
-    public void getAllbirthdays(){
+    public void getAllbirthdays() {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.getAllbirthdays();//Inside and because it's async, the postValue is done inside
     }
 
-    public void login(Login login){
+    public void login(Login login) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.login(login);//Inside and because it's async, the postValue is done inside
     }
 
 
-    public  void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile){
+    public void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.demandeNumerosSuivant(demandeNumeroFile);//Inside and because it's async, the postValue is done inside
     }
 
-    public  void demandeAllParams(DemandeParam demandeParam){
+    public void demandeAllParams(DemandeParam demandeParam) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.demandeAllParams(demandeParam);//Inside and because it's async, the postValue is done inside
     }
 
-    public  void demandeAllServicesDestination(DemandeService demandeService){
+    public void demandeAllServicesDestination(DemandeService demandeService) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.demandeAllServicesDestination(demandeService);//Inside and because it's async, the postValue is done inside
     }
 
-    public  void appelerNumero(NumeroSuivantFile numeroSuivantFile){
+    public void appelerNumero(NumeroSuivantFile numeroSuivantFile) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.appelerNumero(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
     }
 
-    public  void annulerAppelNumero(NumeroSuivantFile numeroSuivantFile){
+    public void annulerAppelNumero(NumeroSuivantFile numeroSuivantFile) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.annulerAppelNumero(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
     }
 
 
-    public  void demandeAllNumerosSuivants(DemandeNumSuiv demandeNumSuiv){
+    public void demandeAllNumerosSuivants(DemandeNumSuiv demandeNumSuiv) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.demandeAllNumerosSuivants(demandeNumSuiv);//Inside and because it's async, the postValue is done inside
     }
 
-
-    //public LiveData<User> getmUser() { return mUser; }
-
-    public MutableLiveData<User> getmUser() {
-        return mUser;
+    public static MutableLiveData<AutheticationResult> getAutheticationResultForAuthenticate() {
+        return autheticationResultForAuthenticate;
     }
 
-    public MutableLiveData<List<NumeroSuivantFile>> getmListResults() {
-        return mListResults;
+    public static MutableLiveData<LoginResult> getLoginResultForLogin() {
+        return loginResultForLogin;
     }
 
-    public static MutableLiveData<List<ServiceDestination>> getmListServiceDestination() {
-        return mListServiceDestination;
+    public static MutableLiveData<List<Param>> getListParamForDemandeAllParams() {
+        return listParamForDemandeAllParams;
+    }
+
+    public static MutableLiveData<List<ServiceDestination>> getListServiceDestinationForDemandeAllServicesDestination() {
+        return listServiceDestinationForDemandeAllServicesDestination;
+    }
+
+    public static MutableLiveData<NumeroSuivantFile> getNumeroSuivantFileForDemandeNumerosSuivant() {
+        return numeroSuivantFileForDemandeNumerosSuivant;
+    }
+
+    public static MutableLiveData<List<NumeroSuivantFile>> getListNumeroSuivantFileForGetAllNumerosSuivants() {
+        return listNumeroSuivantFileForGetAllNumerosSuivants;
+    }
+
+    public static MutableLiveData<NumeroSuivantFile> getNumeroSuivantFileForAppelerNumero() {
+        return numeroSuivantFileForAppelerNumero;
+    }
+
+    public static MutableLiveData<NumeroSuivantFile> getNumeroSuivantFileForAnnulerAppelNumero() {
+        return numeroSuivantFileForAnnulerAppelNumero;
+    }
+
+    public static MutableLiveData<List<NumeroSuivantFile>> getListNumeroSuivantFileFordemandeAllNumerosSuivants() {
+        return listNumeroSuivantFileFordemandeAllNumerosSuivants;
     }
 }

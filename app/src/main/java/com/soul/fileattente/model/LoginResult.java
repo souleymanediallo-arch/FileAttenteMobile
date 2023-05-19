@@ -1,14 +1,14 @@
 package com.soul.fileattente.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-public class LoginResult {
+public class LoginResult implements Serializable {
 
 //    {
 //        "response": "ok"
 //    }
 
-//    @SerializedName("response")
+    //    @SerializedName("response")
     String response;
 
     public LoginResult() {

@@ -1,6 +1,8 @@
 package com.soul.fileattente.model;
 
-public class Login {
+import java.io.Serializable;
+
+public class Login implements Serializable {
 
     private String username;
     private String password;

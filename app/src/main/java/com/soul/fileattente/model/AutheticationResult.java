@@ -1,6 +1,8 @@
 package com.soul.fileattente.model;
 
-public class AutheticationResult {
+import java.io.Serializable;
+
+public class AutheticationResult implements Serializable {
     String id_token;
 
     public AutheticationResult() {

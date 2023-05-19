@@ -3,7 +3,6 @@ package com.soul.fileattente.repository;
 import com.soul.fileattente.api.RetrofitClient;
 import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.Birthday;
-import com.soul.fileattente.model.Demande;
 import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.DemandeParam;
@@ -26,11 +25,27 @@ public class FileAttenteRepository {
     static FileAttenteRepository instance;
 
     public static FileAttenteRepository getInstance() {
-        if(instance != null) {
+        if (instance != null) {
             return instance;
-        }else{
+        } else {
             return new FileAttenteRepository();
         }
+    }
+
+    public void getAllbirthdays() {
+        Call<List<Birthday>> call = RetrofitClient.getInstance().getMyApi().getAllbirthdays();
+
+        call.enqueue(new Callback<List<Birthday>>() {
+            @Override
+            public void onResponse(Call<List<Birthday>> call, Response<List<Birthday>> response) {
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Birthday>> call, Throwable t) {
+                System.out.printf(t.getMessage());
+            }
+        });
     }
 
     public void authenticate(Login login) {
@@ -39,9 +54,8 @@ public class FileAttenteRepository {
         call.enqueue(new Callback<AutheticationResult>() {
             @Override
             public void onResponse(Call<AutheticationResult> call, Response<AutheticationResult> response) {
-                //LoginResult loginResult = response.body();
-//                System.out.println("-------------------------------> " + loginResult);
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getAutheticationResultForAuthenticate().postValue(response.body());
             }
 
             @Override
@@ -51,32 +65,14 @@ public class FileAttenteRepository {
         });
     }
 
-    public void getAllbirthdays(){
-        Call<List<Birthday>> call = RetrofitClient.getInstance().getMyApi().getAllbirthdays();
-
-        call.enqueue(new Callback<List<Birthday>>() {
-            @Override
-            public void onResponse(Call<List<Birthday>> call, Response<List<Birthday>> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
-            }
-
-            @Override
-            public void onFailure(Call<List<Birthday>> call, Throwable t) {
-
-            }
-        });
-    }
-
-
     public void login(Login login) {
         Call<LoginResult> call = RetrofitClient.getInstance().getMyApi().login(login);
 
         call.enqueue(new Callback<LoginResult>() {
             @Override
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
-                //LoginResult loginResult = response.body();
-//                System.out.println("-------------------------------> " + loginResult);
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getLoginResultForLogin().postValue(response.body());
             }
 
             @Override
@@ -86,16 +82,14 @@ public class FileAttenteRepository {
         });
     }
 
-
     public void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile) {
         Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().demandeNumerosSuivant(demandeNumeroFile);
 
         call.enqueue(new Callback<NumeroSuivantFile>() {
             @Override
             public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
-//                NumeroSuivantFile numeroSuivantFile = response.body();
-//                System.out.println("-------------------------------> " + numeroSuivantFile);
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getNumeroSuivantFileForDemandeNumerosSuivant().postValue(response.body());
             }
 
             @Override
@@ -111,9 +105,10 @@ public class FileAttenteRepository {
         call.enqueue(new Callback<List<NumeroSuivantFile>>() {
             @Override
             public void onResponse(Call<List<NumeroSuivantFile>> call, Response<List<NumeroSuivantFile>> response) {
-                List<NumeroSuivantFile> myheroList = response.body();
-                UserViewModel.mListResults.postValue(myheroList);
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getListNumeroSuivantFileForGetAllNumerosSuivants().postValue(response.body());
             }
+
             @Override
             public void onFailure(Call<List<NumeroSuivantFile>> call, Throwable t) {
                 System.out.printf(t.getMessage());
@@ -121,13 +116,19 @@ public class FileAttenteRepository {
         });
     }
 
-    public void demandeAllParams(DemandeParam demandeParam){
+    public void demandeAllParams(DemandeParam demandeParam) {
         Call<List<Param>> call = RetrofitClient.getInstance().getMyApi().demandeAllParams(demandeParam);
 
         call.enqueue(new Callback<List<Param>>() {
             @Override
             public void onResponse(Call<List<Param>> call, Response<List<Param>> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                UserViewModel.getListParamForDemandeAllParams().postValue(response.body());
             }
 
             @Override
@@ -137,14 +138,14 @@ public class FileAttenteRepository {
         });
     }
 
-    public void demandeAllServicesDestination(DemandeService demandeService){
+    public void demandeAllServicesDestination(DemandeService demandeService) {
         Call<List<ServiceDestination>> call = RetrofitClient.getInstance().getMyApi().demandeAllServicesDestination(demandeService);
 
         call.enqueue(new Callback<List<ServiceDestination>>() {
             @Override
             public void onResponse(Call<List<ServiceDestination>> call, Response<List<ServiceDestination>> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
-                UserViewModel.mListServiceDestination.postValue(response.body());
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getListServiceDestinationForDemandeAllServicesDestination().postValue(response.body());
             }
 
             @Override
@@ -155,13 +156,14 @@ public class FileAttenteRepository {
     }
 
 
-    public void appelerNumero(NumeroSuivantFile numeroSuivantFile){
+    public void appelerNumero(NumeroSuivantFile numeroSuivantFile) {
         Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appelerNumero(numeroSuivantFile);
 
         call.enqueue(new Callback<NumeroSuivantFile>() {
             @Override
             public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getNumeroSuivantFileForAppelerNumero().postValue(response.body());
             }
 
             @Override
@@ -171,13 +173,14 @@ public class FileAttenteRepository {
         });
     }
 
-    public void annulerAppelNumero(NumeroSuivantFile numeroSuivantFile){
+    public void annulerAppelNumero(NumeroSuivantFile numeroSuivantFile) {
         Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().annulerAppelNumero(numeroSuivantFile);
 
         call.enqueue(new Callback<NumeroSuivantFile>() {
             @Override
             public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getNumeroSuivantFileForAnnulerAppelNumero().postValue(response.body());
             }
 
             @Override
@@ -187,13 +190,14 @@ public class FileAttenteRepository {
         });
     }
 
-    public void demandeAllNumerosSuivants(DemandeNumSuiv demandeNumSuiv){
+    public void demandeAllNumerosSuivants(DemandeNumSuiv demandeNumSuiv) {
         Call<List<NumeroSuivantFile>> call = RetrofitClient.getInstance().getMyApi().demandeAllNumerosSuivants(demandeNumSuiv);
 
         call.enqueue(new Callback<List<NumeroSuivantFile>>() {
             @Override
             public void onResponse(Call<List<NumeroSuivantFile>> call, Response<List<NumeroSuivantFile>> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body() );
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getListNumeroSuivantFileFordemandeAllNumerosSuivants().postValue(response.body());
             }
 
             @Override
@@ -202,8 +206,4 @@ public class FileAttenteRepository {
             }
         });
     }
-
-
-
-
 }

@@ -1,9 +1,7 @@
 package com.soul.fileattente.api;
 
 import java.io.IOException;
-import java.util.Base64;
 
-import okhttp3.Credentials;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -24,11 +22,11 @@ public class RetrofitClient {
     private Api myApi;
 
     private RetrofitClient() {
-                //Initial Request
-                //Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
-                //.addConverterFactory(GsonConverterFactory.create())
-                //.build();
-                //myApi = retrofit.create(Api.class);
+        //Initial Request
+        //Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
+        //.addConverterFactory(GsonConverterFactory.create())
+        //.build();
+        //myApi = retrofit.create(Api.class);
 
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @Override

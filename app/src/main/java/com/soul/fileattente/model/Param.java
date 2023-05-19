@@ -1,6 +1,8 @@
 package com.soul.fileattente.model;
 
-public class Param {
+import java.io.Serializable;
+
+public class Param implements Serializable {
     String key;
     String value;
 
