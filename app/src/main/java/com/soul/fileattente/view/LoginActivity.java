@@ -1,8 +1,12 @@
 package com.soul.fileattente.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -19,6 +23,7 @@ import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
 import java.util.List;
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private List<Param> mListParams;
 
     private GlobalSetOfExtra mGlobalSetOfExtra;
+
+    TextToSpeech  textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,10 @@ public class LoginActivity extends AppCompatActivity {
 
         //Precess Btnlogin Click
         processTaskWhenloginButtonClicked();
+
+        //Text To Speech
+        translateTextToSpeech();
+        processTaskWhenTextToSpeechButtonClicked();
     }
 
 //    private void navigateToServiceActivity(){
@@ -115,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
 //    void processTaskWhenloginButtonClicked() { // Keep this for sample usage
 //        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -233,4 +245,123 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    //------------------------------------------------------------------------------------
+    // create an object textToSpeech and adding features into it
+    void translateTextToSpeech(){
+        textToSpeech = new TextToSpeech(this.getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                // if No error is found then only it will run
+                if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.FRANCE);
+                }
+            }
+        });
+    }
+
+    void processTaskWhenTextToSpeechButtonClicked(){
+        binding.button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                //Render text over speech
+                String textToRenderOverVoice = "Service Gynecologie, Numero 856 c'est à vous...";
+                textToSpeech.speak(textToRenderOverVoice,TextToSpeech.QUEUE_FLUSH,null);
+//                //Queing messages and read them one after the other
+//                for(int i=511; i<=516; i++) {
+//                    textToSpeech.speak("Service Gynecologie, Numero "+i+" c'est à vous...", TextToSpeech.QUEUE_ADD, null);
+//                }
+
+//                //Sample Sending SMS Message
+//                String phoneNumber = "+221766752276";
+//                String smsMessage = "Message to Send to subscriber";
+//                sendTextAsSms(phoneNumber, smsMessage);
+
+//                //Sample Sending MAIL Message
+//                String[] to = {"gsouleymane.diallo@gmail.com"};
+//                String[] cc = {"clinique.coumba@gmail.com"};
+//                String subject ="File Attente..";
+//                String message ="Service Gyneco Numero 754";
+//                sendTextAsEmail(to, cc, subject, message);
+            }
+        });
+    }
+
+    //https://www.tutlane.com/tutorial/android/android-send-sms-with-examples
+    void sendTextAsSms(String mobileNumber, String textMessage) {
+        try{
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("smsto:"));
+            i.setType("vnd.android-dir/mms-sms");
+            i.putExtra("address", mobileNumber);
+            i.putExtra("sms_body",textMessage);
+            startActivity(Intent.createChooser(i, "Send sms via:"));
+        }
+        catch(Exception e){
+            Toast.makeText(this, "Echec envoi sms...", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //https://www.tutorialspoint.com/android/android_sending_email.htm
+    protected void sendTextAsEmail(String[] to, String[] cc, String  subject, String message) {
+    //protected void sendTextAsEmail() {
+        Log.i("Send email", "");
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
+        emailIntent.putExtra(Intent.EXTRA_CC, cc);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, message);
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Toast.makeText(this, "Finished sending email...", Toast.LENGTH_SHORT).show();
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //https://www.geeksforgeeks.org/how-to-send-message-on-whatsapp-in-android/
+    private void sendTextAsWhatsAppMessage(String message)
+    {
+        // Creating new intent
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        intent.setType("text/plain");
+        intent.setPackage("com.whatsapp");
+
+        // Give your message here
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+
+        // Checking whether Whatsapp
+        // is installed or not
+        if (intent.resolveActivity(getPackageManager()) == null) {
+            Toast.makeText(this,"Please install whatsapp first.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Starting Whatsapp
+        startActivity(intent);
+    }
+
+    //https://www.vogella.com/tutorials/AndroidIntent/article.html
+    public void openWhatsApp(View view){
+        try {
+            String text = "This is a test";// Replace with your message.
+
+            String toNumber = "xxxxxxxxxx"; // Replace with mobile phone number without +Sign or leading zeros, but with country code
+            //Suppose your country is India and your phone number is “xxxxxxxxxx”, then you need to send “91xxxxxxxxxx”.
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+            startActivity(intent);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+//    ------------------------------------------------------------------------------------
 }
