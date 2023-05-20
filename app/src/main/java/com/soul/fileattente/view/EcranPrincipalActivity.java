@@ -10,7 +10,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.databinding.ActivityEcranPrincipalBinding;
+import com.soul.fileattente.databinding.ActivityLoginBinding;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.utils.Utils;
 
 public class EcranPrincipalActivity extends AppCompatActivity {
 
@@ -21,15 +24,26 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     EditText editTextPhone;
     String strValueGenNumero;
 
+    ActivityEcranPrincipalBinding binding;
+    GlobalSetOfExtra mGlobalSetOfExtra;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ecran_principal);
+        //setContentView(R.layout.activity_ecran_principal);
+
+        //Using ViewBinding to manage Layout Components
+        binding = ActivityEcranPrincipalBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         //Getting selected selectedServiceDestination
         Intent intent = getIntent();
         //Getting GlobalSetOfExtra
-        GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra)getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
+        mGlobalSetOfExtra = (GlobalSetOfExtra)getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
+
+        //Set Label of view components based on Params
+        setLabelsOfTheView();
 
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
@@ -119,5 +133,11 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         txtGenNumero.setVisibility(View.INVISIBLE);
         btnSms.setVisibility(View.INVISIBLE);
 //        btnSms.setFocusable(View.FOCUSABLE);
+    }
+
+    public void setLabelsOfTheView(){
+        binding.textView4.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageBienvenue"));
+        binding.textView5.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageinviteSaisieNumeroTel"));
+        binding.textView.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageIndicatifNumeroService"));
     }
 }

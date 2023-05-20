@@ -48,6 +48,7 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
         //Process whenever there is a change
         processWhenListServiceDestinationForDemandeAllServicesDestinationChanged();
 
+        //binding.recyclerView.
         //Managing the list of service List
         serviceDestinationListData = new ArrayList<>();
         serviceDestinationListDataAdapter = new ServiceDestinationListDataAdapter(serviceDestinationListData, mGlobalSetOfExtra);
@@ -61,6 +62,7 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
             @Override
             public void onChanged(List<ServiceDestination> serviceDestinations) {
                 System.out.println("ListServiceDestinationForDemandeAllServicesDestination Data Changed............................................");
+                serviceDestinationListData.clear();
                 for (ServiceDestination serviceDestination : serviceDestinations) {
                     serviceDestinationListData.add(new ServiceDestinationListData(serviceDestination, R.drawable.ic_baseline_timer_24));
                 }
