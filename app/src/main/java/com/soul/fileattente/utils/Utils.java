@@ -7,13 +7,35 @@ import java.util.List;
 
 public class Utils {
 
+    static int NBCAR = 15;
     public static String getValueForKey(List<Param> mListParams, String key){
         for(Param param : mListParams){
             if(param.getKey().equalsIgnoreCase(key)) return param.getValue();
         }
         return null;
     }
+
+    public static String formatStringForView(String strValue){
+        int len = 0;
+        if(strValue != null) {
+            len = strValue.length();
+        }else{
+            strValue = "";
+        }
+        StringBuilder output = new StringBuilder().append(strValue);
+        if(len >= NBCAR){
+            len =0;
+        }else{
+            len = NBCAR - len;
+        }
+        for(int i=0; i<len-1; i++){
+            output.append(" ");
+        }
+        output.append(".");
+        return output.toString();
+    }
 }
+
 
 //[
 //        {

@@ -35,6 +35,7 @@
         android:layout_toEndOf="@id/txtServiceDestination"
         android:layout_toRightOf="@id/txtServiceDestination"
         android:gravity="center_vertical"
+        android:paddingLeft="10dp"
         android:text="001"
         android:textSize="16sp" />
 
@@ -45,6 +46,7 @@
         android:layout_toEndOf="@id/txtNumPatientCourant"
         android:layout_toRightOf="@id/txtNumPatientCourant"
         android:gravity="center_vertical"
+        android:paddingLeft="10dp"
         android:text="002"
         android:textSize="16sp" />
 
@@ -55,6 +57,7 @@
         android:layout_toEndOf="@id/txtnumPatientSuivant"
         android:layout_toRightOf="@id/txtnumPatientSuivant"
         android:gravity="center_vertical"
+        android:paddingLeft="10dp"
         android:text="Suivant"
         android:textSize="16sp" />
 
@@ -65,6 +68,7 @@
         android:layout_toEndOf="@id/txtSuivant"
         android:layout_toRightOf="@id/txtSuivant"
         android:gravity="center_vertical"
+        android:paddingLeft="10dp"
         android:text="Annuler"
         android:textSize="16sp" />
 

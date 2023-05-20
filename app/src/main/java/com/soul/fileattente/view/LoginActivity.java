@@ -153,8 +153,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(LoginResult loginResult) {
                 System.out.println("LoginResultForLogin Data Changed............................................");
                 mLoginResult = loginResult;
-                navigateToEcranPrincipalActivityList();
-//                navigateToEcranPrincipalMonitoringActivityList();
+//                navigateToEcranPrincipalActivityList();
+                navigateToEcranPrincipalMonitoringActivityList();
             }
         });
     }

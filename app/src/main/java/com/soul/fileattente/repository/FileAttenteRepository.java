@@ -124,7 +124,7 @@ public class FileAttenteRepository {
             public void onResponse(Call<List<Param>> call, Response<List<Param>> response) {
                 System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

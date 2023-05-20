@@ -42,20 +42,20 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
 
-//        //Getting Instance of the viewModel that will manage the Business of the aapplication
-//        userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
-//        userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
-//
-//        //Process whenever there is a change
-//        processWhenListServiceDestinationForDemandeAllServicesDestinationChanged();
-//
-//        //binding.recyclerView.
-//        //Managing the list of service List
-//        serviceDestinationListData = new ArrayList<>();
-//        serviceDestinationMonitoringListDataAdapter = new ServiceDestinationMonitoringListDataAdapter(serviceDestinationListData, mGlobalSetOfExtra);
-//        binding.recyclerView.setHasFixedSize(true);
-//        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        binding.recyclerView.setAdapter(serviceDestinationMonitoringListDataAdapter);
+        //Getting Instance of the viewModel that will manage the Business of the aapplication
+        userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
+        userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
+
+        //Process whenever there is a change
+        processWhenListServiceDestinationForDemandeAllServicesDestinationChanged();
+
+        //binding.recyclerView.
+        //Managing the list of service List
+        serviceDestinationListData = new ArrayList<>();
+        serviceDestinationMonitoringListDataAdapter = new ServiceDestinationMonitoringListDataAdapter(serviceDestinationListData, mGlobalSetOfExtra);
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerView.setAdapter(serviceDestinationMonitoringListDataAdapter);
     }
 
     void processWhenListServiceDestinationForDemandeAllServicesDestinationChanged() {
