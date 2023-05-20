@@ -74,8 +74,20 @@ public class LoginActivity extends AppCompatActivity {
 //        LoginActivity.this.startActivity(intent);
 //    }
 
-    private void navigateToServiceActivity(){
+    private void navigateToEcranPrincipalActivityList(){
         Intent intent = new Intent(LoginActivity.this, EcranPrincipalActivityList.class);
+
+        mGlobalSetOfExtra = new GlobalSetOfExtra();
+        mGlobalSetOfExtra.mLogin = mLogin;
+        mGlobalSetOfExtra.mLoginResult = mLoginResult;
+        mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
+        mGlobalSetOfExtra.mListParams = mListParams;
+        intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+        LoginActivity.this.startActivity(intent);
+    }
+
+    private void navigateToEcranPrincipalMonitoringActivityList(){
+        Intent intent = new Intent(LoginActivity.this, EcranPrincipalMonitoringActivityList.class);
 
         mGlobalSetOfExtra = new GlobalSetOfExtra();
         mGlobalSetOfExtra.mLogin = mLogin;
@@ -141,7 +153,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(LoginResult loginResult) {
                 System.out.println("LoginResultForLogin Data Changed............................................");
                 mLoginResult = loginResult;
-                navigateToServiceActivity();
+                navigateToEcranPrincipalActivityList();
+//                navigateToEcranPrincipalMonitoringActivityList();
             }
         });
     }

@@ -25,6 +25,12 @@
         <activity
             android:name=".view.EcranPrincipalActivityList"
             android:exported="false"></activity>
+
+        <activity
+            android:name=".view.EcranPrincipalMonitoringActivityList"
+            android:exported="false"></activity>
+
+
         <activity
             android:name=".view.EcranPrincipalActivity"
             android:exported="false" />
