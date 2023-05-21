@@ -13,10 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalBinding;
-import com.soul.fileattente.databinding.ActivityLoginBinding;
 import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 

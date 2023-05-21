@@ -1,4 +1,4 @@
-package com.soul.fileattente.view;
+package com.soul.fileattente.adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.view.EcranPrincipalActivity;
+import com.soul.fileattente.utils.GlobalSetOfExtra;
 
 import java.util.ArrayList;
 

@@ -9,9 +9,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.adapters.ServiceDestinationListData;
+import com.soul.fileattente.adapters.ServiceDestinationListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalListBinding;
 import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
 import java.util.ArrayList;

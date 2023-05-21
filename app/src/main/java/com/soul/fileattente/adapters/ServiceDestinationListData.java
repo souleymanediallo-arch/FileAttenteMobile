@@ -1,4 +1,4 @@
-package com.soul.fileattente.view;
+package com.soul.fileattente.adapters;
 
 import com.soul.fileattente.model.ServiceDestination;
 

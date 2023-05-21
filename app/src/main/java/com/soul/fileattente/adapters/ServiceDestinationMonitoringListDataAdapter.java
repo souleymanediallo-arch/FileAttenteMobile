@@ -1,7 +1,5 @@
-package com.soul.fileattente.view;
+package com.soul.fileattente.adapters;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ServiceMonitorListItemBinding;
 import com.soul.fileattente.utils.Utils;
+import com.soul.fileattente.utils.GlobalSetOfExtra;
 
 import java.util.ArrayList;
 

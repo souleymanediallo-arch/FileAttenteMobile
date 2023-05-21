@@ -1,4 +1,4 @@
-package com.soul.fileattente.view;
+package com.soul.fileattente.utils;
 
 import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.Login;

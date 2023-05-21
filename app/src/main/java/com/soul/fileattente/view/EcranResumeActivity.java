@@ -3,13 +3,13 @@ package com.soul.fileattente.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.soul.fileattente.R;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.utils.GlobalSetOfExtra;
 
 public class EcranResumeActivity extends AppCompatActivity {
 
