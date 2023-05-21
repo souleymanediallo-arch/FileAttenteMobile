@@ -39,7 +39,6 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
         GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra)getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
 
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
-
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());

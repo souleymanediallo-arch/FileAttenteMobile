@@ -61,6 +61,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
+        //System.out.println("------------> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
 
         ServiceDestination selectedServiceDestination = mGlobalSetOfExtra.mServiceDestination;
 
@@ -91,7 +92,6 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 //                    valueGenNumero = 0;
 //                }
 //                valueGenNumero++;
-
 
                 //
                 getNextNumberForDestinationService();
@@ -144,6 +144,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
 
+        binding.progressBar.setVisibility(View.VISIBLE);
         userViewModel.demandeNumerosSuivant(new DemandeNumeroFile("Vision Medicale Coumba", "0122455789632111441251", "Pediatrie", "+221766752276", "2023-05-13T10:35:02.678Z" ));
 
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -155,6 +156,11 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 System.out.println("NumeroSuivantFileForDemandeNumerosSuivant Data Changed............................................");
+                System.out.println("numeroSuivantFile  --------> " + numeroSuivantFile.toString());
+                mGlobalSetOfExtra.mNumeroSuivantFile = numeroSuivantFile;
+                binding.progressBar.setVisibility(View.INVISIBLE);
+                //makeGoneRelevantCompnoent();
+                //binding.editTextTextMultiLine.setText(numeroSuivantFile.toString());
             }
         });
     }
@@ -177,6 +183,18 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         txtGenNumero.setVisibility(View.INVISIBLE);
         btnSms.setVisibility(View.INVISIBLE);
 //        btnSms.setFocusable(View.FOCUSABLE);
+    }
+
+    public void makeGoneRelevantCompnoent() {
+//        txtGenNumeroLabel.setVisibility(View.INVISIBLE);
+//        txtGenNumero.setVisibility(View.INVISIBLE);
+//        btnSms.setVisibility(View.INVISIBLE);
+////        btnSms.setFocusable(View.FOCUSABLE);
+
+        binding.progressBar.setVisibility(View.GONE);
+        binding.textView5.setVisibility(View.GONE);
+        binding.editTextPhone.setVisibility(View.GONE);
+        binding.button.setVisibility(View.GONE);
     }
 
     public void setLabelsOfTheView(){

@@ -1,6 +1,8 @@
 package com.soul.fileattente.model;
 
-public class NumeroSuivantFile {
+import java.io.Serializable;
+
+public class NumeroSuivantFile implements Serializable {
 
 //    {
 //            "numeroSuivant": "0001",

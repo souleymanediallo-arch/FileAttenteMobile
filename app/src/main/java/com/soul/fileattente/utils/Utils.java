@@ -48,9 +48,9 @@ public class Utils {
     public static void translateFromTextToSpeech(TextToSpeech initializedTextToSpeechInstancefromCallingActivity, String textToRenderOverVoice) {
 
         ////For immediate Play of Single Message
-//        initializedTextToSpeechInstancefromCallingActivity.speak(textToRenderOverVoice, TextToSpeech.QUEUE_FLUSH, null);
+        initializedTextToSpeechInstancefromCallingActivity.speak(textToRenderOverVoice, TextToSpeech.QUEUE_FLUSH, null);
         //Queing messages and read them one after the other
-        initializedTextToSpeechInstancefromCallingActivity.speak(textToRenderOverVoice, TextToSpeech.QUEUE_ADD, null);
+        //initializedTextToSpeechInstancefromCallingActivity.speak(textToRenderOverVoice, TextToSpeech.QUEUE_ADD, null);
         //Sample
         //for (int i = 511; i <= 516; i++) {
         //    initializedTextToSpeechInstancefromCallingActivity.speak("Service Gynecologie, Numero " + i + " c'est à vous...", TextToSpeech.QUEUE_ADD, null);

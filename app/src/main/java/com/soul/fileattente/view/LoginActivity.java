@@ -3,11 +3,15 @@ package com.soul.fileattente.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ActivityLoginBinding;
 import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.DemandeParam;
@@ -49,6 +53,12 @@ public class LoginActivity extends AppCompatActivity {
         userViewModel.demandeAllParams(demandeParam);
         //
 
+        //
+        handleSpinner();
+
+        //
+        captureRadioGroupCheckedValue();
+
         //Be prepared to process the changes of the values for var in viewModel: AutheticationResultForAuthenticate
         processWhenAutheticationResultForAuthenticateChanged();
 
@@ -60,6 +70,63 @@ public class LoginActivity extends AppCompatActivity {
 
         //Precess Btnlogin Click
         processTaskWhenloginButtonClicked();
+    }
+
+    void handleSpinner() {
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.profile_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        binding.profilSpinner.setAdapter(adapter);
+        binding.profilSpinner.setVisibility(View.GONE);
+
+//        binding.profilSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//        });
+//
+//        binding.profilSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+    }
+
+
+//    public void onRadioButtonClicked(View view) {
+//
+//        // Is the button now checked?
+//        boolean checked = ((RadioButton) view).isChecked();
+//
+//        // Check which radio button was clicked
+//        switch(view.getId()) {
+//            case R.id.radio_moniteur:
+//                if (checked)
+//                    System.out.printf("radio_moniteur--------------------------------------> is CHECKED");
+//                    break;
+//            case R.id.radio_patient:
+//                if (checked)
+//                    System.out.printf("radio_patient--------------------------------------> is CHECKED");
+//                    break;
+//        }
+//    }
+
+    public void captureRadioGroupCheckedValue() {
+
+        // Is the button now checked?
+        boolean moniteurChecked = (binding.radioMoniteur).isChecked();
+        boolean patientChecked = (binding.radioPatient).isChecked();
+        System.out.println("moniteurChecked--------------------------------------> CHECKED = " + moniteurChecked);
+        System.out.println("patientChecked---------------------------------------> CHECKED = " + patientChecked);
     }
 
 
@@ -116,7 +183,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(LoginResult loginResult) {
                 System.out.println("LoginResultForLogin Data Changed............................................");
                 mLoginResult = loginResult;
-                navigateToEcranPrincipalActivityList();
+
+                boolean moniteurChecked = (binding.radioMoniteur).isChecked();
+                boolean patientChecked = (binding.radioPatient).isChecked();
+                System.out.println("moniteurChecked--------------------------------------> CHECKED = " + moniteurChecked);
+                System.out.println("patientChecked---------------------------------------> CHECKED = " + patientChecked);
+                if(moniteurChecked) {
+                    navigateToEcranPrincipalMonitoringActivityList();
+                }else{
+                    navigateToEcranPrincipalActivityList();
+                }
+                //navigateToEcranPrincipalMonitoringActivityList
                 //navigateToEcranPrincipalMonitoringActivityList();
             }
         });
@@ -139,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void adjustViewComponentsStatusAfterParamSyncCompleted() {
-        binding.progressBar.setVisibility(View.GONE);
+        binding.progressBar.setVisibility(View.INVISIBLE);
         binding.btnLogin.setEnabled(true);
     }
 }
