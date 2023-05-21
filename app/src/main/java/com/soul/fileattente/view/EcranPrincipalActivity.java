@@ -8,12 +8,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalBinding;
 import com.soul.fileattente.databinding.ActivityLoginBinding;
+import com.soul.fileattente.model.DemandeNumeroFile;
+import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.Utils;
+import com.soul.fileattente.viewmodel.UserViewModel;
 
 public class EcranPrincipalActivity extends AppCompatActivity {
 
@@ -27,6 +32,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     ActivityEcranPrincipalBinding binding;
     GlobalSetOfExtra mGlobalSetOfExtra;
 
+    private UserViewModel userViewModel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +45,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        //Getting the Business part
+        //Getting Instance of the viewModel that will manage the Business of the aapplication
+        userViewModel = new ViewModelProvider(EcranPrincipalActivity.this).get(UserViewModel.class);
         //Getting selected selectedServiceDestination
         Intent intent = getIntent();
         //Getting GlobalSetOfExtra
@@ -65,6 +76,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         //Making relevent compoennt INVISBLE
         makeInvisibleRelevantCompnoent();
 
+        //
+        processWhenNumeroSuivantFileForDemandeNumerosSuivantChanged();
+        //
         btnGenNumero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +91,11 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 //                    valueGenNumero = 0;
 //                }
 //                valueGenNumero++;
+
+
+                //
+                getNextNumberForDestinationService();
+                //
                 int valueGenNumero = ++GlobalSetOfExtra.VALUE_GENERATED_NUMERO;
                 strValueGenNumero = "";
                 if (valueGenNumero < 10) {
@@ -115,6 +134,31 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             }
         });
     }
+
+    //--------------------
+    void getNextNumberForDestinationService(){
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
+
+        userViewModel.demandeNumerosSuivant(new DemandeNumeroFile("Vision Medicale Coumba", "0122455789632111441251", "Pediatrie", "+221766752276", "2023-05-13T10:35:02.678Z" ));
+
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+    }
+
+    void processWhenNumeroSuivantFileForDemandeNumerosSuivantChanged() {
+        userViewModel.getNumeroSuivantFileForDemandeNumerosSuivant().observe(this, new Observer<NumeroSuivantFile>() {
+            @Override
+            public void onChanged(NumeroSuivantFile numeroSuivantFile) {
+                System.out.println("NumeroSuivantFileForDemandeNumerosSuivant Data Changed............................................");
+            }
+        });
+    }
+    //----------------------------------------------
 
     @Override
     protected void onRestart() {

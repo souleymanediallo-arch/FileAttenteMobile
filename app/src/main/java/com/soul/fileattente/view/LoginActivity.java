@@ -165,8 +165,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(LoginResult loginResult) {
                 System.out.println("LoginResultForLogin Data Changed............................................");
                 mLoginResult = loginResult;
-//                navigateToEcranPrincipalActivityList();
-                navigateToEcranPrincipalMonitoringActivityList();
+                navigateToEcranPrincipalActivityList();
+//                navigateToEcranPrincipalMonitoringActivityList();
             }
         });
     }
@@ -363,5 +363,15 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void placeAPhoneCall(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        this.startActivity(intent);
+    }
+
 //    ------------------------------------------------------------------------------------
+    //https://www.androidauthority.com/install-ubuntu-on-your-android-smartphone-765408/
+    //https://medium.com/junior-dev/how-to-re-purpose-your-old-android-phone-by-running-linux-on-it-1310df46b3fe
+    //https://linuxhint.com/ubuntu-for-android/
 }
