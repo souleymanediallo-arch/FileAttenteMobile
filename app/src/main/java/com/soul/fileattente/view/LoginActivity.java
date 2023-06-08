@@ -2,6 +2,7 @@ package com.soul.fileattente.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -219,4 +220,18 @@ public class LoginActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.btnLogin.setEnabled(true);
     }
+
+    //
+    private void print(final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //textResult.setText(textResult.getText().toString() + "n" + message);
+                Log.e("WSocket", message);
+                System.out.println("WSocket  -----> " + message);
+            }
+        });
+    }
+
+
 }
