@@ -45,4 +45,22 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+
+    // https://mvnrepository.com/artifact/org.eclipse.paho/org.eclipse.paho.client.mqttv3
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+    // https://mvnrepository.com/artifact/org.eclipse.paho/org.eclipse.paho.android.service
+    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+    //Because I am using Androidx
+    implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+//    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+//    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+
+    //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // https://mvnrepository.com/artifact/androidx.legacy/legacy-support-v4
+    //runtimeOnly 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // https://mvnrepository.com/artifact/androidx.localbroadcastmanager/localbroadcastmanager
+    //runtimeOnly 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
 }

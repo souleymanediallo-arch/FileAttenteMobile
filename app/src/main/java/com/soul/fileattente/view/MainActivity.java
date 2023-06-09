@@ -15,94 +15,61 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.soul.fileattente.R;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
-import okio.ByteString;
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "ActiveMQ";
+    public static final String clientId = "any_client_name";
+    public static final String serverURI = "tcp://192.168.1.142:1883"; //replace with your ip
+    public static final String publishTopic = "android_client_outbox";
+    public static final String subscribeTopic = "android_client_inbox";
+
+
+    MqttAndroidClient client;
+    int message_number = 0;
+
     private Button buttonSend;
+    private Button buttonConnect;
     private TextView textResult;
-    private OkHttpClient mClient;
 
-
-    Request request =  null;
-    EchoWebSocketListener listener = null;
-    WebSocket webSocket = null;
-
-    private final class EchoWebSocketListener extends WebSocketListener {
-        private static final int CLOSE_STATUS = 1000;
-        @Override
-        public void onOpen(WebSocket webSocket, Response response) {
-            //webSocket.send("What's up ?");
-            //webSocket.send(ByteString.decodeHex("abcd"));
-            //webSocket.close(CLOSE_STATUS, "Socket Closed !!");
-        }
-        @Override
-        public void onMessage(WebSocket webSocket, String message) {
-            print("Receive Message: " + message);
-        }
-        @Override
-        public void onMessage(WebSocket webSocket, ByteString bytes) {
-            print("Receive Bytes : " + bytes.hex());
-        }
-        @Override
-        public void onClosing(WebSocket webSocket, int code, String reason) {
-            webSocket.close(CLOSE_STATUS, null);
-            print("Closing Socket : " + code + " / " + reason);
-        }
-        @Override
-        public void onFailure(WebSocket webSocket, Throwable throwable, Response response) {
-            print("Error : " + throwable.getMessage());
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buttonSend = (Button) findViewById(R.id.button4);
+        buttonConnect = (Button) findViewById(R.id.button5);
         textResult = (TextView) findViewById(R.id.textView6);
-        mClient = new OkHttpClient();
+
+        buttonSend.setEnabled(false);
+
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                start();
+                //buttonSend.setEnabled(false);
+                publishMessage("From Android Client....." + message_number++);
             }
         });
+
+        buttonConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                connect();
+            }
+        });
+
     }
-    private void start() {
-        //Request request = new Request.Builder().url("ws://echo.websocket.org").build();
-        //Request request = new Request.Builder().url("wss://socketsbay.com/wss/v2/1/demo/").build();
-        //val websocketURL = "wss://${Constants.CLUSTER_ID}.piesocket.com/v3/1?api_key=${Constants.API_KEY}"
-        //val websocketURL = "wss://${Constants.CLUSTER_ID}.piesocket.com/v3/1?api_key=${Constants.API_KEY}"
 
-//Orig
-//        Request request = new Request.Builder().url("wss://s9042.nyc1.piesocket.com/v3/1?api_key=gGbcKyjG0YlkO5UenoihzD7Bivjz7Od6JDVZCpHs&notify_self=1?api_key=gGbcKyjG0YlkO5UenoihzD7Bivjz7Od6JDVZCpHs").build();
-//        EchoWebSocketListener listener = new EchoWebSocketListener();
-//        WebSocket webSocket = mClient.newWebSocket(request, listener);
-//        mClient.dispatcher().executorService().shutdown();
-
-        System.out.println("--------------------------------------> request = " + request);
-//        if(request == null) {
-//            request = new Request.Builder().url("wss://s9042.nyc1.piesocket.com/v3/1?api_key=gGbcKyjG0YlkO5UenoihzD7Bivjz7Od6JDVZCpHs&notify_self=1?api_key=gGbcKyjG0YlkO5UenoihzD7Bivjz7Od6JDVZCpHs").build();
-//            listener = new EchoWebSocketListener();
-//            webSocket = mClient.newWebSocket(request, listener);
-//        }
-
-        if(request == null) {
-            //request = new Request.Builder().url("wss://vps-31a4fa05.vps.ovh.net:8080").build();
-            request = new Request.Builder().url("ws://vps-31a4fa05.vps.ovh.net:8080").build();
-            listener = new EchoWebSocketListener();
-            webSocket = mClient.newWebSocket(request, listener);
-        }
-        webSocket.send("This is a test...");
-        //mClient.dispatcher().executorService().shutdown();
-    }
     private void print(final String message) {
         runOnUiThread(new Runnable() {
             @Override
@@ -110,5 +77,62 @@ public class MainActivity extends AppCompatActivity {
                 textResult.setText(textResult.getText().toString() + "\n" + message);
             }
         });
+    }
+
+
+    private void connect() {
+        MqttConnectOptions connectOptions = new MqttConnectOptions();
+        connectOptions.setAutomaticReconnect(true);
+
+        client = new MqttAndroidClient(this, serverURI, clientId);
+        try {
+            client.connect(connectOptions, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    buttonSend.setEnabled(true);
+                    subscribe();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void subscribe() {
+        try {
+
+            client.subscribe(subscribeTopic, 0, new IMqttMessageListener() {
+                @Override
+                public void messageArrived(final String topic, final MqttMessage message) throws Exception {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, message.toString(),   Toast.LENGTH_SHORT).show();
+                            System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
+                            print(message.toString());
+                        }
+                    });
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void publishMessage(String message) {
+        MqttMessage msg = new MqttMessage();
+        msg.setPayload(message.getBytes());
+        try {
+            client.publish(publishTopic, msg);
+            System.out.println("publishMessage Outgoing Message --------------------------------------------------------------------->" + message);
+            print(message);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
     }
 }
