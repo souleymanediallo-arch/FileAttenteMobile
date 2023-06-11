@@ -30,8 +30,9 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "ActiveMQ";
-    public static final String clientId = "any_client_name";
+    public static final String clientId = "android_client_fele_attente";
     public static final String serverURI = "tcp://192.168.1.142:1883"; //replace with your ip
+//    public static final String serverURI = "tcp://192.168.1.142:61616"; //replace with your ip
     public static final String publishTopic = "android_client_outbox";
     public static final String subscribeTopic = "android_client_inbox";
 
@@ -89,6 +90,23 @@ public class MainActivity extends AppCompatActivity {
             client.connect(connectOptions, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
+//                    System.out.println("client ------------------------------------------------> " + client.toString());
+//                    if(client == null){
+//                        System.out.println("client null------------------------------------------------> ");
+//                    }else{
+//                        System.out.println("client NOT null------------------------------------------------> ");
+//                        //int count = client.getBufferedMessage(0);
+//                        MqttMessage current_message = client.getBufferedMessage(0);
+//                        System.out.println(current_message.toString());
+//                    }
+//                    int count = client.getBufferedMessageCount();
+//                    System.out.println("client.getBufferedMessageCount() ------------------> " + count);
+//                    MqttMessage current_message;
+//                    for(int i=0; i<count; i++){
+//                        current_message = client.getBufferedMessage(i);
+//                        System.out.println("client.getBufferedMessage("+i+")------------------> " + current_message.toString());
+//                    }
+                    //----
                     buttonSend.setEnabled(true);
                     subscribe();
                 }
@@ -122,6 +140,15 @@ public class MainActivity extends AppCompatActivity {
         } catch (MqttException e) {
             e.printStackTrace();
         }
+
+//        int count = client.getBufferedMessageCount();
+//        System.out.println("client.getBufferedMessageCount() ------------------> " + count);
+//        MqttMessage current_message;
+//        for(int i=0; i<count; i++){
+//            current_message = client.getBufferedMessage(i);
+//            System.out.println("client.getBufferedMessage("+i+")------------------> " + current_message.toString());
+//        }
+
     }
 
     private void publishMessage(String message) {
