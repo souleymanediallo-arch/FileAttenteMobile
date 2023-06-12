@@ -22,7 +22,7 @@ import java.util.List;
 
 public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
-    private UserViewModel userViewModel;
+    public static UserViewModel userViewModel;
     private ActivityEcranPrincipalMonitoringListBinding binding;
     private ServiceDestinationMonitoringListDataAdapter serviceDestinationMonitoringListDataAdapter;
     private ArrayList<ServiceDestinationListData> serviceDestinationListData;
@@ -64,7 +64,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         userViewModel.getListServiceDestinationForDemandeAllServicesDestination().observe(this, new Observer<List<ServiceDestination>>() {
             @Override
             public void onChanged(List<ServiceDestination> serviceDestinations) {
-                System.out.println("ListServiceDestinationForDemandeAllServicesDestination Data Changed............................................");
+                System.out.println("ListServiceDestinationForDemandeAllServicesDestination Data Changed............................................" + serviceDestinations + "******");
                 serviceDestinationListData.clear();
                 for (ServiceDestination serviceDestination : serviceDestinations) {
                     serviceDestinationListData.add(new ServiceDestinationListData(serviceDestination, R.drawable.ic_baseline_timer_24));
@@ -73,4 +73,5 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -18,10 +18,13 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface Api {
 
-    String BASE_URL = "https://18c8ff90-b4d1-4f45-be00-9cb07599f97c.mock.pstmn.io/fileattente/";
+    //{{BaseUrl}}/api/params-etablissements
+    String BASE_URL = "http://192.168.1.142:8080/api/";
+    //String BASE_URL = "https://18c8ff90-b4d1-4f45-be00-9cb07599f97c.mock.pstmn.io/fileattente/";
     //String BASE_URL = "http://192.168.1.142:8080/api/";
 
     @GET("birthdays") //A des fins de tests sur le BackEnd local qui n avait des chsoess que sur les Birthday
@@ -39,14 +42,19 @@ public interface Api {
     @POST("demandeallservicesdestination")
     Call<List<ServiceDestination>> demandeAllServicesDestination(@Body DemandeService demandeService);
 
-    @POST("demandenumerossuivant")
+    //@POST("demandenumerossuivant")
+    @POST("demander-numero-suivant-files")
     Call<NumeroSuivantFile> demandeNumerosSuivant(@Body DemandeNumeroFile demandeNumeroFile);
 
     @GET("allnumerossuivants")
     Call<List<NumeroSuivantFile>> getAllNumerosSuivants();
 
-    @POST("appelernumero")
-    Call<NumeroSuivantFile> appelerNumero(@Body NumeroSuivantFile numeroSuivantFile);
+    //@POST("appelernumero")
+    //@POST("appeler-numero-suivant-files/10")
+    //Call<NumeroSuivantFile> appelerNumero(@Body NumeroSuivantFile numeroSuivantFile);
+    //@POST("appelernumero")
+    @GET("appeler-numero-suivant-files/{idNumeroSuivantFile}")
+    Call<NumeroSuivantFile> appelerNumero(@Path("idNumeroSuivantFile") Long idNumeroSuivantFile);
 
     @POST("annulerappelnumero")
     Call<NumeroSuivantFile> annulerAppelNumero(@Body NumeroSuivantFile numeroDejaAppele);

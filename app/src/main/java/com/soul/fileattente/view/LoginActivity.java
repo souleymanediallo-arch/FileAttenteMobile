@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.api.RetrofitClient;
 import com.soul.fileattente.databinding.ActivityLoginBinding;
 import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.DemandeParam;
@@ -136,7 +137,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mGlobalSetOfExtra = new GlobalSetOfExtra();
         mGlobalSetOfExtra.mLogin = mLogin;
-        mGlobalSetOfExtra.mLoginResult = mLoginResult;
+        //mGlobalSetOfExtra.mLoginResult = mLoginResult;
+        mGlobalSetOfExtra.mLoginResult = new LoginResult("ok");
         mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
         mGlobalSetOfExtra.mListParams = mListParams;
         intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
@@ -148,7 +150,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mGlobalSetOfExtra = new GlobalSetOfExtra();
         mGlobalSetOfExtra.mLogin = mLogin;
-        mGlobalSetOfExtra.mLoginResult = mLoginResult;
+        //mGlobalSetOfExtra.mLoginResult = mLoginResult;
+        mGlobalSetOfExtra.mLoginResult = new LoginResult("ok");
         mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
         mGlobalSetOfExtra.mListParams = mListParams;
         intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
@@ -172,7 +175,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(AutheticationResult autheticationResult) {
                 System.out.println("AutheticationResultForAuthenticate Data Changed............................................");
                 mAuthenticationResult = autheticationResult;
+                //Set new token after authentication or re-authentication so that query can be done...
+                //RetrofitClient.gottenTokenAfterLoginOrRefresh = autheticationResult.getId_token();
+                //System.out.println("Just set RetrofitClient.gottenTokenAfterLoginOrRefresh to ------------> " + RetrofitClient.gottenTokenAfterLoginOrRefresh );
                 //Then try to login after completion of Authetication successful
+                mLogin = new Login("admin", "admin");
                 userViewModel.login(mLogin);
             }
         });
@@ -183,6 +190,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(LoginResult loginResult) {
                 System.out.println("LoginResultForLogin Data Changed............................................");
+                System.out.println("loginResult-------------------------------------------> " + loginResult);
                 mLoginResult = loginResult;
 
                 boolean moniteurChecked = (binding.radioMoniteur).isChecked();

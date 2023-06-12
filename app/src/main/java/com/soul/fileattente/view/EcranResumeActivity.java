@@ -67,14 +67,14 @@ public class EcranResumeActivity extends AppCompatActivity {
         String numeroPourLeService = intent.getStringExtra(GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY);
         //
 
-        txtResumeLabell.setText("Sms envoyé pour le service [" + selectedServiceDestination.getLibelleService() + "] au numero [" + telephone + "]");
+        txtResumeLabell.setText("Sms envoyé pour le service [" + selectedServiceDestination.getLibelleServiceDestination() + "] au numero [" + telephone + "]");
         txtGenNumeroLabel.setText(numeroPourLeService);
 
         //TextToSpeech here
-        initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getLibelleService() + "] au numero [" + telephone + "]");
+        initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getLibelleServiceDestination() + "] au numero [" + telephone + "]");
         //Utils.translateFromTextToSpeech(initializedTextToSpeechInstancefromCallingActivity, "Sms envoyé pour le service [" + selectedServiceDestination.getLibelleService() + "] au numero [" + telephone + "]");
         txtMoreResume.setText(mGlobalSetOfExtra.mNumeroSuivantFile.toString());
-        sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephonePatient(), mGlobalSetOfExtra.mNumeroSuivantFile.toString());
+        sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), mGlobalSetOfExtra.mNumeroSuivantFile.toString());
         //
         launchAutomaticallyMainScreen();
     }

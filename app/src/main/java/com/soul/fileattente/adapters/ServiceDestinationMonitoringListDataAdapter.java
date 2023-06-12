@@ -1,5 +1,6 @@
 package com.soul.fileattente.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ServiceMonitorListItemBinding;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
+import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
 
 import java.util.ArrayList;
 
@@ -54,11 +56,11 @@ public class ServiceDestinationMonitoringListDataAdapter extends RecyclerView.Ad
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final ServiceDestinationListData serviceDestinationListData = listdata.get(position);
 
 //        holder.txtServiceDestination.setText(serviceDestinationListData.getNomService() + " -- " + serviceDestinationListData.getStatutService());
-        holder.txtServiceDestination.setText(Utils.formatStringForView(serviceDestinationListData.getNomService()));
+        holder.txtServiceDestination.setText(Utils.formatStringForView(serviceDestinationListData.getNomServiceDestination()));
         holder.txtNumPatientCourant.setText("0001");
         holder.txtnumPatientSuivant.setText("0002");
         holder.txtSuivant.setText("Suivant");
@@ -80,15 +82,16 @@ public class ServiceDestinationMonitoringListDataAdapter extends RecyclerView.Ad
         holder.txtSuivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("txtSuivant.................................................................> Just Clicked !");
+                System.out.println("txtSuivant.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Suivant just Clicked ! ", Toast.LENGTH_SHORT).show();
+                //EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(10L);
             }
         });
 
         holder.txtAnnuler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("txtAnnuler.................................................................> Just Clicked !");
+                System.out.println("txtAnnuler.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Annuler just Clicked ! ", Toast.LENGTH_SHORT).show();
             }
         });

@@ -8,9 +8,9 @@ public class ServiceDestinationListData extends ServiceDestination {
     private ServiceDestination serviceDestination;
 
     public ServiceDestinationListData(ServiceDestination serviceDestination, int imgId) {
-        super.setLibelleService(serviceDestination.getLibelleService());
-        super.setNomService(serviceDestination.getNomService());
-        super.setStatutService(serviceDestination.getStatutService());
+        super.setLibelleServiceDestination(serviceDestination.getLibelleServiceDestination());
+        super.setNomServiceDestination(serviceDestination.getNomServiceDestination());
+        super.setStatutServiceDestination(serviceDestination.getStatutServiceDestination());
         this.imgId = imgId;
         this.serviceDestination = serviceDestination;
     }

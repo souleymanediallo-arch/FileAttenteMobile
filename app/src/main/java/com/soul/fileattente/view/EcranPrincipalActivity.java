@@ -104,7 +104,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                 if (valueGenNumero >= 10 && valueGenNumero < 100) {
                     strValueGenNumero = "0" + valueGenNumero;
                 }
-                txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getLibelleService() + "] est :");
+                txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getLibelleServiceDestination() + "] est :");
                 txtGenNumero.setText(strValueGenNumero);
                 btnGenNumero.setEnabled(false);
 
@@ -145,7 +145,27 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
 
         binding.progressBar.setVisibility(View.VISIBLE);
-        userViewModel.demandeNumerosSuivant(new DemandeNumeroFile("Vision Medicale Coumba", "0122455789632111441251", "Pediatrie", "+221766752276", "2023-05-13T10:35:02.678Z" ));
+//        userViewModel.demandeNumerosSuivant(new DemandeNumeroFile("Vision Medicale Coumba", "0122455789632111441251", "Pediatrie", "+221766752276", "2023-05-13T10:35:02.678Z" ));
+
+//        {
+//            "nomService": "Pediatrie",
+//                "serviceDestinationid": 1,
+//                "deviceId": "0000frsd00000000",
+//                "telephoneDemandeur": "0652178684",
+//                "emailDemandeur": "d_souleymane.diallo@yahoo.com"
+//        }
+
+//        this.nomService = nomService;
+//        this.etablissementid = etablissementid;
+//        this.serviceDestinationid = serviceDestinationid;
+//        this.deviceId = deviceId;
+//        this.telephoneDemandeur = telephoneDemandeur;
+//        this.emailDemandeur = emailDemandeur;
+
+
+        DemandeNumeroFile demandeNumeroFile = new DemandeNumeroFile("Pediatrie", "1", "1","0000frsd00000000","0652178684", "d_souleymane.diallo@yahoo.com" );
+        System.out.println(demandeNumeroFile.toString());
+        userViewModel.demandeNumerosSuivant(demandeNumeroFile);
 
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
 

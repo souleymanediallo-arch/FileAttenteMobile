@@ -42,7 +42,7 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ServiceDestinationListData serviceDestinationListData = listdata.get(position);
-        holder.textView.setText(serviceDestinationListData.getNomService() + " -- " + serviceDestinationListData.getStatutService());
+        holder.textView.setText(serviceDestinationListData.getNomServiceDestination() + " -- " + serviceDestinationListData.getStatutServiceDestination());
         holder.imageView.setImageResource(serviceDestinationListData.getImgId());
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override

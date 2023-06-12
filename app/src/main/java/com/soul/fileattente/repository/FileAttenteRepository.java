@@ -156,8 +156,26 @@ public class FileAttenteRepository {
     }
 
 
-    public void appelerNumero(NumeroSuivantFile numeroSuivantFile) {
-        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appelerNumero(numeroSuivantFile);
+//    public void appelerNumero(NumeroSuivantFile numeroSuivantFile) {
+//        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appelerNumero(numeroSuivantFile);
+//
+//        call.enqueue(new Callback<NumeroSuivantFile>() {
+//            @Override
+//            public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
+//                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+//                UserViewModel.getNumeroSuivantFileForAppelerNumero().postValue(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NumeroSuivantFile> call, Throwable t) {
+//                System.out.printf(t.getMessage());
+//            }
+//        });
+//    }
+
+    //public void appelerNumero(NumeroSuivantFile numeroSuivantFile) {
+    public void appelerNumero(Long idNumeroSuivantFile) {
+        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appelerNumero(idNumeroSuivantFile);
 
         call.enqueue(new Callback<NumeroSuivantFile>() {
             @Override

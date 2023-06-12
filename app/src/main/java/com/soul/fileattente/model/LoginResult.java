@@ -14,6 +14,8 @@ public class LoginResult implements Serializable {
     public LoginResult() {
     }
 
+
+
     public LoginResult(String response) {
         this.response = response;
     }
