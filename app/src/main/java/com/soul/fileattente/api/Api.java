@@ -46,7 +46,8 @@ public interface Api {
     @POST("demander-numero-suivant-files")
     Call<NumeroSuivantFile> demandeNumerosSuivant(@Body DemandeNumeroFile demandeNumeroFile);
 
-    @GET("allnumerossuivants")
+//    @GET("allnumerossuivants")
+    @GET("numero-suivant-files")
     Call<List<NumeroSuivantFile>> getAllNumerosSuivants();
 
     //@POST("appelernumero")

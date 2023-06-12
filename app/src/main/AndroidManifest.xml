@@ -41,6 +41,9 @@
             android:name=".view.EcranPrincipalActivity"
             android:exported="false" />
         <activity
+            android:name=".view.EcranPrincipalMonitoringNumeroFileActivityList"
+            android:exported="false" />
+        <activity
             android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>

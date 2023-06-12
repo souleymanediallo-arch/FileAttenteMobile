@@ -145,8 +145,21 @@ public class LoginActivity extends AppCompatActivity {
         LoginActivity.this.startActivity(intent);
     }
 
+//    private void navigateToEcranPrincipalMonitoringActivityList() {
+//        Intent intent = new Intent(LoginActivity.this, EcranPrincipalMonitoringActivityList.class);
+//
+//        mGlobalSetOfExtra = new GlobalSetOfExtra();
+//        mGlobalSetOfExtra.mLogin = mLogin;
+//        //mGlobalSetOfExtra.mLoginResult = mLoginResult;
+//        mGlobalSetOfExtra.mLoginResult = new LoginResult("ok");
+//        mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
+//        mGlobalSetOfExtra.mListParams = mListParams;
+//        intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+//        LoginActivity.this.startActivity(intent);
+//    }
+
     private void navigateToEcranPrincipalMonitoringActivityList() {
-        Intent intent = new Intent(LoginActivity.this, EcranPrincipalMonitoringActivityList.class);
+        Intent intent = new Intent(LoginActivity.this, EcranPrincipalMonitoringNumeroFileActivityList.class);
 
         mGlobalSetOfExtra = new GlobalSetOfExtra();
         mGlobalSetOfExtra.mLogin = mLogin;
