@@ -3,6 +3,7 @@ package com.soul.fileattente.repository;
 import com.soul.fileattente.api.RetrofitClient;
 import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.Birthday;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.DemandeParam;
@@ -208,8 +209,8 @@ public class FileAttenteRepository {
         });
     }
 
-    public void demandeAllNumerosSuivants(DemandeNumSuiv demandeNumSuiv) {
-        Call<List<NumeroSuivantFile>> call = RetrofitClient.getInstance().getMyApi().demandeAllNumerosSuivants(demandeNumSuiv);
+    public void demandeAllNumerosSuivants(DemandeGeneric demandeGeneric) {
+        Call<List<NumeroSuivantFile>> call = RetrofitClient.getInstance().getMyApi().demandeAllNumerosSuivants(demandeGeneric);
 
         call.enqueue(new Callback<List<NumeroSuivantFile>>() {
             @Override

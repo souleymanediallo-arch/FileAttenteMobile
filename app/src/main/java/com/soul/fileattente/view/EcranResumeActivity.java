@@ -89,7 +89,7 @@ public class EcranResumeActivity extends AppCompatActivity {
                 intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
                 EcranResumeActivity.this.startActivity(intent);
             }
-        }, 20000);
+        }, 5000);
     }
 
 

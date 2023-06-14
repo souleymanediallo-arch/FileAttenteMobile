@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.soul.fileattente.model.AutheticationResult;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.DemandeParam;
@@ -88,9 +89,9 @@ public class UserViewModel extends ViewModel {
     }
 
 
-    public void demandeAllNumerosSuivants(DemandeNumSuiv demandeNumSuiv) {
+    public void demandeAllNumerosSuivants(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
-        mFileAttenteRepository.demandeAllNumerosSuivants(demandeNumSuiv);//Inside and because it's async, the postValue is done inside
+        mFileAttenteRepository.demandeAllNumerosSuivants(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
     public static MutableLiveData<AutheticationResult> getAutheticationResultForAuthenticate() {

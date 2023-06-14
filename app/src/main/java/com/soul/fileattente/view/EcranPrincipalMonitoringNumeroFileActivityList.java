@@ -15,6 +15,7 @@ import com.soul.fileattente.adapters.ServiceDestinationListData;
 import com.soul.fileattente.adapters.ServiceDestinationMonitoringListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranNumeroSuivantFilesMonitorListBinding;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalMonitoringListBinding;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.NumeroSuivantFile;
@@ -54,7 +55,19 @@ public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatAct
         //userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
         //userViewModel.getAllNumerosSuivants(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
         //userViewModel.getAllNumerosSuivants();
-        userViewModel.demandeAllNumerosSuivants(new DemandeNumSuiv("Vision Medicale Coumba","ServiceNotToBeCpnsidered", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
+        //userViewModel.demandeAllNumerosSuivants(new DemandeNumSuiv("Vision Medicale Coumba","ServiceNotToBeCpnsidered", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
+
+//        {
+//            "id":1,
+//                "serviceDestinationid":1,
+//                "nomServiceDestination":"nomServiceDestination",
+//                "etablissementid":1
+//        }
+        DemandeGeneric demandeGeneric = new DemandeGeneric();
+        demandeGeneric.setId(1L);
+        demandeGeneric.setNomServiceDestination("nomServiceDestination");
+        demandeGeneric.setEtablissementid("1");
+        userViewModel.demandeAllNumerosSuivants(demandeGeneric);
 
 
         //Process whenever there is a change
@@ -88,7 +101,7 @@ public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatAct
         userViewModel.getListNumeroSuivantFileFordemandeAllNumerosSuivants().observe(this, new Observer<List<NumeroSuivantFile>>() {
             @Override
             public void onChanged(List<NumeroSuivantFile> numeroSuivantFiles) {
-                System.out.println("ListServiceDestinationForDemandeAllServicesDestination Data Changed............................................" + numeroSuivantFiles + "******");
+                System.out.println("ListNumerosFileForDemandeAllNumerosFile Data Changed............................................" + numeroSuivantFiles + "******");
                 numeroSuivantFileListData.clear();
                 for (NumeroSuivantFile numeroSuivantFile : numeroSuivantFiles) {
                     numeroSuivantFileListData.add(new NumeroSuivantFileListData(numeroSuivantFile, R.drawable.ic_baseline_timer_24));

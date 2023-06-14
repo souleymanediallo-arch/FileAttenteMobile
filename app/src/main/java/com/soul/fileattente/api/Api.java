@@ -2,6 +2,7 @@ package com.soul.fileattente.api;
 
 import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.Birthday;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.DemandeParam;
@@ -61,6 +62,6 @@ public interface Api {
     Call<NumeroSuivantFile> annulerAppelNumero(@Body NumeroSuivantFile numeroDejaAppele);
 
     @POST("demandeallnumerossuivants")
-    Call<List<NumeroSuivantFile>> demandeAllNumerosSuivants(@Body DemandeNumSuiv demandeNumSuiv);
+    Call<List<NumeroSuivantFile>> demandeAllNumerosSuivants(@Body DemandeGeneric demandeGeneric);
 
 }
