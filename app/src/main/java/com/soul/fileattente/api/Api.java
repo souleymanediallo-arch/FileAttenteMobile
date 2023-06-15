@@ -11,6 +11,7 @@ import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.Param;
+import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
 
 import java.util.List;
@@ -42,6 +43,10 @@ public interface Api {
 
     @POST("demandeallservicesdestination")
     Call<List<ServiceDestination>> demandeAllServicesDestination(@Body DemandeService demandeService);
+
+//    @POST("demandeAggregatAllServicesDestinationNumeroFiles")
+    @POST("nbtotaldemandeursenattenteparservicepourunjourdonne")
+    Call<List<ServiceAGG>> demandeAggregatAllServicesDestinationNumeroFiles(@Body DemandeService demandeService);
 
     //@POST("demandenumerossuivant")
     @POST("demander-numero-suivant-files")

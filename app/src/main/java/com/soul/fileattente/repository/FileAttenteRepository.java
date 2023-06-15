@@ -12,6 +12,7 @@ import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.Param;
+import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
@@ -156,7 +157,22 @@ public class FileAttenteRepository {
         });
     }
 
+    public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeService demandeService) {
+        Call<List<ServiceAGG>> call = RetrofitClient.getInstance().getMyApi().demandeAggregatAllServicesDestinationNumeroFiles(demandeService);
 
+        call.enqueue(new Callback<List<ServiceAGG>>() {
+            @Override
+            public void onResponse(Call<List<ServiceAGG>> call, Response<List<ServiceAGG>> response) {
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getListForDemandeAggregatAllServicesDestinationNumeroFiles().postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<ServiceAGG>> call, Throwable t) {
+                System.out.printf(t.getMessage());
+            }
+        });
+    }
 //    public void appelerNumero(NumeroSuivantFile numeroSuivantFile) {
 //        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appelerNumero(numeroSuivantFile);
 //

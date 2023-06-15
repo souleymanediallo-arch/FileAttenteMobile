@@ -13,6 +13,7 @@ import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.Param;
+import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.model.User;
 import com.soul.fileattente.repository.FileAttenteRepository;
@@ -34,6 +35,7 @@ public class UserViewModel extends ViewModel {
     private static MutableLiveData<LoginResult> loginResultForLogin = new MutableLiveData<>();
     private static MutableLiveData<List<Param>> listParamForDemandeAllParams = new MutableLiveData<>();
     private static MutableLiveData<List<ServiceDestination>> listServiceDestinationForDemandeAllServicesDestination = new MutableLiveData<>();
+    private static MutableLiveData<List<ServiceAGG>> listServiceAGGForDemandeAggregatAllServicesDestinationNumeroFiles = new MutableLiveData<>();
     private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForDemandeNumerosSuivant = new MutableLiveData<>();
     private static MutableLiveData<List<NumeroSuivantFile>> listNumeroSuivantFileForGetAllNumerosSuivants = new MutableLiveData<>();
     private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForAppelerNumero = new MutableLiveData<>();
@@ -77,6 +79,11 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.demandeAllServicesDestination(demandeService);//Inside and because it's async, the postValue is done inside
     }
 
+    public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeService demandeService) {
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.demandeAggregatAllServicesDestinationNumeroFiles(demandeService);//Inside and because it's async, the postValue is done inside
+    }
+
     public void appelerNumero(long numeroSuivantFile) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         //mFileAttenteRepository.appelerNumero(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
@@ -108,6 +115,10 @@ public class UserViewModel extends ViewModel {
 
     public static MutableLiveData<List<ServiceDestination>> getListServiceDestinationForDemandeAllServicesDestination() {
         return listServiceDestinationForDemandeAllServicesDestination;
+    }
+
+    public static MutableLiveData<List<ServiceAGG>> getListForDemandeAggregatAllServicesDestinationNumeroFiles() {
+        return listServiceAGGForDemandeAggregatAllServicesDestinationNumeroFiles;
     }
 
     public static MutableLiveData<NumeroSuivantFile> getNumeroSuivantFileForDemandeNumerosSuivant() {
