@@ -68,12 +68,13 @@ public class EcranResumeActivity extends AppCompatActivity {
         //
 
         txtResumeLabell.setText("Sms envoyé pour le service [" + selectedServiceDestination.getLibelleServiceDestination() + "] au numero [" + telephone + "]");
+        //txtGenNumeroLabel.setText(numeroPourLeService);
         txtGenNumeroLabel.setText(numeroPourLeService);
 
         //TextToSpeech here
         initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getLibelleServiceDestination() + "] au numero [" + telephone + "]");
         //Utils.translateFromTextToSpeech(initializedTextToSpeechInstancefromCallingActivity, "Sms envoyé pour le service [" + selectedServiceDestination.getLibelleService() + "] au numero [" + telephone + "]");
-        txtMoreResume.setText(mGlobalSetOfExtra.mNumeroSuivantFile.toString());
+        //txtMoreResume.setText(mGlobalSetOfExtra.mNumeroSuivantFile.toString());
         sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), mGlobalSetOfExtra.mNumeroSuivantFile.toString());
         //
         launchAutomaticallyMainScreen();

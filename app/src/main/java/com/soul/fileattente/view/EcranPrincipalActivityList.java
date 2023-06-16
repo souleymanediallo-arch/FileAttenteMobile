@@ -12,6 +12,7 @@ import com.soul.fileattente.R;
 import com.soul.fileattente.adapters.ServiceDestinationListData;
 import com.soul.fileattente.adapters.ServiceDestinationListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalListBinding;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
@@ -45,7 +46,13 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
 
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalActivityList.this).get(UserViewModel.class);
-        userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
+
+        DemandeGeneric demandeGeneric = new DemandeGeneric();
+        demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+
+        //userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
+        userViewModel.demandeAllServicesDestination(demandeGeneric);
 
         //Process whenever there is a change
         processWhenListServiceDestinationForDemandeAllServicesDestinationChanged();

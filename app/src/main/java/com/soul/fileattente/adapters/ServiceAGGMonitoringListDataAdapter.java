@@ -80,7 +80,20 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
             public void onClick(View view) {
                 System.out.println("txtSuivant.................................................................> Just Clicked ! and my Index position " + position);
                 //Toast.makeText(view.getContext(), "Suivant just Clicked ! " + serviceAGGListData.getNumeroSuivantFile(), Toast.LENGTH_SHORT).show();
-                EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(new DemandeGeneric());
+
+//                {
+//                        "id":1,
+//                        "serviceDestinationid":1,
+//                        "nomServiceDestination":"nomServiceDestination",
+//                        "etablissementid":1
+//                }
+
+                DemandeGeneric demandeGeneric = new DemandeGeneric();
+                demandeGeneric.setServiceDestinationid(serviceAGGListData.getIdService());
+                demandeGeneric.setNomServiceDestination(serviceAGGListData.getNomService());
+                //demandeGeneric.setEtablissementid("1");//A determiner
+
+                EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(demandeGeneric);
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
             }
         });
@@ -91,7 +104,13 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
                 System.out.println("txtAnnuler.................................................................> Just Clicked ! and my Index position " + position);
                 //Toast.makeText(view.getContext(), "Annuler just Clicked ! " + serviceAGGListData.getNumeroSuivantFile(), Toast.LENGTH_SHORT).show();
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
-                EcranPrincipalMonitoringActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
+
+                DemandeGeneric demandeGeneric = new DemandeGeneric();
+                demandeGeneric.setServiceDestinationid(serviceAGGListData.getIdService());
+                demandeGeneric.setNomServiceDestination(serviceAGGListData.getNomService());
+                //demandeGeneric.setEtablissementid();//A determiner
+
+                EcranPrincipalMonitoringActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
             }
         });

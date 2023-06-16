@@ -16,6 +16,7 @@ import com.soul.fileattente.R;
 import com.soul.fileattente.api.RetrofitClient;
 import com.soul.fileattente.databinding.ActivityLoginBinding;
 import com.soul.fileattente.model.AutheticationResult;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeParam;
 import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.LoginResult;
@@ -51,8 +52,13 @@ public class LoginActivity extends AppCompatActivity {
 
         //
         adjustViewComponentsStatusBeforeParamSyncCompleted();
-        DemandeParam demandeParam = new DemandeParam("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z");
-        userViewModel.demandeAllParams(demandeParam);
+        //DemandeParam demandeParam = new DemandeParam("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z");
+
+        DemandeGeneric demandeGeneric = new DemandeGeneric();
+        demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+
+        userViewModel.demandeAllParams(demandeGeneric);
         //
 
         //

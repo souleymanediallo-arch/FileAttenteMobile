@@ -39,14 +39,14 @@ public interface Api {
     Call<LoginResult> login(@Body Login login);
 
     @POST("demandeallparams")
-    Call<List<Param>> demandeAllParams(@Body DemandeParam demandeParam);
+    Call<List<Param>> demandeAllParams(@Body DemandeGeneric demandeGeneric);
 
     @POST("demandeallservicesdestination")
-    Call<List<ServiceDestination>> demandeAllServicesDestination(@Body DemandeService demandeService);
+    Call<List<ServiceDestination>> demandeAllServicesDestination(@Body DemandeGeneric demandeGeneric);
 
 //    @POST("demandeAggregatAllServicesDestinationNumeroFiles")
     @POST("nbtotaldemandeursenattenteparservicepourunjourdonne")
-    Call<List<ServiceAGG>> demandeAggregatAllServicesDestinationNumeroFiles(@Body DemandeService demandeService);
+    Call<List<ServiceAGG>> demandeAggregatAllServicesDestinationNumeroFiles(@Body DemandeGeneric demandeGeneric);
 
     //@POST("demandenumerossuivant")
     @POST("demander-numero-suivant-files")

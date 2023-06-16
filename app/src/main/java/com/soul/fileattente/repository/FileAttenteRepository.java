@@ -21,6 +21,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Body;
 
 public class FileAttenteRepository {
 
@@ -118,8 +119,8 @@ public class FileAttenteRepository {
         });
     }
 
-    public void demandeAllParams(DemandeParam demandeParam) {
-        Call<List<Param>> call = RetrofitClient.getInstance().getMyApi().demandeAllParams(demandeParam);
+    public void demandeAllParams(DemandeGeneric demandeGeneric) {
+        Call<List<Param>> call = RetrofitClient.getInstance().getMyApi().demandeAllParams(demandeGeneric);
 
         call.enqueue(new Callback<List<Param>>() {
             @Override
@@ -140,8 +141,8 @@ public class FileAttenteRepository {
         });
     }
 
-    public void demandeAllServicesDestination(DemandeService demandeService) {
-        Call<List<ServiceDestination>> call = RetrofitClient.getInstance().getMyApi().demandeAllServicesDestination(demandeService);
+    public void demandeAllServicesDestination(DemandeGeneric demandeGeneric) {
+        Call<List<ServiceDestination>> call = RetrofitClient.getInstance().getMyApi().demandeAllServicesDestination(demandeGeneric);
 
         call.enqueue(new Callback<List<ServiceDestination>>() {
             @Override
@@ -157,8 +158,8 @@ public class FileAttenteRepository {
         });
     }
 
-    public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeService demandeService) {
-        Call<List<ServiceAGG>> call = RetrofitClient.getInstance().getMyApi().demandeAggregatAllServicesDestinationNumeroFiles(demandeService);
+    public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeGeneric demandeGeneric) {
+        Call<List<ServiceAGG>> call = RetrofitClient.getInstance().getMyApi().demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
 
         call.enqueue(new Callback<List<ServiceAGG>>() {
             @Override

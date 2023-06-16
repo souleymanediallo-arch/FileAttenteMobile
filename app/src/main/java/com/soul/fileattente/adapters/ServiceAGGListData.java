@@ -26,7 +26,7 @@ public class ServiceAGGListData extends ServiceAGG {
         this.imgId = imgId;
     }
 
-    public ServiceAGG getServiceDestination() {
+    public ServiceAGG getServiceAGG() {
         return serviceAGG;
     }
 }

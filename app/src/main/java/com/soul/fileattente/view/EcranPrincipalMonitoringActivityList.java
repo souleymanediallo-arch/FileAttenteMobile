@@ -12,6 +12,7 @@ import com.soul.fileattente.R;
 import com.soul.fileattente.adapters.ServiceAGGListData;
 import com.soul.fileattente.adapters.ServiceAGGMonitoringListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalMonitoringListBinding;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
@@ -46,7 +47,12 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
-        userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
+        //userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
+
+        DemandeGeneric demandeGeneric = new DemandeGeneric();
+        demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+        userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
 
         //Process whenever there is a change
         processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged();

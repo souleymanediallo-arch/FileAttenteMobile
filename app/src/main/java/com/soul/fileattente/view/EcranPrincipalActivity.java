@@ -143,7 +143,6 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
-
         binding.progressBar.setVisibility(View.VISIBLE);
 //        userViewModel.demandeNumerosSuivant(new DemandeNumeroFile("Vision Medicale Coumba", "0122455789632111441251", "Pediatrie", "+221766752276", "2023-05-13T10:35:02.678Z" ));
 
@@ -163,7 +162,16 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 //        this.emailDemandeur = emailDemandeur;
 
 
-        DemandeNumeroFile demandeNumeroFile = new DemandeNumeroFile("Pediatrie", "1", "1","0000frsd00000000","0652178684", "d_souleymane.diallo@yahoo.com" );
+        //DemandeNumeroFile demandeNumeroFile = new DemandeNumeroFile("Pediatrie", "1", "1","0000frsd00000000","0652178684", "d_souleymane.diallo@yahoo.com" );
+
+        String nomService = mGlobalSetOfExtra.mServiceDestination.getNomServiceDestination();
+        String etablissementid = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getEtablissementid());
+        String serviceDestinationid = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getId());
+        String deviceId = "000000000000";//Mettre en place une fonction qui va retourner cette information à partir d'un vrai device
+        String telephoneDemandeur = editTextPhone.getText().toString();
+        String emailDemandeur = "adresse_mail@recuperer.com";
+
+        DemandeNumeroFile demandeNumeroFile = new DemandeNumeroFile(nomService, etablissementid, serviceDestinationid, deviceId, telephoneDemandeur, emailDemandeur);
         System.out.println(demandeNumeroFile.toString());
         userViewModel.demandeNumerosSuivant(demandeNumeroFile);
 
@@ -177,6 +185,8 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 System.out.println("NumeroSuivantFileForDemandeNumerosSuivant Data Changed............................................");
                 System.out.println("numeroSuivantFile  --------> " + numeroSuivantFile.toString());
+                txtGenNumero.setText(numeroSuivantFile.getNumeroSuivant());
+                strValueGenNumero = numeroSuivantFile.getNumeroSuivant();
                 mGlobalSetOfExtra.mNumeroSuivantFile = numeroSuivantFile;
                 binding.progressBar.setVisibility(View.INVISIBLE);
                 //makeGoneRelevantCompnoent();

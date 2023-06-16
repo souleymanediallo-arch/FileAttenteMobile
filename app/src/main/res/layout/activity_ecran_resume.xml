@@ -47,15 +47,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
         android:gravity="center"
-        android:text="00"
-        android:textSize="90dp"
-        />
+        android:text="XXX.00"
+        android:textSize="90dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="TextView" />
+        android:ems="10" />
 
 </LinearLayout>

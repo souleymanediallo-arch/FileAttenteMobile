@@ -64,9 +64,9 @@ public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatAct
 //                "etablissementid":1
 //        }
         DemandeGeneric demandeGeneric = new DemandeGeneric();
-        demandeGeneric.setId(1L);
-        demandeGeneric.setNomServiceDestination("nomServiceDestination");
-        demandeGeneric.setEtablissementid("1");
+//        demandeGeneric.setId(1L);
+//        demandeGeneric.setNomServiceDestination("nomServiceDestination");
+        demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
         userViewModel.demandeAllNumerosSuivants(demandeGeneric);
 
 

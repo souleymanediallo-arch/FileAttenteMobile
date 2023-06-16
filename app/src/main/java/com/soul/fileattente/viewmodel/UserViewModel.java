@@ -69,19 +69,29 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.demandeNumerosSuivant(demandeNumeroFile);//Inside and because it's async, the postValue is done inside
     }
 
-    public void demandeAllParams(DemandeParam demandeParam) {
+    public void demandeAllParams(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
-        mFileAttenteRepository.demandeAllParams(demandeParam);//Inside and because it's async, the postValue is done inside
+        mFileAttenteRepository.demandeAllParams(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
-    public void demandeAllServicesDestination(DemandeService demandeService) {
+//    public void demandeAllServicesDestination(DemandeService demandeService) {
+//        mFileAttenteRepository = FileAttenteRepository.getInstance();
+//        mFileAttenteRepository.demandeAllServicesDestination(demandeService);//Inside and because it's async, the postValue is done inside
+//    }
+
+    public void demandeAllServicesDestination(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
-        mFileAttenteRepository.demandeAllServicesDestination(demandeService);//Inside and because it's async, the postValue is done inside
+        mFileAttenteRepository.demandeAllServicesDestination(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
-    public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeService demandeService) {
+//    public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeService demandeService) {
+//        mFileAttenteRepository = FileAttenteRepository.getInstance();
+//        mFileAttenteRepository.demandeAggregatAllServicesDestinationNumeroFiles(demandeService);//Inside and because it's async, the postValue is done inside
+//    }
+
+    public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
-        mFileAttenteRepository.demandeAggregatAllServicesDestinationNumeroFiles(demandeService);//Inside and because it's async, the postValue is done inside
+        mFileAttenteRepository.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
     public void appelerNumero(DemandeGeneric demandeGeneric) {

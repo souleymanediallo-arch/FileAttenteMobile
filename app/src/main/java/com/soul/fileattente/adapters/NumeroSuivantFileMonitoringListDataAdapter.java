@@ -87,7 +87,13 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
             public void onClick(View view) {
                 System.out.println("txtSuivant.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Suivant just Clicked ! ", Toast.LENGTH_SHORT).show();
-                EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(new DemandeGeneric());
+
+                DemandeGeneric demandeGeneric = new DemandeGeneric();
+                //demandeGeneric.setId(1L);
+                //demandeGeneric.setNomServiceDestination("nomServiceDestination");
+                demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+
+                EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(demandeGeneric);
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(); //Automatique à implementer
             }
         });
@@ -97,7 +103,13 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
             public void onClick(View view) {
                 System.out.println("txtAnnuler.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Annuler just Clicked ! ", Toast.LENGTH_SHORT).show();
-                EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
+
+                DemandeGeneric demandeGeneric = new DemandeGeneric();
+                //demandeGeneric.setId(1L);
+                //demandeGeneric.setNomServiceDestination("nomServiceDestination");
+                demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+
+                EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(); //Automatique à implementer
             }
         });
