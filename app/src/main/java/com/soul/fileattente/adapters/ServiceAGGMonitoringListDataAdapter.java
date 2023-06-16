@@ -13,10 +13,13 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.view.EcranPrincipalActivity;
+import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
+import com.soul.fileattente.view.EcranPrincipalMonitoringNumeroFileActivityList;
 
 import java.util.ArrayList;
 
@@ -76,8 +79,8 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
             @Override
             public void onClick(View view) {
                 System.out.println("txtSuivant.................................................................> Just Clicked ! and my Index position " + position);
-                Toast.makeText(view.getContext(), "Suivant just Clicked ! " + serviceAGGListData.getNumeroSuivantFile(), Toast.LENGTH_SHORT).show();
-                //EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(10L);
+                //Toast.makeText(view.getContext(), "Suivant just Clicked ! " + serviceAGGListData.getNumeroSuivantFile(), Toast.LENGTH_SHORT).show();
+                EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(new DemandeGeneric());
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
             }
         });
@@ -86,15 +89,15 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
             @Override
             public void onClick(View view) {
                 System.out.println("txtAnnuler.................................................................> Just Clicked ! and my Index position " + position);
-                Toast.makeText(view.getContext(), "Annuler just Clicked ! " + serviceAGGListData.getNumeroSuivantFile(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Annuler just Clicked ! " + serviceAGGListData.getNumeroSuivantFile(), Toast.LENGTH_SHORT).show();
+                //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
+                EcranPrincipalMonitoringActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
             }
         });
     }
 
-    @Override
-
-
+//    @Override
 //    public static class ViewHolder extends RecyclerView.ViewHolder {
 //        public ImageView imageView;
 //        public TextView textView;

@@ -84,17 +84,16 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.demandeAggregatAllServicesDestinationNumeroFiles(demandeService);//Inside and because it's async, the postValue is done inside
     }
 
-    public void appelerNumero(long numeroSuivantFile) {
+    public void appelerNumero(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         //mFileAttenteRepository.appelerNumero(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
-        mFileAttenteRepository.appelerNumero(10L);//Inside and because it's async, the postValue is done inside
+        mFileAttenteRepository.appelerNumero(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
-    public void annulerAppelNumero(NumeroSuivantFile numeroSuivantFile) {
+    public void annulerAppelNumero(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
-        mFileAttenteRepository.annulerAppelNumero(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
+        mFileAttenteRepository.annulerAppelNumero(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
-
 
     public void demandeAllNumerosSuivants(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();

@@ -191,8 +191,42 @@ public class FileAttenteRepository {
 //    }
 
     //public void appelerNumero(NumeroSuivantFile numeroSuivantFile) {
-    public void appelerNumero(Long idNumeroSuivantFile) {
-        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appelerNumero(idNumeroSuivantFile);
+//    public void appelerNumero(Long idNumeroSuivantFile) {
+//        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appelerNumero(idNumeroSuivantFile);
+//
+//        call.enqueue(new Callback<NumeroSuivantFile>() {
+//            @Override
+//            public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
+//                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+//                UserViewModel.getNumeroSuivantFileForAppelerNumero().postValue(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NumeroSuivantFile> call, Throwable t) {
+//                System.out.printf(t.getMessage());
+//            }
+//        });
+//    }
+//
+//    public void annulerAppelNumero(NumeroSuivantFile numeroSuivantFile) {
+//        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().annulerAppelNumero(numeroSuivantFile);
+//
+//        call.enqueue(new Callback<NumeroSuivantFile>() {
+//            @Override
+//            public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
+//                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+//                UserViewModel.getNumeroSuivantFileForAnnulerAppelNumero().postValue(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NumeroSuivantFile> call, Throwable t) {
+//                System.out.printf(t.getMessage());
+//            }
+//        });
+//    }
+
+    public void appelerNumero(DemandeGeneric demandeGeneric) {
+        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appeler_numero_suivant_files(demandeGeneric);
 
         call.enqueue(new Callback<NumeroSuivantFile>() {
             @Override
@@ -207,9 +241,8 @@ public class FileAttenteRepository {
             }
         });
     }
-
-    public void annulerAppelNumero(NumeroSuivantFile numeroSuivantFile) {
-        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().annulerAppelNumero(numeroSuivantFile);
+    public void annulerAppelNumero(DemandeGeneric demandeGeneric) {
+        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().annuler_numero_precedent_files(demandeGeneric);
 
         call.enqueue(new Callback<NumeroSuivantFile>() {
             @Override

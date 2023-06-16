@@ -60,13 +60,22 @@ public interface Api {
     //@POST("appeler-numero-suivant-files/10")
     //Call<NumeroSuivantFile> appelerNumero(@Body NumeroSuivantFile numeroSuivantFile);
     //@POST("appelernumero")
-    @GET("appeler-numero-suivant-files/{idNumeroSuivantFile}")
-    Call<NumeroSuivantFile> appelerNumero(@Path("idNumeroSuivantFile") Long idNumeroSuivantFile);
-
-    @POST("annulerappelnumero")
-    Call<NumeroSuivantFile> annulerAppelNumero(@Body NumeroSuivantFile numeroDejaAppele);
+//    @GET("appeler-numero-suivant-files/{idNumeroSuivantFile}")
+//    Call<NumeroSuivantFile> appelerNumero(@Path("idNumeroSuivantFile") Long idNumeroSuivantFile);
+//
+//    @POST("annulerappelnumero")
+//    Call<NumeroSuivantFile> annulerAppelNumero(@Body NumeroSuivantFile numeroDejaAppele);
 
     @POST("demandeallnumerossuivants")
     Call<List<NumeroSuivantFile>> demandeAllNumerosSuivants(@Body DemandeGeneric demandeGeneric);
+
+    //------
+    @POST("appeler-numero-suivant-files")
+    Call<NumeroSuivantFile> appeler_numero_suivant_files(@Body DemandeGeneric demandeGeneric);
+
+    @POST("annuler-numero-precedent-files")
+    Call<NumeroSuivantFile> annuler_numero_precedent_files(@Body DemandeGeneric demandeGeneric);
+    //------
+
 
 }

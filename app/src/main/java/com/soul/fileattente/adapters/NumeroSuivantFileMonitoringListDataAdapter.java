@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.NumeroSuivantFilesMonitorListItemBinding;
 import com.soul.fileattente.databinding.ServiceMonitorListItemBinding;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
+import com.soul.fileattente.view.EcranPrincipalMonitoringNumeroFileActivityList;
 
 import java.util.ArrayList;
 
@@ -85,7 +87,8 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
             public void onClick(View view) {
                 System.out.println("txtSuivant.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Suivant just Clicked ! ", Toast.LENGTH_SHORT).show();
-                //EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(10L);
+                EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(new DemandeGeneric());
+                //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(); //Automatique à implementer
             }
         });
 
@@ -94,6 +97,8 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
             public void onClick(View view) {
                 System.out.println("txtAnnuler.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Annuler just Clicked ! ", Toast.LENGTH_SHORT).show();
+                EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
+                //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(); //Automatique à implementer
             }
         });
     }
