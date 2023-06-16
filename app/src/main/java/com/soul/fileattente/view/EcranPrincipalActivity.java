@@ -104,7 +104,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                 if (valueGenNumero >= 10 && valueGenNumero < 100) {
                     strValueGenNumero = "0" + valueGenNumero;
                 }
-                txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getLibelleServiceDestination() + "] est :");
+                txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] est :");
                 txtGenNumero.setText(strValueGenNumero);
                 btnGenNumero.setEnabled(false);
 

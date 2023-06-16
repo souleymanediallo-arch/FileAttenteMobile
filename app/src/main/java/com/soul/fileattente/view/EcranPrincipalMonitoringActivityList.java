@@ -2,6 +2,7 @@ package com.soul.fileattente.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -18,6 +19,14 @@ import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +36,15 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     private ActivityEcranPrincipalMonitoringListBinding binding;
     private ServiceAGGMonitoringListDataAdapter serviceAGGMonitoringListDataAdapter;
     private ArrayList<ServiceAGGListData> serviceAGGListData;
+
+    //Acyive MQ Part
+    private static final String TAG = "ActiveMQ";
+    public static final String clientId = "android_client_fele_attente";
+    public static final String serverURI = "tcp://192.168.1.142:1883"; //replace with your ip
+    //    public static final String serverURI = "tcp://192.168.1.142:61616"; //replace with your ip
+    public static final String publishTopic = "android_client_outbox";
+    public static final String subscribeTopic = "android_client_inbox";
+    MqttAndroidClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +82,9 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(serviceAGGMonitoringListDataAdapter);
+
+        System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
+        connect(); // it will connext and subscribe if connextion is uccessfuk..
     }
 
 //    void processWhenListServiceDestinationForDemandeAllServicesDestinationChanged() {
@@ -95,6 +116,103 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 }else{
                     System.out.println("Enable to get data from the serveur check...if erreur....");
                 }
+            }
+        });
+    }
+
+
+    //Implementing The activeMQ Part
+
+    private void connect() {
+        MqttConnectOptions connectOptions = new MqttConnectOptions();
+        connectOptions.setAutomaticReconnect(true);
+
+        client = new MqttAndroidClient(this, serverURI, clientId);
+        try {
+            client.connect(connectOptions, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+//                    System.out.println("client ------------------------------------------------> " + client.toString());
+//                    if(client == null){
+//                        System.out.println("client null------------------------------------------------> ");
+//                    }else{
+//                        System.out.println("client NOT null------------------------------------------------> ");
+//                        //int count = client.getBufferedMessage(0);
+//                        MqttMessage current_message = client.getBufferedMessage(0);
+//                        System.out.println(current_message.toString());
+//                    }
+//                    int count = client.getBufferedMessageCount();
+//                    System.out.println("client.getBufferedMessageCount() ------------------> " + count);
+//                    MqttMessage current_message;
+//                    for(int i=0; i<count; i++){
+//                        current_message = client.getBufferedMessage(i);
+//                        System.out.println("client.getBufferedMessage("+i+")------------------> " + current_message.toString());
+//                    }
+                    //----
+                    //buttonSend.setEnabled(true);
+                    subscribe();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void subscribe() {
+        try {
+
+            client.subscribe(subscribeTopic, 0, new IMqttMessageListener() {
+                @Override
+                public void messageArrived(final String topic, final MqttMessage message) throws Exception {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(),   Toast.LENGTH_SHORT).show();
+                            System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
+                            //print(message.toString());
+                            DemandeGeneric demandeGeneric = new DemandeGeneric();
+                            demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+                            demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+                            userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                        }
+                    });
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+
+//        int count = client.getBufferedMessageCount();
+//        System.out.println("client.getBufferedMessageCount() ------------------> " + count);
+//        MqttMessage current_message;
+//        for(int i=0; i<count; i++){
+//            current_message = client.getBufferedMessage(i);
+//            System.out.println("client.getBufferedMessage("+i+")------------------> " + current_message.toString());
+//        }
+    }
+
+    private void publishMessage(String message) {
+        MqttMessage msg = new MqttMessage();
+        msg.setPayload(message.getBytes());
+        try {
+            client.publish(publishTopic, msg);
+            System.out.println("publishMessage Outgoing Message --------------------------------------------------------------------->" + message);
+            print(message);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void print(final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //textResult.setText(textResult.getText().toString() + "\n" + message);
             }
         });
     }
