@@ -9,17 +9,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.NumeroSuivantFilesMonitorListItemBinding;
 import com.soul.fileattente.databinding.ServiceMonitorListItemBinding;
 import com.soul.fileattente.model.DemandeGeneric;
+import com.soul.fileattente.model.NumeroSuivantFile;
+import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.view.EcranPrincipalMonitoringNumeroFileActivityList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Adapter<NumeroSuivantFileMonitoringListDataAdapter.ViewHolder> {
 

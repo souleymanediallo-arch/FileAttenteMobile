@@ -15,6 +15,7 @@ import com.soul.fileattente.adapters.ServiceAGGMonitoringListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalMonitoringListBinding;
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeService;
+import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.viewmodel.UserViewModel;
@@ -87,6 +88,9 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
         connect(); // it will connext and subscribe if connextion is uccessfuk..
+
+        processWhenNumeroSuivantFileForAppelerNumeroChanged();
+        processWhenNumeroSuivantFileForAnnulerAppelNumeroChanged();
     }
 
 //    void processWhenListServiceDestinationForDemandeAllServicesDestinationChanged() {
@@ -215,6 +219,28 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             @Override
             public void run() {
                 //textResult.setText(textResult.getText().toString() + "\n" + message);
+            }
+        });
+    }
+
+    //------- Suivant & Annuler
+    //
+    void processWhenNumeroSuivantFileForAppelerNumeroChanged() {
+        userViewModel.getNumeroSuivantFileForAppelerNumero().observe(this, new Observer<NumeroSuivantFile>() {
+            @Override
+            public void onChanged(NumeroSuivantFile numeroSuivantFile) {
+                userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero");
+            }
+        });
+    }
+
+    void processWhenNumeroSuivantFileForAnnulerAppelNumeroChanged() {
+        userViewModel.getNumeroSuivantFileForAnnulerAppelNumero().observe(this, new Observer<NumeroSuivantFile>() {
+            @Override
+            public void onChanged(NumeroSuivantFile numeroSuivantFile) {
+                userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAnnulerAppelNumero");
             }
         });
     }
