@@ -45,6 +45,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     public static final String publishTopic = "android_client_outbox";
     public static final String subscribeTopic = "android_client_inbox";
     MqttAndroidClient client;
+    DemandeGeneric demandeGeneric;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
         //userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
 
-        DemandeGeneric demandeGeneric = new DemandeGeneric();
+//        DemandeGeneric demandeGeneric = new DemandeGeneric();
+        demandeGeneric = new DemandeGeneric();
         demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
         userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
@@ -175,9 +177,9 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                             Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(),   Toast.LENGTH_SHORT).show();
                             System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
                             //print(message.toString());
-                            DemandeGeneric demandeGeneric = new DemandeGeneric();
-                            demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
-                            demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+//                            DemandeGeneric demandeGeneric = new DemandeGeneric();
+//                            demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+//                            demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
                             userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                         }
                     });

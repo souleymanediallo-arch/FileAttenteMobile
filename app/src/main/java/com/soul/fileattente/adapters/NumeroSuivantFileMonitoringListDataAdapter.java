@@ -94,6 +94,9 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
 
                 EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(demandeGeneric);
+                //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)
+                //A defaut faire +1 pour Suivant et -1 pour Annuler ey on Success ou meme cote Back en testant sur le meme ecran
+                //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(); //Automatique à implementer
             }
         });
@@ -110,6 +113,10 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
 
                 EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
+                //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)
+                //A defaut faire +1 pour Suivant et -1 pour Annuler ey on Success ou cote Back en testant sur le meme ecran
+                //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(); //Automatique à implementer
             }
         });
