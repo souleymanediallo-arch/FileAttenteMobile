@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     //public static String gottenTokenAfterLoginOrRefresh = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTY4NjU3ODgyMH0.Mmx22TANirlqYiY6xpNucZ9mIu_PLuyMgG_o6VLZ6A0JcuQSYLDEyx2mcP708ke8i_kXokmtRSGgKDh9exx5YA";
-    private String gottenTokenAfterLoginOrRefresh = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTY4NzE4NTAwMn0.9cpmSZYG6MITUV9NVK0nosc6XVxmqmhedcZPeUvr294DfFyXtOpbsa5a4hXOANHJndRjFtdPoptE--exUTNQYQ";
+    private String gottenTokenAfterLoginOrRefresh = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTcxODIyNDkyNX0.sIxkhH9yAAExHg1CVc1pNB4EuviMExwHD8tRATFkTM_YI96s31qLsWu24lEWEIEHWdV5v2LiZAWy9q5oLeL2_g";
     private String gottenAPIKeyfromAPIProvider = "API";
     private String gottenAPIKeyValuefromAPIProvider = "gottenAPIKeyValuefromAPIProvider";
     private String username = "username";
