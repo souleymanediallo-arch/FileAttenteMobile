@@ -70,6 +70,8 @@ public class NumeroSuivantFile implements Serializable {
     private String  deviceId;
     private String  telephoneDemandeur;
     private String  emailDemandeur;
+    private String  etablissementid;
+
     //
 
     public NumeroSuivantFile() {
@@ -249,6 +251,14 @@ public class NumeroSuivantFile implements Serializable {
         this.emailDemandeur = emailDemandeur;
     }
 
+    public String getEtablissementid() {
+        return etablissementid;
+    }
+
+    public void setEtablissementid(String etablissementid) {
+        this.etablissementid = etablissementid;
+    }
+
     @Override
     public String toString() {
         return "NumeroSuivantFile{" +
@@ -271,6 +281,7 @@ public class NumeroSuivantFile implements Serializable {
                 ", deviceId='" + deviceId + '\'' +
                 ", telephoneDemandeur='" + telephoneDemandeur + '\'' +
                 ", emailDemandeur='" + emailDemandeur + '\'' +
+                ", etablissementid='" + etablissementid + '\'' +
                 '}';
     }
 

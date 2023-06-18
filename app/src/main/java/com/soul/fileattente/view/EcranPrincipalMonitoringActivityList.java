@@ -1,6 +1,8 @@
 package com.soul.fileattente.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
@@ -47,6 +50,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     public static final String subscribeTopic = "android_client_inbox";
     MqttAndroidClient client;
     DemandeGeneric demandeGeneric;
+
+    TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,7 +235,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero");
+                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomService() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
+                initializedTextToSpeechInstance("Service " + numeroSuivantFile.getNomService() + " Numero " + numeroSuivantFile.getNumeroSuivant() );
             }
         });
     }
@@ -241,6 +247,18 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAnnulerAppelNumero");
+            }
+        });
+    }
+
+    void initializedTextToSpeechInstance(String textToRenderOverVoice){
+        initializedTextToSpeechInstancefromCallingActivity = new TextToSpeech(this.getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i!=TextToSpeech.ERROR){
+                    initializedTextToSpeechInstancefromCallingActivity.setLanguage(Locale.FRANCE);
+                    initializedTextToSpeechInstancefromCallingActivity.speak(textToRenderOverVoice, TextToSpeech.QUEUE_FLUSH, null);
+                }
             }
         });
     }

@@ -130,9 +130,10 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 //                EcranPrincipalActivity.this.startActivity(intent);
 
                 //Text to Voice
-                initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + editTextPhone.getText().toString() + "]");                Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);
+                //initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + editTextPhone.getText().toString() + "]");
                 //Text to Voice
 
+                Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);
                 intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
                 intent.putExtra(GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY, editTextPhone.getText().toString()); //Optional parameters
                 intent.putExtra(GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY, String.valueOf(strValueGenNumero)); //Optional parameters
