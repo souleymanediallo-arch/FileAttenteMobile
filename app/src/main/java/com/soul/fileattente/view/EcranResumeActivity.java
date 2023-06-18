@@ -84,6 +84,7 @@ public class EcranResumeActivity extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
+                //initializedTextToSpeechInstance("Sms envoyé pour le service [" + "selectedServiceDestination.getNomServiceDestination()" + "] au numero [" + "GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY)" + "]");
                 finish();
                 //Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalFilesAllServicesActivity.class);
                 Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalActivityList.class);

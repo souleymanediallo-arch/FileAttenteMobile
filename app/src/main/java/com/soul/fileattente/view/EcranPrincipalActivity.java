@@ -2,6 +2,7 @@ package com.soul.fileattente.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,8 @@ import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
+import java.util.Locale;
+
 public class EcranPrincipalActivity extends AppCompatActivity {
 
     Button btnGenNumero;
@@ -33,7 +36,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     GlobalSetOfExtra mGlobalSetOfExtra;
 
     private UserViewModel userViewModel;
-
+    TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +129,10 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 //                intent.putExtra(Global.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY, String.valueOf(strValueGenNumero)); //Optional parameters
 //                EcranPrincipalActivity.this.startActivity(intent);
 
-                Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);
+                //Text to Voice
+                initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + editTextPhone.getText().toString() + "]");                Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);
+                //Text to Voice
+
                 intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
                 intent.putExtra(GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY, editTextPhone.getText().toString()); //Optional parameters
                 intent.putExtra(GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY, String.valueOf(strValueGenNumero)); //Optional parameters
@@ -231,5 +237,17 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         binding.textView4.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageBienvenue"));
         binding.textView5.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageinviteSaisieNumeroTel"));
         binding.textView.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageIndicatifNumeroService"));
+    }
+
+    void initializedTextToSpeechInstance(String textToRenderOverVoice){
+        initializedTextToSpeechInstancefromCallingActivity = new TextToSpeech(this.getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i!=TextToSpeech.ERROR){
+                    initializedTextToSpeechInstancefromCallingActivity.setLanguage(Locale.FRANCE);
+                    initializedTextToSpeechInstancefromCallingActivity.speak(textToRenderOverVoice, TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
     }
 }
