@@ -3,6 +3,7 @@ package com.soul.fileattente.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
+import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -236,7 +238,11 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomService() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
-                initializedTextToSpeechInstance("Service " + numeroSuivantFile.getNomService() + " Numero " + numeroSuivantFile.getNumeroSuivant() );
+                String messageAnnonce = "Service " + numeroSuivantFile.getNomService() + " Numero " + numeroSuivantFile.getNumeroSuivant();
+                String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
+                initializedTextToSpeechInstance(messageAnnonce);
+                //Utils.sendTextAsSms(EcranPrincipalMonitoringActivityList.this,telephoneDemandeur,messageAnnonce) ;
+                //sendTextAsSms(telephoneDemandeur, messageAnnonce);
             }
         });
     }
@@ -261,5 +267,13 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    void sendTextAsSms(String mobileNumber, String textMessage){
+
+        SmsManager smsManager = SmsManager.getDefault();
+        if(smsManager != null) {
+            smsManager.sendTextMessage(mobileNumber, null, textMessage, null, null);
+        }
     }
 }
