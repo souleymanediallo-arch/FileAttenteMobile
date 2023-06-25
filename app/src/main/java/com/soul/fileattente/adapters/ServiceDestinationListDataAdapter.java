@@ -1,6 +1,7 @@
 package com.soul.fileattente.adapters;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,30 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ServiceDestinationListData serviceDestinationListData = listdata.get(position);
-        holder.textView.setText(serviceDestinationListData.getNomServiceDestination() + " -- " + serviceDestinationListData.getStatutServiceDestination());
+//
+//        //holder.textView.setText(serviceDestinationListData.getNomServiceDestination() + " -- " + serviceDestinationListData.getStatutServiceDestination());
+//        String serviceStatus = serviceDestinationListData.getStatutServiceDestination();
+//        if(serviceStatus.equalsIgnoreCase("Inactif")){
+//            int color = Color.parseColor("#838996");//Roman Silver
+//            holder.textView.setTextColor(color);
+//            //holder.textView.setBackgroundColor(color);
+//            //holder.textView.setEnabled(false);
+//            //holder.textView.setClickable(false);
+//            //holder.relativeLayout.setClickable(false);
+//            holder.relativeLayout.setEnabled(false);
+//        }
+//        if(serviceStatus.equalsIgnoreCase("Pause")){
+//            int color = Color.parseColor("#98AFC7");//Blue Gray
+//            holder.textView.setTextColor(color);
+//            //holder.textView.setBackgroundColor(color);
+//            //holder.textView.setEnabled(false);
+//            //holder.textView.setClickable(false);
+//            //holder.relativeLayout.setClickable(false);
+//            holder.relativeLayout.setEnabled(false);
+//        }
+//        //holder.textView.setText("["+serviceDestinationListData.getLibelleServiceDestination()+"] - "  + serviceDestinationListData.getNomServiceDestination());
+        holder.textView.setText("["+serviceDestinationListData.getLibelleServiceDestination()+"] - "  + serviceDestinationListData.getNomServiceDestination());
+
         holder.imageView.setImageResource(serviceDestinationListData.getImgId());
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,14 +76,14 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
 
                 //GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra)getIntent().getSerializableExtra(Global.GLOBALSETOFEXTRA);
                 //view.getContext().inte
-
-                Intent intent = new Intent(view.getContext(), EcranPrincipalActivity.class);
-
-                mGlobalSetOfExtra.mServiceDestination = serviceDestinationListData.getServiceDestination();
-                intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
-
-                //intent.putExtra(Global.SELECTED_SERVICE_DESTINATION_KEY, serviceDestinationListData.getServiceDestination());
-                view.getContext().startActivity(intent);
+                String serviceStatus = serviceDestinationListData.getStatutServiceDestination();
+                //if(!(serviceStatus.equalsIgnoreCase("Inactif") && serviceStatus.equalsIgnoreCase("Pause"))) {
+                    Intent intent = new Intent(view.getContext(), EcranPrincipalActivity.class);
+                    mGlobalSetOfExtra.mServiceDestination = serviceDestinationListData.getServiceDestination();
+                    intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+                    //intent.putExtra(Global.SELECTED_SERVICE_DESTINATION_KEY, serviceDestinationListData.getServiceDestination());
+                    view.getContext().startActivity(intent);
+                //}
             }
         });
     }

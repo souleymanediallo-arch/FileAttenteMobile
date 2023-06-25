@@ -15,6 +15,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+
         android:contentDescription="Icon"
         app:srcCompat="@mipmap/ic_service" />
 
@@ -26,7 +27,10 @@
         android:layout_toRightOf="@id/imageView"
         android:gravity="center_vertical"
         android:text="Gynecologie"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/txtNumPatientCourant"
@@ -37,7 +41,9 @@
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="001"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/txtnumPatientSuivant"
@@ -48,7 +54,9 @@
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="002"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/txtSuivant"
@@ -59,7 +67,9 @@
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="Suivant"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/txtAnnuler"
@@ -70,6 +80,8 @@
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="Annuler"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

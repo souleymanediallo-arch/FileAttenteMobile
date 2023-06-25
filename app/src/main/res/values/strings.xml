@@ -5,8 +5,10 @@
     <string name="test_val">Sms envoye pour le service gynecologique au numero 76 675 22 77</string>
 
     <string-array name="profile_array">
-        <item>Moniteur</item>
         <item>Patient</item>
+        <item>Moniteur</item>
+        <item>Docteur</item>
+        <item>Administrateur</item>
     </string-array>
 
 </resources>

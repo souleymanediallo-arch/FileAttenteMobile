@@ -71,11 +71,12 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         //ServiceDestination selectedServiceDestination = (ServiceDestination) intent.getSerializableExtra(Global.SELECTED_SERVICE_DESTINATION_KEY);
 
         //Gestion Button Generation de numero dans la Fille d'attente
-        txtGenNumeroLabel = (TextView) findViewById(R.id.textView);
-        txtGenNumero = (TextView) findViewById(R.id.textView2);
+        txtGenNumeroLabel = (TextView) findViewById(R.id.txtGenNumeroLabel);
+        //txtGenNumero = (TextView) findViewById(R.id.textView2);
+        txtGenNumero = (EditText) findViewById(R.id.textView);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
-        btnGenNumero = (Button) findViewById(R.id.button);
-        btnSms = (Button) findViewById(R.id.button2);
+        btnGenNumero = (Button) findViewById(R.id.buttonGenNumero);
+        btnSms = (Button) findViewById(R.id.buttonSendSMS);
 
         //Making relevent compoennt INVISBLE
         makeInvisibleRelevantCompnoent();
@@ -118,7 +119,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 
 
         //Gestion button Enoi de sms
-        Button btnSms = (Button) findViewById(R.id.button2);
+        //Button btnSms = (Button) findViewById(R.id.button2);
         btnSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -231,13 +232,13 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.GONE);
         binding.textView5.setVisibility(View.GONE);
         binding.editTextPhone.setVisibility(View.GONE);
-        binding.button.setVisibility(View.GONE);
+        binding.buttonGenNumero.setVisibility(View.GONE);
     }
 
     public void setLabelsOfTheView(){
-        binding.textView4.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageBienvenue"));
-        binding.textView5.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageinviteSaisieNumeroTel"));
-        binding.textView.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageIndicatifNumeroService"));
+//        binding.textView4.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageBienvenue"));
+//        binding.textView5.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageinviteSaisieNumeroTel"));
+//        binding.textView.setText(Utils.getValueForKey(mGlobalSetOfExtra.mListParams, "messageIndicatifNumeroService"));
     }
 
     void initializedTextToSpeechInstance(String textToRenderOverVoice){

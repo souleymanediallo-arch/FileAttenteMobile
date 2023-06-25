@@ -1,6 +1,7 @@
 package com.soul.fileattente.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -59,13 +60,12 @@ public class LoginActivity extends AppCompatActivity {
         demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
 
         userViewModel.demandeAllParams(demandeGeneric);
-        //
 
         //
         handleSpinner();
 
         //
-        captureRadioGroupCheckedValue();
+        //captureRadioGroupCheckedValue();
 
         //Be prepared to process the changes of the values for var in viewModel: AutheticationResultForAuthenticate
         processWhenAutheticationResultForAuthenticateChanged();
@@ -80,34 +80,40 @@ public class LoginActivity extends AppCompatActivity {
         processTaskWhenloginButtonClicked();
     }
 
-    void handleSpinner() {
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.profile_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        binding.profilSpinner.setAdapter(adapter);
-        binding.profilSpinner.setVisibility(View.GONE);
-
-//        binding.profilSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        void handleSpinner() {
+            //String[] listProfiles = {"Patient", "Moniteur", "Docteur", "Administrateur"};
+            String[] listProfiles = getResources().getStringArray(R.array.profile_array);;
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_item, listProfiles);
+            binding.profilSpinnerEdtxt.setAdapter(adapter);
+        }
+//    void handleSpinner() {
 //
-//            }
-//        });
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.profile_array, android.R.layout.simple_spinner_item);
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        // Apply the adapter to the spinner
+//        binding.profilSpinner.setAdapter(adapter);
+//        binding.profilSpinner.setVisibility(View.GONE);
 //
-//        binding.profilSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-    }
+////        binding.profilSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+////            @Override
+////            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+////
+////            }
+////        });
+////
+////        binding.profilSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+////            @Override
+////            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+////
+////            }
+////
+////            @Override
+////            public void onNothingSelected(AdapterView<?> adapterView) {
+////
+////            }
+////        });
+//    }
 
 
 //    public void onRadioButtonClicked(View view) {
@@ -128,14 +134,14 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //    }
 
-    public void captureRadioGroupCheckedValue() {
-
-        // Is the button now checked?
-        boolean moniteurChecked = (binding.radioMoniteur).isChecked();
-        boolean patientChecked = (binding.radioPatient).isChecked();
-        System.out.println("moniteurChecked--------------------------------------> CHECKED = " + moniteurChecked);
-        System.out.println("patientChecked---------------------------------------> CHECKED = " + patientChecked);
-    }
+//    public void captureRadioGroupCheckedValue() {
+//
+//        // Is the button now checked?
+//        boolean moniteurChecked = (binding.radioMoniteur).isChecked();
+//        boolean patientChecked = (binding.radioPatient).isChecked();
+//        System.out.println("moniteurChecked--------------------------------------> CHECKED = " + moniteurChecked);
+//        System.out.println("patientChecked---------------------------------------> CHECKED = " + patientChecked);
+//    }
 
 
     private void navigateToEcranPrincipalActivityList() {
@@ -181,7 +187,8 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("-------------------------------------------------------------> I got clicked");
+                //String chosenProfile = (binding.profilSpinnerEdtxt).getText().toString();
+                //System.out.println("-------------------------------------------------------------> I got clicked  --->  " + chosenProfile);
                 mLogin = new Login("admin", "admin");
                 userViewModel.authenticate(mLogin);
             }
@@ -212,17 +219,21 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("loginResult-------------------------------------------> " + loginResult);
                 mLoginResult = loginResult;
 
-                boolean moniteurChecked = (binding.radioMoniteur).isChecked();
-                boolean patientChecked = (binding.radioPatient).isChecked();
-                System.out.println("moniteurChecked--------------------------------------> CHECKED = " + moniteurChecked);
-                System.out.println("patientChecked---------------------------------------> CHECKED = " + patientChecked);
-                if(moniteurChecked) {
+                String chosenProfile = (binding.profilSpinnerEdtxt).getText().toString();
+                System.out.println("chosenProfile--------------------------------------> = " + chosenProfile);
+
+                if(chosenProfile.equalsIgnoreCase("Moniteur"))  {
                     navigateToEcranPrincipalMonitoringActivityList();
-                }else{
+                }
+                if(chosenProfile.equalsIgnoreCase("Patient"))  {
                     navigateToEcranPrincipalActivityList();
                 }
-                //navigateToEcranPrincipalMonitoringActivityList
-                //navigateToEcranPrincipalMonitoringActivityList();
+                if(chosenProfile.equalsIgnoreCase("Docteur"))  {
+                    //navigateToEcranPrincipalActivityList();
+                }
+                if(chosenProfile.equalsIgnoreCase("Administrateur"))  {
+                    //navigateToEcranPrincipalActivityList();
+                }
             }
         });
     }
@@ -239,11 +250,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void adjustViewComponentsStatusBeforeParamSyncCompleted() {
+        //https://www.computerhope.com/htmcolor.htm#color-codes
+        binding.btnLogin.setText("Loadig Applications Params..");
+        //binding.btnLogin.setTextColor(0x52595D); //#52595D
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.btnLogin.setEnabled(false);
     }
 
     void adjustViewComponentsStatusAfterParamSyncCompleted() {
+        binding.btnLogin.setText("Se Connecter");
+        //binding.btnLogin.setTextColor(0x000000);
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.btnLogin.setEnabled(true);
     }
@@ -259,6 +275,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

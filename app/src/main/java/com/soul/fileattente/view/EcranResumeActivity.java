@@ -24,7 +24,7 @@ public class EcranResumeActivity extends AppCompatActivity {
     TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
     TextView txtGenNumeroLabel;
     TextView txtResumeLabell;
-    TextView txtMoreResume;
+    //TextView txtMoreResume;
     GlobalSetOfExtra mGlobalSetOfExtra;
 
     //Sms envoye pour le service gynecologique au numero 76 675 22 77
@@ -34,7 +34,7 @@ public class EcranResumeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ecran_resume);
         txtGenNumeroLabel = (TextView) findViewById(R.id.textView2);
         txtResumeLabell = (TextView) findViewById(R.id.textView5);
-        txtMoreResume = (TextView) findViewById(R.id.textView3);
+        //txtMoreResume = (TextView) findViewById(R.id.textView3);
         //Getting selected service
         Intent intent = getIntent();
         //String service = intent.getStringExtra(Global.SELECTED_SERVICE_KEY);
