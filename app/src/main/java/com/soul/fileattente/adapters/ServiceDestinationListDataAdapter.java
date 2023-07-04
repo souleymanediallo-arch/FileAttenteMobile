@@ -65,6 +65,7 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
 //            holder.relativeLayout.setEnabled(false);
 //        }
 //        //holder.textView.setText("["+serviceDestinationListData.getLibelleServiceDestination()+"] - "  + serviceDestinationListData.getNomServiceDestination());
+        //holder.textView.setText("["+serviceDestinationListData.getLibelleServiceDestination()+"] - "  + serviceDestinationListData.getNomServiceDestination());
         holder.textView.setText("["+serviceDestinationListData.getLibelleServiceDestination()+"] - "  + serviceDestinationListData.getNomServiceDestination());
 
         holder.imageView.setImageResource(serviceDestinationListData.getImgId());

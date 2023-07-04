@@ -119,13 +119,16 @@ public class FileAttenteRepository {
         });
     }
 
+    //https://stackoverflow.com/questions/24562716/how-to-retry-http-requests-with-okhttp-retrofit
+    //https://resilience4j.readme.io/v1.7.0/docs/retrofit#retry
+    //https://itecnote.com/tecnote/android-how-to-retry-http-requests-with-okhttp-retrofit/
     public void demandeAllParams(DemandeGeneric demandeGeneric) {
         Call<List<Param>> call = RetrofitClient.getInstance().getMyApi().demandeAllParams(demandeGeneric);
 
         call.enqueue(new Callback<List<Param>>() {
             @Override
             public void onResponse(Call<List<Param>> call, Response<List<Param>> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                System.out.println("-------------------------------> " + response.code() + "  >--<  \n" + response.toString() + "  --  \n" + response.body());
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -136,7 +139,10 @@ public class FileAttenteRepository {
 
             @Override
             public void onFailure(Call<List<Param>> call, Throwable t) {
-                System.out.printf(t.getMessage());
+                System.out.printf("-------------------------------> " + t.getMessage());
+                //UserViewModel.getListParamForDemandeAllParams().postValue(response.body());
+                UserViewModel.getListParamForDemandeAllParams().postValue(null);
+                //call.
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.soul.fileattente.api;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Headers;
 import okhttp3.Interceptor;
@@ -53,7 +54,15 @@ public class RetrofitClient {
                 Request newRequest = builder.build();
                 return chain.proceed(newRequest);
             }
-        }).build();
+        }).connectTimeout(10, TimeUnit.SECONDS)
+          .writeTimeout(10, TimeUnit.SECONDS)
+          .readTimeout(30, TimeUnit.SECONDS)
+          .build();
+
+//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder()
+//                .addInterceptor(loggingInterceptor)
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

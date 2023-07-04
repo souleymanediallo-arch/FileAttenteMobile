@@ -1,6 +1,7 @@
 package com.soul.fileattente.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -76,6 +78,10 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         txtGenNumero = (EditText) findViewById(R.id.textView);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         btnGenNumero = (Button) findViewById(R.id.buttonGenNumero);
+        //
+        btnGenNumero.setTextColor(Color.WHITE);
+        btnGenNumero.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
+        //
         btnSms = (Button) findViewById(R.id.buttonSendSMS);
 
         //Making relevent compoennt INVISBLE
@@ -214,6 +220,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         txtGenNumeroLabel.setVisibility(View.VISIBLE);
         txtGenNumero.setVisibility(View.VISIBLE);
         btnSms.setVisibility(View.VISIBLE);
+
+        btnSms.setTextColor(Color.WHITE);
+        btnSms.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
     }
 
     public void makeInvisibleRelevantCompnoent() {

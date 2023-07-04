@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -242,24 +243,36 @@ public class LoginActivity extends AppCompatActivity {
         userViewModel.getListParamForDemandeAllParams().observe(this, new Observer<List<Param>>() {
             @Override
             public void onChanged(List<Param> params) {
-                System.out.println("ListParamForDemandeAllParams Data Changed............................................");
-                mListParams = params;
-                adjustViewComponentsStatusAfterParamSyncCompleted();
+                if(params == null){
+                    System.out.println(" ERROR ListParamForDemandeAllParams Data Changed............................................");
+                    binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
+                    binding.textErroMessage.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
+                    binding.progressBar.setVisibility(View.INVISIBLE);
+                }else {
+                    System.out.println("ListParamForDemandeAllParams Data Changed............................................");
+                    mListParams = params;
+                    adjustViewComponentsStatusAfterParamSyncCompleted();
+                }
             }
         });
     }
 
     void adjustViewComponentsStatusBeforeParamSyncCompleted() {
         //https://www.computerhope.com/htmcolor.htm#color-codes
-        binding.btnLogin.setText("Loadig Applications Params..");
-        //binding.btnLogin.setTextColor(0x52595D); //#52595D
+        binding.btnLogin.setText("Loading Applications Params..");
+        //int color = Color.parseColor("#FFCCCCCC");
+        binding.btnLogin.setTextColor(Color.LTGRAY); //#52595D, 0x52595D, 0xff888888
+        //binding.btnLogin.setBackgroundColor(Color.LTGRAY);
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.btnLogin.setEnabled(false);
+        binding.txtInputLayoutEdtErroMessage.setVisibility(View.INVISIBLE);
     }
 
     void adjustViewComponentsStatusAfterParamSyncCompleted() {
         binding.btnLogin.setText("Se Connecter");
-        //binding.btnLogin.setTextColor(0x000000);
+        //binding.btnLogin.setTextColor(Color.BLACK);
+        binding.btnLogin.setTextColor(Color.WHITE);
+        binding.btnLogin.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.btnLogin.setEnabled(true);
     }
