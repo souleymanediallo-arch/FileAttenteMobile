@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,7 +82,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         btnGenNumero = (Button) findViewById(R.id.buttonGenNumero);
         //
         btnGenNumero.setTextColor(Color.WHITE);
-        btnGenNumero.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
+        //btnGenNumero.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
+        btnGenNumero.setEnabled(false);
+        btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
         //
         btnSms = (Button) findViewById(R.id.buttonSendSMS);
 
@@ -126,6 +130,31 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             }
         });
 
+        //
+        editTextPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                System.out.println("editable.toString() = " + editable.toString());
+                if (editable.toString().trim().length() == 9){
+                    btnGenNumero.setEnabled(true);
+                    btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
+                }else{
+                    btnGenNumero.setEnabled(false);
+                    btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+                }
+            }
+        });
+        //
 
         //Gestion button Enoi de sms
         //Button btnSms = (Button) findViewById(R.id.button2);
@@ -220,6 +249,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     }
 
     public void makeVisibleRelevantCompnoent() {
+        //
+        //editTextPhone.setEnabled(false);
+        //
         txtGenNumeroLabel.setVisibility(View.VISIBLE);
         txtGenNumero.setVisibility(View.VISIBLE);
         btnSms.setVisibility(View.VISIBLE);
