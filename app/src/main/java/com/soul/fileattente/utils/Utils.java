@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.speech.tts.TextToSpeech;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -57,20 +58,30 @@ public class Utils {
         //}
     }
 
-    //https://www.tutlane.com/tutorial/android/android-send-sms-with-examples
-    public static void sendTextAsSms(Context context, String mobileNumber, String textMessage) {
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse("smsto:"));
-            i.setType("vnd.android-dir/mms-sms");
-            i.putExtra("address", mobileNumber);
-            i.putExtra("sms_body", textMessage);
-            context.startActivity(Intent.createChooser(i, "Send sms via:"));
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
-            Toast.makeText(context, "Echec envoi sms...", Toast.LENGTH_SHORT).show();
+    public static void sendTextAsSms(String mobileNumber, String textMessage){
+        if(mobileNumber.equalsIgnoreCase("000000000")) {
+            mobileNumber="+33652178684";
+        }
+        SmsManager smsManager = SmsManager.getDefault();
+        if(smsManager != null) {
+            smsManager.sendTextMessage(mobileNumber, null, textMessage, null, null);
         }
     }
+
+//    //https://www.tutlane.com/tutorial/android/android-send-sms-with-examples
+//    public static void sendTextAsSms(Context context, String mobileNumber, String textMessage) {
+//        try {
+//            Intent i = new Intent(Intent.ACTION_VIEW);
+//            i.setData(Uri.parse("smsto:"));
+//            i.setType("vnd.android-dir/mms-sms");
+//            i.putExtra("address", mobileNumber);
+//            i.putExtra("sms_body", textMessage);
+//            context.startActivity(Intent.createChooser(i, "Send sms via:"));
+//        } catch (Exception e) {
+//            System.out.println(e.getLocalizedMessage());
+//            Toast.makeText(context, "Echec envoi sms...", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     //https://www.tutorialspoint.com/android/android_sending_email.htm
     public static void sendTextAsEmail(Context context, String[] to, String[] cc, String subject, String message) {

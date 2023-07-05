@@ -169,7 +169,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 //                EcranPrincipalActivity.this.startActivity(intent);
 
                 //Text to Voice
-                //initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + editTextPhone.getText().toString() + "]");
+                initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + editTextPhone.getText().toString() + "]");
                 //Text to Voice
 
                 Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);

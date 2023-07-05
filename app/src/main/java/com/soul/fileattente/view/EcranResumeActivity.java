@@ -75,8 +75,17 @@ public class EcranResumeActivity extends AppCompatActivity {
         initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + telephone + "]");
         //Utils.translateFromTextToSpeech(initializedTextToSpeechInstancefromCallingActivity, "Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + telephone + "]");
         //txtMoreResume.setText(mGlobalSetOfExtra.mNumeroSuivantFile.toString());
-        sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), mGlobalSetOfExtra.mNumeroSuivantFile.toString());
-        //
+        //sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), mGlobalSetOfExtra.mNumeroSuivantFile.toString());
+        System.out.println("mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur() -> " + mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur() + "  --  mGlobalSetOfExtra.mNumeroSuivantFile.toString() -> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
+        String messToSend =
+                "Numero : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNumeroSuivant() + "\n" +
+                "Service : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNomService() + "\n" +
+                "Nb Pers en Attente : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNbTotalDemandeursEnCours() + "\n" +
+                "Temps Attente Moyen : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteMoyen() + "\n" +
+                "Temps Attente Estime : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteEstime();
+
+        //Utils.sendTextAsSms("0652178684", messToSend);
+        Utils.sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), messToSend); //à decommenter à la livraison
         launchAutomaticallyMainScreen();
     }
 
@@ -107,7 +116,7 @@ public class EcranResumeActivity extends AppCompatActivity {
             }
         });
     }
-    //https://www.tutlane.com/tutorial/android/android-send-sms-with-examples
+    //https://www.tutlane.com/tutorial/android/android-send-sms-with-examples -- Demande une intervention manuelle **
 //    void sendTextAsSms(String mobileNumber, String textMessage) {
 //        try{
 //            Intent i = new Intent(Intent.ACTION_VIEW);
@@ -122,19 +131,21 @@ public class EcranResumeActivity extends AppCompatActivity {
 //        }
 //    }
 
-    void sendTextAsSms(String mobileNumber, String textMessage){
+//    void sendTextAsSms(String mobileNumber, String textMessage){
+//
+//        ContentValues values = new ContentValues();
+//        values.put("address", mobileNumber); // phone number to send
+//        values.put("date", System.currentTimeMillis()+"");
+//        values.put("read", "1"); // if you want to mark is as unread set to 0
+//        values.put("type", "2"); // 2 means sent message
+//        values.put("body", textMessage);
+//
+//        Uri uri = Uri.parse("content://sms/");
+//        Uri rowUri = this.getContentResolver().insert(uri,values);
+//    }
 
-        ContentValues values = new ContentValues();
-        values.put("address", mobileNumber); // phone number to send
-        values.put("date", System.currentTimeMillis()+"");
-        values.put("read", "1"); // if you want to mark is as unread set to 0
-        values.put("type", "2"); // 2 means sent message
-        values.put("body", textMessage);
 
-        Uri uri = Uri.parse("content://sms/");
-        Uri rowUri = this.getContentResolver().insert(uri,values);
-    }
-
+    //cette version Plante mais devrait etre la bonne version
 //    void sendTextAsSms(String mobileNumber, String textMessage){
 //
 //        SmsManager smsManager = SmsManager.getDefault();
@@ -143,6 +154,12 @@ public class EcranResumeActivity extends AppCompatActivity {
 //        }
 //    }
 
+//    //Getting intent and PendingIntent instance
+//    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+//    PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
+//    //Get the SmsManager instance and call the sendTextMessage method to send message
+//    SmsManager sms=SmsManager.getDefault();
+//    sms.sendTextMessage("8802177690", null, "hello javatpoint", pi,null);
 
 //    // create an object textToSpeech and adding features into it
 //    void translateTextToSpeech(){
@@ -157,4 +174,6 @@ public class EcranResumeActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+
+    //https://github.com/AndroidGifts/Send-SMS-Programmatically-with-delivery-report/blob/master/app/src/main/java/com/androidgifts/gift/sendsmsprogrammatically/MainActivity.java
 }

@@ -239,11 +239,16 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomService() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
-                String messageAnnonce = "Service " + numeroSuivantFile.getNomService() + " Numero " + numeroSuivantFile.getNumeroSuivant();
+                String messageAnnonce =
+                        "Service " + numeroSuivantFile.getNomService() +   "\n" +
+                        "Numero " + numeroSuivantFile.getNumeroSuivant() + "\n" +
+                        "Votre tour est arrivé";
                 String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
                 initializedTextToSpeechInstance(messageAnnonce);
                 //Utils.sendTextAsSms(EcranPrincipalMonitoringActivityList.this,telephoneDemandeur,messageAnnonce) ;
                 //sendTextAsSms(telephoneDemandeur, messageAnnonce);
+                //telephoneDemandeur = "000000000"; //A enelver en mise en Prod
+                Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
             }
         });
     }
@@ -270,11 +275,11 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         });
     }
 
-    void sendTextAsSms(String mobileNumber, String textMessage){
-
-        SmsManager smsManager = SmsManager.getDefault();
-        if(smsManager != null) {
-            smsManager.sendTextMessage(mobileNumber, null, textMessage, null, null);
-        }
-    }
+//    void sendTextAsSms(String mobileNumber, String textMessage){
+//
+//        SmsManager smsManager = SmsManager.getDefault();
+//        if(smsManager != null) {
+//            smsManager.sendTextMessage(mobileNumber, null, textMessage, null, null);
+//        }
+//    }
 }
