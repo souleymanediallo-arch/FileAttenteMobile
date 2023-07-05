@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="blue">#0000FF</color>
     <color name="white">#FFFFFFFF</color>
-
+    <color name="green">#349e5e</color>
+    <color name="red">#F44386</color>
     <color name="platinum_silver">#CECECE</color>
     <color name="platinum">#E5E4E2</color>
 </resources>

@@ -15,7 +15,6 @@ import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ServiceMonitorListItemBinding;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
-import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
 
 import java.util.ArrayList;
 
@@ -116,11 +115,11 @@ public class ServiceDestinationMonitoringListDataAdapter extends RecyclerView.Ad
 
             this.imageView = (ImageView) itemView.findViewById(R.id.imageView);
             this.txtServiceDestination = (TextView) itemView.findViewById(R.id.txtServiceDestination);
-            this.txtNumPatientCourant = (TextView) itemView.findViewById(R.id.txtNumPatientCourant);
+            this.txtNumPatientCourant = (TextView) itemView.findViewById(R.id.txtNbPatientServiceCourant);
             this.txtnumPatientSuivant = (TextView) itemView.findViewById(R.id.txtnumPatientSuivant);
             this.txtSuivant = (TextView) itemView.findViewById(R.id.txtSuivant);
             this.txtAnnuler = (TextView) itemView.findViewById(R.id.txtAnnuler);
-            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.linearLayout);
 
         }
     }

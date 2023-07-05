@@ -1,25 +1,22 @@
 package com.soul.fileattente.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soul.fileattente.R;
 import com.soul.fileattente.model.DemandeGeneric;
-import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
-import com.soul.fileattente.view.EcranPrincipalActivity;
 import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
-import com.soul.fileattente.view.EcranPrincipalMonitoringNumeroFileActivityList;
 
 import java.util.ArrayList;
 
@@ -47,12 +44,17 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
         final ServiceAGGListData serviceAGGListData = listdata.get(position);
 //        holder.textView.setText(serviceAGGListData.getNomService() + " -- " + serviceAGGListData.getNumeroSuivant() + " -- " + serviceAGGListData.getNbDemandeur());
 
-        holder.txtServiceDestination.setText(Utils.formatStringForView(serviceAGGListData.getNomService()));
-        holder.txtNumPatientCourant.setText(serviceAGGListData.getNbDemandeur());
+        //holder.txtServiceDestination.setText(Utils.formatStringForView(serviceAGGListData.getNomService()));
+        holder.txtServiceDestination.setText(serviceAGGListData.getNomService());
+        holder.txtNbPatientServiceCourant.setText(serviceAGGListData.getNbDemandeur());
         holder.txtnumPatientSuivant.setText(serviceAGGListData.getNumeroSuivant());
         holder.txtSuivant.setText("Suivant");
         holder.txtAnnuler.setText("Annuler");
 
+        if(position % 2 == 0) {
+            holder.linearLayout.setBackgroundColor(Color.LTGRAY);
+            holder.linearLayout.setBackgroundColor(Color.BLUE);
+        }
 
         holder.imageView.setImageResource(serviceAGGListData.getImgId());
 //        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -137,22 +139,23 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView txtServiceDestination;
-        public TextView txtNumPatientCourant;
+        public TextView txtNbPatientServiceCourant;
         public TextView txtnumPatientSuivant;
         public TextView txtSuivant;
         public TextView txtAnnuler;
-        public RelativeLayout relativeLayout;
+        //public RelativeLayout relativeLayout;
+        public LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.imageView = (ImageView) itemView.findViewById(R.id.imageView);
             this.txtServiceDestination = (TextView) itemView.findViewById(R.id.txtServiceDestination);
-            this.txtNumPatientCourant = (TextView) itemView.findViewById(R.id.txtNumPatientCourant);
+            this.txtNbPatientServiceCourant = (TextView) itemView.findViewById(R.id.txtNbPatientServiceCourant);
             this.txtnumPatientSuivant = (TextView) itemView.findViewById(R.id.txtnumPatientSuivant);
             this.txtSuivant = (TextView) itemView.findViewById(R.id.txtSuivant);
             this.txtAnnuler = (TextView) itemView.findViewById(R.id.txtAnnuler);
-            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
-
+//            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
+            linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
         }
     }
 }

@@ -1,87 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relativeLayout"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeightLarge"
-    android:background="@drawable/border">
+    android:background="@drawable/border"
+    android:orientation="horizontal">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.5"
+        >
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:paddingTop="20dp"
+        />
+    </LinearLayout>
 
-        android:contentDescription="Icon"
-        app:srcCompat="@mipmap/ic_service" />
-
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="2"
+        >
     <TextView
         android:id="@+id/txtServiceDestination"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@id/imageView"
-        android:layout_toRightOf="@id/imageView"
         android:gravity="center_vertical"
         android:text="Gynecologie"
-        android:textSize="16sp"
         android:textColor="@color/black"
+        android:textSize="16sp"
         android:textStyle="bold"
+        android:paddingStart="5dp"
         />
+    </LinearLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        >
     <TextView
-        android:id="@+id/txtNumPatientCourant"
+        android:id="@+id/txtNbPatientServiceCourant"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@id/txtServiceDestination"
-        android:layout_toRightOf="@id/txtServiceDestination"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
         android:text="001"
-        android:textSize="16sp"
+        android:gravity="center"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        >
     <TextView
         android:id="@+id/txtnumPatientSuivant"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@id/txtNumPatientCourant"
-        android:layout_toRightOf="@id/txtNumPatientCourant"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
         android:text="002"
-        android:textSize="16sp"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+    </LinearLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        >
     <TextView
         android:id="@+id/txtSuivant"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@id/txtnumPatientSuivant"
-        android:layout_toRightOf="@id/txtnumPatientSuivant"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
         android:text="Suivant"
         android:textSize="16sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textColor="@color/green"
+        android:textStyle="bold"
+        />
+    </LinearLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        >
     <TextView
         android:id="@+id/txtAnnuler"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@id/txtSuivant"
-        android:layout_toRightOf="@id/txtSuivant"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
         android:text="Annuler"
         android:textSize="16sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
-
-</RelativeLayout>
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        />
+    </LinearLayout>
+</LinearLayout>

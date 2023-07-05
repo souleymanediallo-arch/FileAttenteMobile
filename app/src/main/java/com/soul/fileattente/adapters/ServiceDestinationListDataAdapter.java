@@ -1,7 +1,6 @@
 package com.soul.fileattente.adapters;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +102,7 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
             super(itemView);
             this.imageView = (ImageView) itemView.findViewById(R.id.imageView);
             this.textView = (TextView) itemView.findViewById(R.id.textView);
-            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.linearLayout);
         }
     }
 }
