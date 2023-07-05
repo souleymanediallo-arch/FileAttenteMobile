@@ -107,11 +107,11 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
             case "Scanner":
                 return R.drawable.ic_scanner;
 
-            case "Generakiste":
+            case "Generaliste":
                 return R.drawable.ic_stetoscope_generaliste;
 
             case "Cardiologue":
-                return R.drawable.ic_cadiologie;
+                return R.drawable.ic_cardiologie;
 
             case "Analyse":
                 return R.drawable.ic_analyse;

@@ -117,6 +117,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                 txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] est :");
                 txtGenNumero.setText(strValueGenNumero);
                 btnGenNumero.setEnabled(false);
+                //
+                btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+                //
 
                 //Making relevent compoennt VISBLE
                 makeVisibleRelevantCompnoent();
