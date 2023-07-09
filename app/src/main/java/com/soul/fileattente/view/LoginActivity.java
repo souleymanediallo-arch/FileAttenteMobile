@@ -76,18 +76,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-//                    binding.btnLogin.setBackgroundColor(Color.BLUE);
-//                    binding.btnLogin.setBackgroundColor(Color.BLUE);
-//                    binding.btnLogin.setBackgroundColor(Color.BLUE);
                     binding.btnLogin.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    //binding.btnLogin.setBackgroundColor(Color.BLUE);
-                    binding.btnLogin.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+                    binding.btnLogin.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_700));
                 }
                 return false;
             }
         });
 
+        binding.btnRefresh.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    binding.btnRefresh.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    binding.btnRefresh.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_700));
+                }
+                return false;
+            }
+        });
         //
         handleSpinner();
 
@@ -199,6 +206,19 @@ public class LoginActivity extends AppCompatActivity {
         LoginActivity.this.startActivity(intent);
     }
 
+
+    private void navigateToEcranDocteurActivityList() {
+        binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
+        binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
+        binding.progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void navigateToEcranAdministrateurActivityList() {
+        binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
+        binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
+        binding.progressBar.setVisibility(View.INVISIBLE);
+    }
+
 //    private void navigateToEcranPrincipalMonitoringActivityList() {
 //        Intent intent = new Intent(LoginActivity.this, EcranPrincipalMonitoringNumeroFileActivityList.class);
 //
@@ -259,10 +279,10 @@ public class LoginActivity extends AppCompatActivity {
                     navigateToEcranPrincipalActivityList();
                 }
                 if(chosenProfile.equalsIgnoreCase("Docteur"))  {
-                    //navigateToEcranPrincipalActivityList();
+                    navigateToEcranDocteurActivityList();
                 }
                 if(chosenProfile.equalsIgnoreCase("Administrateur"))  {
-                    //navigateToEcranPrincipalActivityList();
+                    navigateToEcranAdministrateurActivityList();
                 }
             }
         });

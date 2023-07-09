@@ -2,6 +2,7 @@ package com.soul.fileattente.adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soul.fileattente.R;
@@ -60,10 +62,22 @@ public class ServiceDestinationMonitoringListDataAdapter extends RecyclerView.Ad
 
 //        holder.txtServiceDestination.setText(serviceDestinationListData.getNomService() + " -- " + serviceDestinationListData.getStatutService());
         holder.txtServiceDestination.setText(Utils.formatStringForView(serviceDestinationListData.getNomServiceDestination()));
-        holder.txtNumPatientCourant.setText("0001");
-        holder.txtnumPatientSuivant.setText("0002");
+//        holder.txtNumPatientCourant.setText("0001");
+//        holder.txtnumPatientSuivant.setText("0002");
         holder.txtSuivant.setText("Suivant");
         holder.txtAnnuler.setText("Annuler");
+
+//        holder.txtSuivant.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    holder.txtSuivant.setBackgroundColor(ContextCompat.getColor(holder.imageView.getContext(), R.color.purple_500));
+//                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    holder.txtSuivant.setBackgroundColor(ContextCompat.getColor(holder.imageView.getContext(), R.color.purple_700));
+//                }
+//                return false;
+//            }
+//        });
 
         holder.imageView.setImageResource(serviceDestinationListData.getImgId());
 //        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {

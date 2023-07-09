@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -179,6 +180,32 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                 EcranPrincipalActivity.this.startActivity(intent);
             }
         });
+
+        //
+        binding.buttonGenNumero.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    binding.buttonGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    binding.buttonGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_700));
+                }
+                return false;
+            }
+        });
+
+        binding.buttonSendSMS.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    binding.buttonSendSMS.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    binding.buttonSendSMS.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_700));
+                }
+                return false;
+            }
+        });
+        //
     }
 
     //--------------------
