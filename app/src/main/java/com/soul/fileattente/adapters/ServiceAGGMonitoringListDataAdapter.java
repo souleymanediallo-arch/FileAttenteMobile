@@ -53,7 +53,8 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
 
         if(position % 2 == 0) {
             holder.linearLayout.setBackgroundColor(Color.LTGRAY);
-            holder.linearLayout.setBackgroundColor(Color.BLUE);
+            //holder.linearLayout.setBackgroundColor(Color.BLUE);
+            holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.imageView.getContext(), R.color.lgray));
         }
 
         holder.imageView.setImageResource(serviceAGGListData.getImgId());

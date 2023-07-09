@@ -16,6 +16,7 @@ import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
+import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
 
         //userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
         userViewModel.demandeAllServicesDestination(demandeGeneric);
+        binding.progressBar.setVisibility(View.VISIBLE);
 
         //Process whenever there is a change
         processWhenListServiceDestinationForDemandeAllServicesDestinationChanged();
@@ -73,50 +75,51 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
                 System.out.println("ListServiceDestinationForDemandeAllServicesDestination Data Changed............................................" + serviceDestinations + "---------");
                 serviceDestinationListData.clear();
                 for (ServiceDestination serviceDestination : serviceDestinations) {
-                    int imageId = getRihtImageIdGivenServiceName(serviceDestination.getNomServiceDestination());
+                    int imageId = Utils.getRihtImageIdGivenServiceName(serviceDestination.getNomServiceDestination());
                     //serviceDestinationListData.add(new ServiceDestinationListData(serviceDestination, R.drawable.ic_baseline_timer_24));
                     serviceDestinationListData.add(new ServiceDestinationListData(serviceDestination, imageId));
                 }
                 serviceDestinationListDataAdapter.notifyDataSetChanged();
+                binding.progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
 
-    int getRihtImageIdGivenServiceName(String serviceName){
-
-        switch(serviceName){
-
-            case "Pediatrie":
-                return R.drawable.ic_child_care;
-
-            case "Gyneco":
-                return R.drawable.ic_pregnant_woman;
-
-            case "Chirurgie":
-                return R.drawable.ic_airline_bed_surgery;
-
-            case "Laboratoire":
-                return R.drawable.ic_lab;
-
-            case "Retrait Resuktat":
-                return R.drawable.ic_retrait_res;
-
-            case "Radio":
-                return R.drawable.ic_radio;
-
-            case "Scanner":
-                return R.drawable.ic_scanner;
-
-            case "Generaliste":
-                return R.drawable.ic_stetoscope_generaliste;
-
-            case "Cardiologue":
-                return R.drawable.ic_cardiologie;
-
-            case "Analyse":
-                return R.drawable.ic_analyse;
-            default:
-                return R.drawable.ic_baseline_timer_24;
-        }
-    }
+//    int getRihtImageIdGivenServiceName(String serviceName){
+//
+//        switch(serviceName){
+//
+//            case "Pediatrie":
+//                return R.drawable.ic_child_care;
+//
+//            case "Gyneco":
+//                return R.drawable.ic_pregnant_woman;
+//
+//            case "Chirurgie":
+//                return R.drawable.ic_airline_bed_surgery;
+//
+//            case "Laboratoire":
+//                return R.drawable.ic_lab;
+//
+//            case "Retrait Resuktat":
+//                return R.drawable.ic_retrait_res;
+//
+//            case "Radio":
+//                return R.drawable.ic_radio;
+//
+//            case "Scanner":
+//                return R.drawable.ic_scanner;
+//
+//            case "Generaliste":
+//                return R.drawable.ic_stetoscope_generaliste;
+//
+//            case "Cardiologue":
+//                return R.drawable.ic_cardiologie;
+//
+//            case "Analyse":
+//                return R.drawable.ic_analyse;
+//            default:
+//                return R.drawable.ic_baseline_timer_24;
+//        }
+//    }
 }

@@ -7,6 +7,7 @@ import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -30,9 +31,14 @@ public class RetrofitClient {
         //.build();
         //myApi = retrofit.create(Api.class);
 
+//        Builder okHttpClient = new OkHttpClient().newBuilder();
+//        okHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
+//        okHttpClient.setReadTimeout(10, TimeUnit.SECONDS);
+//        okHttpClient. readTimeout(30, TimeUnit.SECONDS);
+
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
+            public Response intercept(Chain chain) throws IOException {
                 Request originalRequest = chain.request();
 
                 //HTP codesUltimate Reference : https://netnut.io/how-to-solve-proxy-error-codes/
@@ -53,10 +59,54 @@ public class RetrofitClient {
                 Request.Builder builder = originalRequest.newBuilder().headers(headers.build());
                 Request newRequest = builder.build();
                 return chain.proceed(newRequest);
+//                Response response = chain.proceed(newRequest);
+//                System.out.println("intercept - Request is not successful - response.isSuccessful() .........." + response.isSuccessful());
+//                int tryCount = 0;
+//                while (!response.isSuccessful() && tryCount < 3) {
+//
+//                    System.out.println("intercept - Request is not successful - ************* " + response.isSuccessful());
+//
+//                    tryCount++;
+//
+//                    // retry the request
+//                    response.close();
+//                    response = chain.proceed(newRequest);
+//                }
+//
+//                // otherwise just pass the original response on
+//
+//                return response;
             }
-        }).connectTimeout(10, TimeUnit.SECONDS)
-          .writeTimeout(10, TimeUnit.SECONDS)
-          .readTimeout(30, TimeUnit.SECONDS)
+        })
+//        .addInterceptor(new Interceptor() {
+//
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                Request request = chain.request();
+//
+//                // try the request
+//
+//                Response response = chain.proceed(request);
+//                System.out.println("intercept - Request is not successful - response.isSuccessful() .........." + response.isSuccessful());
+//                int tryCount = 0;
+//                while (!response.isSuccessful() && tryCount < 3) {
+//
+//                    System.out.println("intercept - Request is not successful - ************* " + response.isSuccessful());
+//
+//                    tryCount++;
+//
+//                    // retry the request
+//                    response.close();
+//                    response = chain.proceed(request);
+//                }
+//
+//                // otherwise just pass the original response on
+//                return response;
+//            }
+//        })
+          .connectTimeout(5, TimeUnit.SECONDS)
+          .writeTimeout(3, TimeUnit.SECONDS)
+          .readTimeout(5, TimeUnit.SECONDS)
           .build();
 
 //        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -66,6 +116,7 @@ public class RetrofitClient {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+
                 .client(okHttpClient)
                 .build();
         myApi = retrofit.create(Api.class);
@@ -81,4 +132,6 @@ public class RetrofitClient {
     public Api getMyApi() {
         return myApi;
     }
+
+    //https://stackoverflow.com/questions/24562716/how-to-retry-http-requests-with-okhttp-retrofit // TimeOut Interceptor
 }

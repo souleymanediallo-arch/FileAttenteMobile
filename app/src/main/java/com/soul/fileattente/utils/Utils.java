@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.soul.fileattente.R;
 import com.soul.fileattente.model.Param;
 
 import java.util.List;
@@ -147,6 +148,43 @@ public class Utils {
         context.startActivity(intent);
     }
 
+    public static int getRihtImageIdGivenServiceName(String serviceName){
+
+        switch(serviceName){
+
+            case "Pediatrie":
+                return R.drawable.ic_child_care;
+
+            case "Gyneco":
+                return R.drawable.ic_pregnant_woman;
+
+            case "Chirurgie":
+                return R.drawable.ic_airline_bed_surgery;
+
+            case "Laboratoire":
+                return R.drawable.ic_lab;
+
+            case "Retrait Resuktat":
+                return R.drawable.ic_retrait_res;
+
+            case "Radio":
+                return R.drawable.ic_radio;
+
+            case "Scanner":
+                return R.drawable.ic_scanner;
+
+            case "Generaliste":
+                return R.drawable.ic_stetoscope_generaliste;
+
+            case "Cardiologue":
+                return R.drawable.ic_cardiologie;
+
+            case "Analyse":
+                return R.drawable.ic_analyse;
+            default:
+                return R.drawable.ic_baseline_timer_24;
+        }
+    }
     //Better Place this in the activity needing them because probably of the Contexte
     //-------------------------------------------------------------------------------
     //

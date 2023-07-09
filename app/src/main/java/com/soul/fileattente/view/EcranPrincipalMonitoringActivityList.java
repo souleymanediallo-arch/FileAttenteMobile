@@ -93,6 +93,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(serviceAGGMonitoringListDataAdapter);
+        binding.progressBar.setVisibility(View.VISIBLE);
 
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
         connect(); // it will connext and subscribe if connextion is uccessfuk..
@@ -124,9 +125,12 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 if(serviceAGGs != null) {
                     serviceAGGListData.clear();
                     for (ServiceAGG serviceAGG : serviceAGGs) {
-                        serviceAGGListData.add(new ServiceAGGListData(serviceAGG, R.drawable.ic_baseline_timer_24));
+                        int imageId = Utils.getRihtImageIdGivenServiceName(serviceAGG.getNomService());
+                        //serviceAGGListData.add(new ServiceAGGListData(serviceAGG, R.drawable.ic_baseline_timer_24));
+                        serviceAGGListData.add(new ServiceAGGListData(serviceAGG, imageId));
                     }
                     serviceAGGMonitoringListDataAdapter.notifyDataSetChanged();
+                    binding.progressBar.setVisibility(View.INVISIBLE);
                 }else{
                     System.out.println("Enable to get data from the serveur check...if erreur....");
                 }

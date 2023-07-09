@@ -144,7 +144,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                System.out.println("editable.toString() = " + editable.toString());
+                //System.out.println("editable.toString() = " + editable.toString());
                 if (editable.toString().trim().length() == 9){
                     btnGenNumero.setEnabled(true);
                     btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -61,6 +62,31 @@ public class LoginActivity extends AppCompatActivity {
         demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
 
         userViewModel.demandeAllParams(demandeGeneric);
+
+        //Rafrachir
+        binding.btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Refresh Button Click.............................................................................................");
+                userViewModel.demandeAllParams(demandeGeneric);
+            }
+        });
+        //
+        binding.btnLogin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    binding.btnLogin.setBackgroundColor(Color.BLUE);
+//                    binding.btnLogin.setBackgroundColor(Color.BLUE);
+//                    binding.btnLogin.setBackgroundColor(Color.BLUE);
+                    binding.btnLogin.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    //binding.btnLogin.setBackgroundColor(Color.BLUE);
+                    binding.btnLogin.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+                }
+                return false;
+            }
+        });
 
         //
         handleSpinner();
@@ -155,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
         mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
         mGlobalSetOfExtra.mListParams = mListParams;
         intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+        binding.progressBar.setVisibility(View.INVISIBLE);
         LoginActivity.this.startActivity(intent);
     }
 
@@ -168,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
         mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
         mGlobalSetOfExtra.mListParams = mListParams;
         intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+        binding.progressBar.setVisibility(View.INVISIBLE);
         LoginActivity.this.startActivity(intent);
     }
 
@@ -188,10 +216,11 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String chosenProfile = (binding.profilSpinnerEdtxt).getText().toString();
-                //System.out.println("-------------------------------------------------------------> I got clicked  --->  " + chosenProfile);
+                String chosenProfile = (binding.profilSpinnerEdtxt).getText().toString();
+                System.out.println("-------------------------------------------------------------> I got clicked  --->  " + chosenProfile);
                 mLogin = new Login("admin", "admin");
                 userViewModel.authenticate(mLogin);
+                binding.progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -248,10 +277,12 @@ public class LoginActivity extends AppCompatActivity {
                     binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
                     binding.textErroMessage.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
                     binding.progressBar.setVisibility(View.INVISIBLE);
+                    hanldeRefreshButtonWhenNotOK();
                 }else {
                     System.out.println("ListParamForDemandeAllParams Data Changed............................................");
                     mListParams = params;
                     adjustViewComponentsStatusAfterParamSyncCompleted();
+                    hanldeRefreshButtonWhenOK();
                 }
             }
         });
@@ -266,6 +297,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.btnLogin.setEnabled(false);
         binding.txtInputLayoutEdtErroMessage.setVisibility(View.INVISIBLE);
+        binding.btnRefresh.setVisibility(View.INVISIBLE);
     }
 
     void adjustViewComponentsStatusAfterParamSyncCompleted() {
@@ -275,8 +307,23 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.btnLogin.setEnabled(true);
+
+        //binding.btnLogin.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_refresh));
+        //binding.btnLogin.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_refresh),null,null,null);
+
     }
 
+    void hanldeRefreshButtonWhenNotOK(){
+        binding.btnRefresh.setVisibility(View.VISIBLE);
+        binding.btnRefresh.setText("Rafrachir...");
+        binding.btnRefresh.setTextColor(Color.WHITE);
+        binding.btnRefresh.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
+    }
+
+    void hanldeRefreshButtonWhenOK(){
+        binding.btnRefresh.setVisibility(View.GONE);
+        binding.txtInputLayoutEdtErroMessage.setVisibility(View.INVISIBLE);
+    }
     //
     private void print(final String message) {
         runOnUiThread(new Runnable() {
