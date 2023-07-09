@@ -104,9 +104,9 @@ public class RetrofitClient {
 //                return response;
 //            }
 //        })
-          .connectTimeout(5, TimeUnit.SECONDS)
-          .writeTimeout(3, TimeUnit.SECONDS)
-          .readTimeout(5, TimeUnit.SECONDS)
+          .connectTimeout(50, TimeUnit.SECONDS)
+          .writeTimeout(50, TimeUnit.SECONDS)
+          .readTimeout(50, TimeUnit.SECONDS)
           .build();
 
 //        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();

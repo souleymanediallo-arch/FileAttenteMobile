@@ -43,10 +43,14 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
     TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
 
+    static int nbTimesPostDataTriggered = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_ecran_principal);
+        System.out.println("--------------------------------------------> INSIDE onCreate <--------------------------------------------");
+
 
         //Using ViewBinding to manage Layout Components
         binding = ActivityEcranPrincipalBinding.inflate(getLayoutInflater());
@@ -91,6 +95,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 
         //Making relevent compoennt INVISBLE
         makeInvisibleRelevantCompnoent();
+        //nbTimesPostDataTriggered = 0;
 
         //
         processWhenNumeroSuivantFileForDemandeNumerosSuivantChanged();
@@ -119,15 +124,16 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                 if (valueGenNumero >= 10 && valueGenNumero < 100) {
                     strValueGenNumero = "0" + valueGenNumero;
                 }
-                txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] est :");
-                txtGenNumero.setText(strValueGenNumero);
-                btnGenNumero.setEnabled(false);
-                //
-                btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+//                txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] est :");
+//                txtGenNumero.setText(strValueGenNumero);
+//                btnGenNumero.setEnabled(false);
+//                //
+//                btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
                 //
 
                 //Making relevent compoennt VISBLE
-                makeVisibleRelevantCompnoent();
+                //makeVisibleRelevantCompnoent();
+                //makeInvisibleRelevantCompnoent();
             }
         });
 
@@ -177,7 +183,12 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                 intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
                 intent.putExtra(GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY, editTextPhone.getText().toString()); //Optional parameters
                 intent.putExtra(GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY, String.valueOf(strValueGenNumero)); //Optional parameters
+                //
+                //makeInvisibleRelevantCompnoent();
+                //
                 EcranPrincipalActivity.this.startActivity(intent);
+                finish();
+                finish();
             }
         });
 
@@ -206,6 +217,13 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             }
         });
         //
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        System.out.println("--------------------------------------------> INSIDE onStart <--------------------------------------------");
+        makeInvisibleRelevantCompnoent();
     }
 
     //--------------------
@@ -253,32 +271,66 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     }
 
     void processWhenNumeroSuivantFileForDemandeNumerosSuivantChanged() {
+
         userViewModel.getNumeroSuivantFileForDemandeNumerosSuivant().observe(this, new Observer<NumeroSuivantFile>() {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
-                System.out.println("NumeroSuivantFileForDemandeNumerosSuivant Data Changed............................................");
-                System.out.println("numeroSuivantFile  --------> " + numeroSuivantFile.toString());
-                txtGenNumero.setText(numeroSuivantFile.getNumeroSuivant());
-                strValueGenNumero = numeroSuivantFile.getNumeroSuivant();
-                mGlobalSetOfExtra.mNumeroSuivantFile = numeroSuivantFile;
-                binding.progressBar.setVisibility(View.INVISIBLE);
-                //makeGoneRelevantCompnoent();
-                //binding.editTextTextMultiLine.setText(numeroSuivantFile.toString());
+
+                nbTimesPostDataTriggered++;
+                System.out.println("nbTimesPostDataTriggered............................................" + nbTimesPostDataTriggered);
+
+                if (nbTimesPostDataTriggered == 1) {
+                    if (numeroSuivantFile != null) {
+                            System.out.println("NumeroSuivantFileForDemandeNumerosSuivant Data Changed............................................");
+                            System.out.println("numeroSuivantFile  --------> " + numeroSuivantFile.toString());
+                            makeVisibleRelevantCompnoent();
+                            txtGenNumeroLabel.setText("Votre numéro pour le service [" + numeroSuivantFile.getNomService() + "] est :");
+                            txtGenNumero.setText(numeroSuivantFile.getNumeroSuivant());
+                            strValueGenNumero = numeroSuivantFile.getNumeroSuivant();
+                            mGlobalSetOfExtra.mNumeroSuivantFile = numeroSuivantFile;
+                            binding.progressBar.setVisibility(View.INVISIBLE);
+                            //
+                            btnGenNumero.setEnabled(false);
+                            btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+                            //
+                            //makeInvisibleRelevantCompnoent();
+                            //binding.editTextTextMultiLine.setText(numeroSuivantFile.toString());.
+                    } else {
+                        makeVisibleRelevantCompnoent();
+                        //txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] est :");
+                        txtGenNumeroLabel.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
+                        txtGenNumero.setText("XXX.00");
+                        //btnGenNumero.setEnabled(false);
+                        binding.progressBar.setVisibility(View.INVISIBLE);
+                        binding.buttonSendSMS.setVisibility(View.INVISIBLE);
+                        binding.buttonGenNumero.setEnabled(true);
+                        //makeInvisibleRelevantCompnoent();
+                        nbTimesPostDataTriggered = 0;
+                    }
+                }
+                //Gestion des effets de bord des LiveData qui poste des valeurs 2 fois
+                if (nbTimesPostDataTriggered == 2){
+                    nbTimesPostDataTriggered = 0;
+                }
+                //userViewModel.getNumeroSuivantFileForDemandeNumerosSuivant().removeObservers(EcranPrincipalActivity.this);
             }
         });
     }
     //----------------------------------------------
 
+
     @Override
     protected void onRestart() {
         super.onRestart();
         makeInvisibleRelevantCompnoent();
+        System.out.println("--------------------------------------------> INSIDE onRestart <--------------------------------------------");
     }
 
     public void makeVisibleRelevantCompnoent() {
         //
         //editTextPhone.setEnabled(false);
         //
+        System.out.println("--------------------------------------------> INSIDE makeVisibleRelevantCompnoent <--------------------------------------------");
         txtGenNumeroLabel.setVisibility(View.VISIBLE);
         txtGenNumero.setVisibility(View.VISIBLE);
         btnSms.setVisibility(View.VISIBLE);
@@ -288,6 +340,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     }
 
     public void makeInvisibleRelevantCompnoent() {
+        System.out.println("--------------------------------------------> INSIDE makeInvisibleRelevantCompnoent <--------------------------------------------");
         txtGenNumeroLabel.setVisibility(View.INVISIBLE);
         txtGenNumero.setVisibility(View.INVISIBLE);
         btnSms.setVisibility(View.INVISIBLE);

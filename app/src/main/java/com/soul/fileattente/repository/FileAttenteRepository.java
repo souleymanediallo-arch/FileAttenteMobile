@@ -97,6 +97,7 @@ public class FileAttenteRepository {
 
             @Override
             public void onFailure(Call<NumeroSuivantFile> call, Throwable t) {
+                UserViewModel.getNumeroSuivantFileForDemandeNumerosSuivant().postValue(null);
                 System.out.printf(t.getMessage());
             }
         });
