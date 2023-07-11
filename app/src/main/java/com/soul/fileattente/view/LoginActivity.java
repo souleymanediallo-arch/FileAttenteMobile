@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(LoginActivity.this).get(UserViewModel.class);
 
-        //
         adjustViewComponentsStatusBeforeParamSyncCompleted();
         //DemandeParam demandeParam = new DemandeParam("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z");
 
@@ -63,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
         userViewModel.demandeAllParams(demandeGeneric);
 
-        //Rafrachir
         binding.btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 userViewModel.demandeAllParams(demandeGeneric);
             }
         });
-        //
+
         binding.btnLogin.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -95,11 +93,8 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
-        //
-        handleSpinner();
 
-        //
-        //captureRadioGroupCheckedValue();
+        handleSpinner();
 
         //Be prepared to process the changes of the values for var in viewModel: AutheticationResultForAuthenticate
         processWhenAutheticationResultForAuthenticateChanged();
@@ -120,63 +115,6 @@ public class LoginActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_item, listProfiles);
             binding.profilSpinnerEdtxt.setAdapter(adapter);
         }
-//    void handleSpinner() {
-//
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.profile_array, android.R.layout.simple_spinner_item);
-//        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Apply the adapter to the spinner
-//        binding.profilSpinner.setAdapter(adapter);
-//        binding.profilSpinner.setVisibility(View.GONE);
-//
-////        binding.profilSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-////            @Override
-////            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////
-////            }
-////        });
-////
-////        binding.profilSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-////            @Override
-////            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-////
-////            }
-////
-////            @Override
-////            public void onNothingSelected(AdapterView<?> adapterView) {
-////
-////            }
-////        });
-//    }
-
-
-//    public void onRadioButtonClicked(View view) {
-//
-//        // Is the button now checked?
-//        boolean checked = ((RadioButton) view).isChecked();
-//
-//        // Check which radio button was clicked
-//        switch(view.getId()) {
-//            case R.id.radio_moniteur:
-//                if (checked)
-//                    System.out.printf("radio_moniteur--------------------------------------> is CHECKED");
-//                    break;
-//            case R.id.radio_patient:
-//                if (checked)
-//                    System.out.printf("radio_patient--------------------------------------> is CHECKED");
-//                    break;
-//        }
-//    }
-
-//    public void captureRadioGroupCheckedValue() {
-//
-//        // Is the button now checked?
-//        boolean moniteurChecked = (binding.radioMoniteur).isChecked();
-//        boolean patientChecked = (binding.radioPatient).isChecked();
-//        System.out.println("moniteurChecked--------------------------------------> CHECKED = " + moniteurChecked);
-//        System.out.println("patientChecked---------------------------------------> CHECKED = " + patientChecked);
-//    }
-
 
     private void navigateToEcranPrincipalActivityList() {
         Intent intent = new Intent(LoginActivity.this, EcranPrincipalActivityList.class);
@@ -218,19 +156,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
         binding.progressBar.setVisibility(View.INVISIBLE);
     }
-
-//    private void navigateToEcranPrincipalMonitoringActivityList() {
-//        Intent intent = new Intent(LoginActivity.this, EcranPrincipalMonitoringNumeroFileActivityList.class);
-//
-//        mGlobalSetOfExtra = new GlobalSetOfExtra();
-//        mGlobalSetOfExtra.mLogin = mLogin;
-//        //mGlobalSetOfExtra.mLoginResult = mLoginResult;
-//        mGlobalSetOfExtra.mLoginResult = new LoginResult("ok");
-//        mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
-//        mGlobalSetOfExtra.mListParams = mListParams;
-//        intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
-//        LoginActivity.this.startActivity(intent);
-//    }
 
     void processTaskWhenloginButtonClicked() {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {

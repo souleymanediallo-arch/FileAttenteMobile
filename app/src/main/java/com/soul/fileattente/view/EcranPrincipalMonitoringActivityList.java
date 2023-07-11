@@ -1,9 +1,7 @@
 package com.soul.fileattente.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,12 +10,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.soul.fileattente.R;
 import com.soul.fileattente.adapters.ServiceAGGListData;
 import com.soul.fileattente.adapters.ServiceAGGMonitoringListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalMonitoringListBinding;
 import com.soul.fileattente.model.DemandeGeneric;
-import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
@@ -65,19 +61,16 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         setContentView(view);
 
         //Getting GlobalSetOfExtra
-        GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra)getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
+        GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra) getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
 
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
-
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
 
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
-        //userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
 
-//        DemandeGeneric demandeGeneric = new DemandeGeneric();
         demandeGeneric = new DemandeGeneric();
         demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
@@ -86,8 +79,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         //Process whenever there is a change
         processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged();
 
-        //binding.recyclerView.
-        //Managing the list of service List
+        //binding.recyclerView. - Managing the list of service List
         serviceAGGListData = new ArrayList<>();
         serviceAGGMonitoringListDataAdapter = new ServiceAGGMonitoringListDataAdapter(serviceAGGListData, mGlobalSetOfExtra);
         binding.recyclerView.setHasFixedSize(true);
@@ -102,45 +94,28 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         processWhenNumeroSuivantFileForAnnulerAppelNumeroChanged();
     }
 
-//    void processWhenListServiceDestinationForDemandeAllServicesDestinationChanged() {
-//        userViewModel. getListServiceDestinationForDemandeAllServicesDestination().observe(this, new Observer<List<ServiceDestination>>() {
-//            @Override
-//            public void onChanged(List<ServiceDestination> serviceDestinations) {
-//                System.out.println("ListServiceDestinationForDemandeAllServicesDestination Data Changed............................................" + serviceDestinations + "******");
-//                serviceDestinationListData.clear();
-//                for (ServiceDestination serviceDestination : serviceDestinations) {
-//                    serviceDestinationListData.add(new ServiceDestinationListData(serviceDestination, R.drawable.ic_baseline_timer_24));
-//                }
-//                serviceDestinationMonitoringListDataAdapter.notifyDataSetChanged();
-//            }
-//        });
-//    }
-
     void processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged() {
-        userViewModel. getListForDemandeAggregatAllServicesDestinationNumeroFiles().observe(this, new Observer<List<ServiceAGG>>() {
+        userViewModel.getListForDemandeAggregatAllServicesDestinationNumeroFiles().observe(this, new Observer<List<ServiceAGG>>() {
             @Override
             public void onChanged(List<ServiceAGG> serviceAGGs) {
                 System.out.println("processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged Data Changed............................................" + serviceAGGs + "******");
 
-                if(serviceAGGs != null) {
+                if (serviceAGGs != null) {
                     serviceAGGListData.clear();
                     for (ServiceAGG serviceAGG : serviceAGGs) {
                         int imageId = Utils.getRihtImageIdGivenServiceName(serviceAGG.getNomService());
-                        //serviceAGGListData.add(new ServiceAGGListData(serviceAGG, R.drawable.ic_baseline_timer_24));
                         serviceAGGListData.add(new ServiceAGGListData(serviceAGG, imageId));
                     }
                     serviceAGGMonitoringListDataAdapter.notifyDataSetChanged();
                     binding.progressBar.setVisibility(View.INVISIBLE);
-                }else{
+                } else {
                     System.out.println("Enable to get data from the serveur check...if erreur....");
                 }
             }
         });
     }
 
-
     //Implementing The activeMQ Part
-
     private void connect() {
         MqttConnectOptions connectOptions = new MqttConnectOptions();
         connectOptions.setAutomaticReconnect(true);
@@ -190,7 +165,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(),   Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
                             System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
                             //print(message.toString());
 //                            DemandeGeneric demandeGeneric = new DemandeGeneric();
@@ -236,7 +211,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     }
 
     //------- Suivant & Annuler
-    //
     void processWhenNumeroSuivantFileForAppelerNumeroChanged() {
         userViewModel.getNumeroSuivantFileForAppelerNumero().observe(this, new Observer<NumeroSuivantFile>() {
             @Override
@@ -244,14 +218,11 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomService() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
                 String messageAnnonce =
-                        "Service " + numeroSuivantFile.getNomService() +   "\n" +
-                        "Numero " + numeroSuivantFile.getNumeroSuivant() + "\n" +
-                        "Votre tour est arrivé";
+                        "Service " + numeroSuivantFile.getNomService() + "\n" +
+                                "Numero " + numeroSuivantFile.getNumeroSuivant() + "\n" +//Mettre des espaces dans le numeros pour une lecture comprehensible
+                                "Votre tour est arrivé";
                 String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
                 initializedTextToSpeechInstance(messageAnnonce);
-                //Utils.sendTextAsSms(EcranPrincipalMonitoringActivityList.this,telephoneDemandeur,messageAnnonce) ;
-                //sendTextAsSms(telephoneDemandeur, messageAnnonce);
-                //telephoneDemandeur = "000000000"; //A enelver en mise en Prod
                 Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
             }
         });
@@ -262,28 +233,19 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAnnulerAppelNumero");
             }
         });
     }
 
-    void initializedTextToSpeechInstance(String textToRenderOverVoice){
+    void initializedTextToSpeechInstance(String textToRenderOverVoice) {
         initializedTextToSpeechInstancefromCallingActivity = new TextToSpeech(this.getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
-                if(i!=TextToSpeech.ERROR){
+                if (i != TextToSpeech.ERROR) {
                     initializedTextToSpeechInstancefromCallingActivity.setLanguage(Locale.FRANCE);
                     initializedTextToSpeechInstancefromCallingActivity.speak(textToRenderOverVoice, TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
         });
     }
-
-//    void sendTextAsSms(String mobileNumber, String textMessage){
-//
-//        SmsManager smsManager = SmsManager.getDefault();
-//        if(smsManager != null) {
-//            smsManager.sendTextMessage(mobileNumber, null, textMessage, null, null);
-//        }
-//    }
 }

@@ -9,13 +9,13 @@
 
 package com.soul.fileattente.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.soul.fileattente.R;
 
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MainActivity.this, message.toString(),   Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, message.toString(), Toast.LENGTH_SHORT).show();
                             System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
                             print(message.toString());
                         }

@@ -11,15 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.soul.fileattente.R;
 import com.soul.fileattente.adapters.NumeroSuivantFileListData;
 import com.soul.fileattente.adapters.NumeroSuivantFileMonitoringListDataAdapter;
-import com.soul.fileattente.adapters.ServiceDestinationListData;
-import com.soul.fileattente.adapters.ServiceDestinationMonitoringListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranNumeroSuivantFilesMonitorListBinding;
-import com.soul.fileattente.databinding.ActivityEcranPrincipalMonitoringListBinding;
 import com.soul.fileattente.model.DemandeGeneric;
-import com.soul.fileattente.model.DemandeNumSuiv;
-import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.NumeroSuivantFile;
-import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
@@ -42,40 +36,23 @@ public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatAct
         setContentView(view);
 
         //Getting GlobalSetOfExtra
-        GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra)getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
+        GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra) getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
 
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
-
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
 
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalMonitoringNumeroFileActivityList.this).get(UserViewModel.class);
-        //userViewModel.demandeAllServicesDestination(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
-        //userViewModel.getAllNumerosSuivants(new DemandeService("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
-        //userViewModel.getAllNumerosSuivants();
-        //userViewModel.demandeAllNumerosSuivants(new DemandeNumSuiv("Vision Medicale Coumba","ServiceNotToBeCpnsidered", "0122455789632111441251", "2023-05-13T10:35:02.678Z"));
-
-//        {
-//            "id":1,
-//                "serviceDestinationid":1,
-//                "nomServiceDestination":"nomServiceDestination",
-//                "etablissementid":1
-//        }
         DemandeGeneric demandeGeneric = new DemandeGeneric();
-//        demandeGeneric.setId(1L);
-//        demandeGeneric.setNomServiceDestination("nomServiceDestination");
         demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
         userViewModel.demandeAllNumerosSuivants(demandeGeneric);
 
-
         //Process whenever there is a change
-        //processWhenListServiceDestinationForDemandeAllServicesDestinationChanged();
         processWhenListNumerosFileForDemandeAllNumerosFileChanged();
 
-        //binding.recyclerView.
-        //Managing the list of service List
+        //binding.recyclerView. - Managing the list of service List
         numeroSuivantFileListData = new ArrayList<>();
         numeroSuivantFileMonitoringListDataAdapter = new NumeroSuivantFileMonitoringListDataAdapter(numeroSuivantFileListData, mGlobalSetOfExtra);
         binding.recyclerView.setHasFixedSize(true);
@@ -83,21 +60,7 @@ public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatAct
         binding.recyclerView.setAdapter(numeroSuivantFileMonitoringListDataAdapter);
     }
 
-//    void processWhenListServiceDestinationForDemandeAllServicesDestinationChanged() {
-//        userViewModel.getListServiceDestinationForDemandeAllServicesDestination().observe(this, new Observer<List<ServiceDestination>>() {
-//            @Override
-//            public void onChanged(List<ServiceDestination> serviceDestinations) {
-//                System.out.println("ListServiceDestinationForDemandeAllServicesDestination Data Changed............................................" + serviceDestinations + "******");
-//                numeroSuivantFileListData.clear();
-//                for (ServiceDestination serviceDestination : serviceDestinations) {
-//                    numeroSuivantFileListData.add(new NumeroSuivantFileListData(serviceDestination, R.drawable.ic_baseline_timer_24));
-//                }
-//                numeroSuivantFileMonitoringListDataAdapter.notifyDataSetChanged();
-//            }
-//        });
-//    }
-
-    void processWhenListNumerosFileForDemandeAllNumerosFileChanged(){
+    void processWhenListNumerosFileForDemandeAllNumerosFileChanged() {
         userViewModel.getListNumeroSuivantFileFordemandeAllNumerosSuivants().observe(this, new Observer<List<NumeroSuivantFile>>() {
             @Override
             public void onChanged(List<NumeroSuivantFile> numeroSuivantFiles) {
