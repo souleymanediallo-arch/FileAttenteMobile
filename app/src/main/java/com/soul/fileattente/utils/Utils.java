@@ -164,7 +164,7 @@ public class Utils {
             case "Laboratoire":
                 return R.drawable.ic_lab;
 
-            case "Retrait Resuktat":
+            case "Retrait Resultat":
                 return R.drawable.ic_retrait_res;
 
             case "Radio":
@@ -184,6 +184,34 @@ public class Utils {
             default:
                 return R.drawable.ic_baseline_timer_24;
         }
+    }
+
+    public static String formatSenegalTelephoneNumberForTextToVoice(String telephoneNumber){
+        String formattedTelephoneNumber = "";
+        if(telephoneNumber == null) return "00 000 00 00";
+
+        if(telephoneNumber.length() == 12) { //221766752276
+            formattedTelephoneNumber = "+" + telephoneNumber.substring(0, 3);
+            telephoneNumber = telephoneNumber.substring(3, 12);
+        }
+
+        if(telephoneNumber.length() == 13) { //+221766752276
+            formattedTelephoneNumber = telephoneNumber.substring(0, 4);
+            telephoneNumber = telephoneNumber.substring(4, 13);
+        }
+
+        if(telephoneNumber.length() == 14) { //00221766752276
+            formattedTelephoneNumber = telephoneNumber.substring(0, 5);
+            telephoneNumber = telephoneNumber.substring(5, 14);
+        }
+
+        if(telephoneNumber.length() == 9) { //766752276
+            formattedTelephoneNumber = formattedTelephoneNumber + " " + telephoneNumber.substring(0, 2);
+            formattedTelephoneNumber = formattedTelephoneNumber + " " + telephoneNumber.substring(2, 5);
+            formattedTelephoneNumber = formattedTelephoneNumber + " " + telephoneNumber.substring(5, 7);
+            formattedTelephoneNumber = formattedTelephoneNumber + " " + telephoneNumber.substring(7, 9);
+        }
+        return formattedTelephoneNumber;
     }
     //Better Place this in the activity needing them because probably of the Contexte
     //-------------------------------------------------------------------------------

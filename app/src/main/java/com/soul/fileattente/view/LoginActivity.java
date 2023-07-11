@@ -252,10 +252,8 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.btnLogin.setEnabled(true);
-
         //binding.btnLogin.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_refresh));
         //binding.btnLogin.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_refresh),null,null,null);
-
     }
 
     void hanldeRefreshButtonWhenNotOK(){

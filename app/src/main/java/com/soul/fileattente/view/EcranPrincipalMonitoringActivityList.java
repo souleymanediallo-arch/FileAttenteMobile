@@ -219,7 +219,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomService() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
                 String messageAnnonce =
                         "Service " + numeroSuivantFile.getNomService() + "\n" +
-                                "Numero " + numeroSuivantFile.getNumeroSuivant() + "\n" +//Mettre des espaces dans le numeros pour une lecture comprehensible
+                                //"Numero " + numeroSuivantFile.getNumeroSuivant() + "\n" +//Mettre des espaces dans le numeros pour une lecture comprehensible
+                                "Numero " + Utils.formatSenegalTelephoneNumberForTextToVoice (numeroSuivantFile.getNumeroSuivant()) + "\n" +
                                 "Votre tour est arrivé";
                 String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
                 initializedTextToSpeechInstance(messageAnnonce);
