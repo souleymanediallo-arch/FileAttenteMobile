@@ -30,11 +30,11 @@ import java.util.Locale;
 
 public class EcranPrincipalActivity extends AppCompatActivity {
 
-    Button btnGenNumero;
-    TextView txtGenNumeroLabel;
-    TextView txtGenNumero;
-    Button btnSms;
-    EditText editTextPhone;
+    //Button btnGenNumero;
+    //TextView txtGenNumeroLabel;
+    //TextView txtGenNumero;
+    //Button btnSms;
+    //EditText editTextPhone;
     String strValueGenNumero;
 
     ActivityEcranPrincipalBinding binding;
@@ -80,18 +80,18 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         //ServiceDestination selectedServiceDestination = (ServiceDestination) intent.getSerializableExtra(Global.SELECTED_SERVICE_DESTINATION_KEY);
 
         //Gestion Button Generation de numero dans la Fille d'attente
-        txtGenNumeroLabel = (TextView) findViewById(R.id.txtGenNumeroLabel);
+        //txtGenNumeroLabel = (TextView) findViewById(R.id.txtGenNumeroLabel);
         //txtGenNumero = (TextView) findViewById(R.id.textView2);
-        txtGenNumero = (EditText) findViewById(R.id.textView);
-        editTextPhone = (EditText) findViewById(R.id.editTextPhone);
-        btnGenNumero = (Button) findViewById(R.id.buttonGenNumero);
+        //txtGenNumero = (EditText) findViewById(R.id.textView);
+        //editTextPhone = (EditText) findViewById(R.id.editTextPhone);
+        //btnGenNumero = (Button) findViewById(R.id.buttonGenNumero);
         //
-        btnGenNumero.setTextColor(Color.WHITE);
+        binding.buttonGenNumero.setTextColor(Color.WHITE);
         //btnGenNumero.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
-        btnGenNumero.setEnabled(false);
-        btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+        binding.buttonGenNumero.setEnabled(false);
+        binding.buttonGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
         //
-        btnSms = (Button) findViewById(R.id.buttonSendSMS);
+        //btnSms = (Button) findViewById(R.id.buttonSendSMS);
 
         //Making relevent compoennt INVISBLE
         makeInvisibleRelevantCompnoent();
@@ -100,7 +100,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         //
         processWhenNumeroSuivantFileForDemandeNumerosSuivantChanged();
         //
-        btnGenNumero.setOnClickListener(new View.OnClickListener() {
+        binding.buttonGenNumero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Intent intent = new Intent(EcranPrincipalActivity.this, EcranGenrationNumeroSuivantActivity.class);
@@ -138,7 +138,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         });
 
         //
-        editTextPhone.addTextChangedListener(new TextWatcher() {
+        binding.editTextPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -153,11 +153,11 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 //System.out.println("editable.toString() = " + editable.toString());
                 if (editable.toString().trim().length() == 9){
-                    btnGenNumero.setEnabled(true);
-                    btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
+                    binding.buttonGenNumero.setEnabled(true);
+                    binding.buttonGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
                 }else{
-                    btnGenNumero.setEnabled(false);
-                    btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+                    binding.buttonGenNumero.setEnabled(false);
+                    binding.buttonGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
                 }
             }
         });
@@ -165,7 +165,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 
         //Gestion button Enoi de sms
         //Button btnSms = (Button) findViewById(R.id.button2);
-        btnSms.setOnClickListener(new View.OnClickListener() {
+        binding.buttonSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Intent intent = new Intent(EcranPrincipalActivity.this, EcranGenrationNumeroSuivantActivity.class);
@@ -176,12 +176,12 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 //                EcranPrincipalActivity.this.startActivity(intent);
 
                 //Text to Voice
-                initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + editTextPhone.getText().toString() + "]");
+                initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + binding.editTextPhone.getText().toString() + "]");
                 //Text to Voice
 
                 Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);
                 intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
-                intent.putExtra(GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY, editTextPhone.getText().toString()); //Optional parameters
+                intent.putExtra(GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY, binding.editTextPhone.getText().toString()); //Optional parameters
                 intent.putExtra(GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY, String.valueOf(strValueGenNumero)); //Optional parameters
                 //
                 //makeInvisibleRelevantCompnoent();
@@ -259,7 +259,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         String etablissementid = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getEtablissementid());
         String serviceDestinationid = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getId());
         String deviceId = "000000000000";//Mettre en place une fonction qui va retourner cette information à partir d'un vrai device
-        String telephoneDemandeur = editTextPhone.getText().toString();
+        String telephoneDemandeur = binding.editTextPhone.getText().toString();
         String emailDemandeur = "adresse_mail@recuperer.com";
 
         DemandeNumeroFile demandeNumeroFile = new DemandeNumeroFile(nomService, etablissementid, serviceDestinationid, deviceId, telephoneDemandeur, emailDemandeur);
@@ -284,23 +284,23 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                             System.out.println("NumeroSuivantFileForDemandeNumerosSuivant Data Changed............................................");
                             System.out.println("numeroSuivantFile  --------> " + numeroSuivantFile.toString());
                             makeVisibleRelevantCompnoent();
-                            txtGenNumeroLabel.setText("Votre numéro pour le service [" + numeroSuivantFile.getNomService() + "] est :");
-                            txtGenNumero.setText(numeroSuivantFile.getNumeroSuivant());
+                            binding.txtGenNumeroLabel.setText("Votre numéro pour le service [" + numeroSuivantFile.getNomService() + "] est :");
+                            binding.txtGenNumero.setText(numeroSuivantFile.getNumeroSuivant());
                             strValueGenNumero = numeroSuivantFile.getNumeroSuivant();
                             mGlobalSetOfExtra.mNumeroSuivantFile = numeroSuivantFile;
                             binding.progressBar.setVisibility(View.INVISIBLE);
                             //
-                            btnGenNumero.setEnabled(false);
-                            btnGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
+                            binding.buttonGenNumero.setEnabled(false);
+                            binding.buttonGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
                             //
                             //makeInvisibleRelevantCompnoent();
                             //binding.editTextTextMultiLine.setText(numeroSuivantFile.toString());.
                     } else {
                         makeVisibleRelevantCompnoent();
                         //txtGenNumeroLabel.setText("Votre numéro pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] est :");
-                        txtGenNumeroLabel.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
-                        txtGenNumero.setText("XXX.00");
-                        //btnGenNumero.setEnabled(false);
+                        binding.txtGenNumeroLabel.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
+                        binding.txtGenNumero.setText("XXX.00");
+                        //binding.buttonGenNumero.setEnabled(false);
                         binding.progressBar.setVisibility(View.INVISIBLE);
                         binding.buttonSendSMS.setVisibility(View.INVISIBLE);
                         binding.buttonGenNumero.setEnabled(true);
@@ -331,27 +331,27 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         //editTextPhone.setEnabled(false);
         //
         System.out.println("--------------------------------------------> INSIDE makeVisibleRelevantCompnoent <--------------------------------------------");
-        txtGenNumeroLabel.setVisibility(View.VISIBLE);
-        txtGenNumero.setVisibility(View.VISIBLE);
-        btnSms.setVisibility(View.VISIBLE);
+        binding.txtGenNumeroLabel.setVisibility(View.VISIBLE);
+        binding.txtGenNumero.setVisibility(View.VISIBLE);
+        binding.buttonSendSMS.setVisibility(View.VISIBLE);
 
-        btnSms.setTextColor(Color.WHITE);
-        btnSms.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
+        binding.buttonSendSMS.setTextColor(Color.WHITE);
+        binding.buttonSendSMS.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
     }
 
     public void makeInvisibleRelevantCompnoent() {
         System.out.println("--------------------------------------------> INSIDE makeInvisibleRelevantCompnoent <--------------------------------------------");
-        txtGenNumeroLabel.setVisibility(View.INVISIBLE);
-        txtGenNumero.setVisibility(View.INVISIBLE);
-        btnSms.setVisibility(View.INVISIBLE);
-//        btnSms.setFocusable(View.FOCUSABLE);
+        binding.txtGenNumeroLabel.setVisibility(View.INVISIBLE);
+        binding.txtGenNumero.setVisibility(View.INVISIBLE);
+        binding.buttonSendSMS.setVisibility(View.INVISIBLE);
+//        binding.buttonSendSMS.setFocusable(View.FOCUSABLE);
     }
 
     public void makeGoneRelevantCompnoent() {
 //        txtGenNumeroLabel.setVisibility(View.INVISIBLE);
 //        txtGenNumero.setVisibility(View.INVISIBLE);
-//        btnSms.setVisibility(View.INVISIBLE);
-////        btnSms.setFocusable(View.FOCUSABLE);
+//        binding.buttonSendSMS.setVisibility(View.INVISIBLE);
+////        binding.buttonSendSMS.setFocusable(View.FOCUSABLE);
 
         binding.progressBar.setVisibility(View.GONE);
         binding.textView5.setVisibility(View.GONE);

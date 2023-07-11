@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.telephony.SmsManager;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.databinding.ActivityEcranPrincipalBinding;
+import com.soul.fileattente.databinding.ActivityEcranResumeBinding;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
@@ -22,19 +25,27 @@ import java.util.Locale;
 public class EcranResumeActivity extends AppCompatActivity {
 
     TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
-    TextView txtGenNumeroLabel;
-    TextView txtResumeLabell;
+    //TextView txtGenNumeroLabel;
+    //TextView txtResumeLabell;
     //TextView txtMoreResume;
     GlobalSetOfExtra mGlobalSetOfExtra;
+
+    ActivityEcranResumeBinding binding;
 
     //Sms envoye pour le service gynecologique au numero 76 675 22 77
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ecran_resume);
-        txtGenNumeroLabel = (TextView) findViewById(R.id.textView2);
-        txtResumeLabell = (TextView) findViewById(R.id.textView5);
-        //txtMoreResume = (TextView) findViewById(R.id.textView3);
+
+        //Using ViewBinding to manage Layout Components
+        binding = ActivityEcranResumeBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+//        setContentView(R.layout.activity_ecran_resume);
+//        //txtGenNumeroLabel = (TextView) findViewById(R.id.textView2);
+//        txtResumeLabell = (TextView) findViewById(R.id.textView5);
+//        //txtMoreResume = (TextView) findViewById(R.id.textView3);
         //Getting selected service
         Intent intent = getIntent();
         //String service = intent.getStringExtra(Global.SELECTED_SERVICE_KEY);
@@ -67,9 +78,9 @@ public class EcranResumeActivity extends AppCompatActivity {
         String numeroPourLeService = intent.getStringExtra(GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY);
         //
 
-        txtResumeLabell.setText("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + telephone + "]");
+        binding.txtResumeLabel.setText("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + telephone + "]");
         //txtGenNumeroLabel.setText(numeroPourLeService);
-        txtGenNumeroLabel.setText(numeroPourLeService);
+        binding.txtGenNumeroLabel.setText(numeroPourLeService);
 
         //TextToSpeech here
         initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + telephone + "]");

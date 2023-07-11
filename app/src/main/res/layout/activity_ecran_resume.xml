@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/edtxtBienvenue">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView5"
+                    android:id="@+id/txtResumeLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
@@ -119,7 +119,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/edtxtIntituleNumero">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView2"
+                    android:id="@+id/txtGenNumeroLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
