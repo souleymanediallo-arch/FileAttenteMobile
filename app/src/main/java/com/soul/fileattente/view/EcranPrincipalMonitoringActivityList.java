@@ -59,7 +59,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
         //Getting GlobalSetOfExtra
         GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra) getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
-
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
@@ -85,7 +84,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
 
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
-        connect(); // it will connext and subscribe if connextion is uccessfuk..
+        connect(); // it will connect and subscribe if connextion is successuful..
 
         processWhenNumeroSuivantFileForAppelerNumeroChanged();
         processWhenNumeroSuivantFileForAnnulerAppelNumeroChanged();
@@ -122,24 +121,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             client.connect(connectOptions, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-//                    System.out.println("client ------------------------------------------------> " + client.toString());
-//                    if(client == null){
-//                        System.out.println("client null------------------------------------------------> ");
-//                    }else{
-//                        System.out.println("client NOT null------------------------------------------------> ");
-//                        //int count = client.getBufferedMessage(0);
-//                        MqttMessage current_message = client.getBufferedMessage(0);
-//                        System.out.println(current_message.toString());
-//                    }
-//                    int count = client.getBufferedMessageCount();
-//                    System.out.println("client.getBufferedMessageCount() ------------------> " + count);
-//                    MqttMessage current_message;
-//                    for(int i=0; i<count; i++){
-//                        current_message = client.getBufferedMessage(i);
-//                        System.out.println("client.getBufferedMessage("+i+")------------------> " + current_message.toString());
-//                    }
-                    //----
-                    //buttonSend.setEnabled(true);
                     subscribe();
                 }
 
@@ -155,7 +136,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
     private void subscribe() {
         try {
-
             client.subscribe(subscribeTopic, 0, new IMqttMessageListener() {
                 @Override
                 public void messageArrived(final String topic, final MqttMessage message) throws Exception {
@@ -165,9 +145,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                             Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
                             System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
                             //print(message.toString());
-//                            DemandeGeneric demandeGeneric = new DemandeGeneric();
-//                            demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
-//                            demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
                             userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                         }
                     });
@@ -176,14 +153,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         } catch (MqttException e) {
             e.printStackTrace();
         }
-
-//        int count = client.getBufferedMessageCount();
-//        System.out.println("client.getBufferedMessageCount() ------------------> " + count);
-//        MqttMessage current_message;
-//        for(int i=0; i<count; i++){
-//            current_message = client.getBufferedMessage(i);
-//            System.out.println("client.getBufferedMessage("+i+")------------------> " + current_message.toString());
-//        }
     }
 
     private void publishMessage(String message) {
@@ -192,7 +161,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         try {
             client.publish(publishTopic, msg);
             System.out.println("publishMessage Outgoing Message --------------------------------------------------------------------->" + message);
-            print(message);
+            //print(message);
         } catch (MqttException e) {
             e.printStackTrace();
         }
