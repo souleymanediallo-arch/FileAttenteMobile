@@ -1,5 +1,10 @@
 package com.soul.fileattente.view;
 
+import static com.soul.fileattente.utils.ApplicationConstants.clientId;
+import static com.soul.fileattente.utils.ApplicationConstants.publishTopic;
+import static com.soul.fileattente.utils.ApplicationConstants.serverURI;
+import static com.soul.fileattente.utils.ApplicationConstants.subscribeTopic;
+
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
@@ -39,14 +44,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     private ServiceAGGMonitoringListDataAdapter serviceAGGMonitoringListDataAdapter;
     private ArrayList<ServiceAGGListData> serviceAGGListData;
 
-    //Acyive MQ Part
-    private static final String TAG = "ActiveMQ";
-    public static final String clientId = "android_client_fele_attente";
-    public static final String serverURI = "tcp://https://51.91.9.235:1883"; //replace with your ip
-    //public static final String serverURI = "tcp://192.168.1.142:1883"; //replace with your ip
-    //    public static final String serverURI = "tcp://192.168.1.142:61616"; //replace with your ip
-    public static final String publishTopic = "android_client_outbox";
-    public static final String subscribeTopic = "android_client_inbox";
     MqttAndroidClient client;
     DemandeGeneric demandeGeneric;
 
@@ -219,7 +216,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomService() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
                 String messageAnnonce =
                         "Service " + numeroSuivantFile.getNomService() + "\n" +
-                                //"Numero " + numeroSuivantFile.getNumeroSuivant() + "\n" +//Mettre des espaces dans le numeros pour une lecture comprehensible
                                 "Numero " + Utils.formatSenegalTelephoneNumberForTextToVoice (numeroSuivantFile.getNumeroSuivant()) + "\n" +
                                 "Votre tour est arrivé";
                 String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();

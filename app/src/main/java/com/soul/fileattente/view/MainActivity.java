@@ -9,6 +9,8 @@
 
 package com.soul.fileattente.view;
 
+import static com.soul.fileattente.utils.ApplicationConstants.*;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,16 +29,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+
 public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "ActiveMQ";
-    public static final String clientId = "android_client_fele_attente";
-    //public static final String serverURI = "tcp://192.168.1.142:1883"; //replace with your ip
-    public static final String serverURI = "tcp://https://51.91.9.235:1883"; //replace with your ip
-    //    public static final String serverURI = "tcp://192.168.1.142:61616"; //replace with your ip
-    public static final String publishTopic = "android_client_outbox";
-    public static final String subscribeTopic = "android_client_inbox";
-
 
     MqttAndroidClient client;
     int message_number = 0;
@@ -48,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         buttonSend = (Button) findViewById(R.id.button4);
         buttonConnect = (Button) findViewById(R.id.button5);
