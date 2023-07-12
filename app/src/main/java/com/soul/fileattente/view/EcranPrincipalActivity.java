@@ -20,6 +20,7 @@ import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
+import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
 import java.util.Locale;
@@ -112,7 +113,8 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Text to Voice
-                initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + binding.editTextPhone.getText().toString() + "]");
+                //initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + binding.editTextPhone.getText().toString() + "]");
+                initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + Utils.formatSenegalTelephoneNumberForTextToVoice(binding.editTextPhone.getText().toString()) + "]");
                 //Text to Voice
                 Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);
                 intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);

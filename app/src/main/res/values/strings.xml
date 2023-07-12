@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FileAttente</string>
+    <string name="app_name">Gestion de File Attente</string>
     <string name="moniteur">Moniteur</string>
     <string name="patient">Patient</string>
     <string name="test_val">Sms envoye pour le service gynecologique au numero 76 675 22 77</string>

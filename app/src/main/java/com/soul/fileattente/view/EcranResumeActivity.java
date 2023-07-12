@@ -48,7 +48,7 @@ public class EcranResumeActivity extends AppCompatActivity {
         String telephone = intent.getStringExtra(GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY);
         String numeroPourLeService = intent.getStringExtra(GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY);
 
-        binding.txtResumeLabel.setText("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + telephone + "]");
+        binding.txtResumeLabel.setText("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + Utils.formatSenegalTelephoneNumberForTextToVoice(telephone) + "]");
         binding.txtGenNumeroLabel.setText(numeroPourLeService);
 
         //TextToSpeech here
