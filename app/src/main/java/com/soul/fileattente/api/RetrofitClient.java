@@ -1,5 +1,10 @@
 package com.soul.fileattente.api;
 
+import static com.soul.fileattente.utils.ApplicationConstants.BASE_URL;
+import static com.soul.fileattente.utils.ApplicationConstants.connectTimeoutDuration;
+import static com.soul.fileattente.utils.ApplicationConstants.readTimeoutDuration;
+import static com.soul.fileattente.utils.ApplicationConstants.writeTimeoutDuration;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -104,9 +109,9 @@ public class RetrofitClient {
 //                return response;
 //            }
 //        })
-          .connectTimeout(50, TimeUnit.SECONDS)
-          .writeTimeout(50, TimeUnit.SECONDS)
-          .readTimeout(50, TimeUnit.SECONDS)
+          .connectTimeout(connectTimeoutDuration, TimeUnit.SECONDS)
+          .writeTimeout(writeTimeoutDuration, TimeUnit.SECONDS)
+          .readTimeout(readTimeoutDuration, TimeUnit.SECONDS)
           .build();
 
 //        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -114,7 +119,7 @@ public class RetrofitClient {
 //        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder()
 //                .addInterceptor(loggingInterceptor)
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
 
                 .client(okHttpClient)

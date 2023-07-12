@@ -24,12 +24,6 @@ import retrofit2.http.Path;
 
 public interface Api {
 
-    //{{BaseUrl}}/api/params-etablissements
-    //String BASE_URL = "http://192.168.1.142:8080/api/";
-    String BASE_URL = "http://51.91.9.235:8080/api/";
-    //String BASE_URL = "https://18c8ff90-b4d1-4f45-be00-9cb07599f97c.mock.pstmn.io/fileattente/";
-    //String BASE_URL = "http://192.168.1.142:8080/api/";
-
     @GET("birthdays") //A des fins de tests sur le BackEnd local qui n avait des chsoess que sur les Birthday
     Call<List<Birthday>> getAllbirthdays();
 
