@@ -35,22 +35,6 @@ public class FileAttenteRepository {
         }
     }
 
-    public void getAllbirthdays() {
-        Call<List<Birthday>> call = RetrofitClient.getInstance().getMyApi().getAllbirthdays();
-
-        call.enqueue(new Callback<List<Birthday>>() {
-            @Override
-            public void onResponse(Call<List<Birthday>> call, Response<List<Birthday>> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Birthday>> call, Throwable t) {
-                System.out.printf(t.getMessage());
-            }
-        });
-    }
-
     public void authenticate(Login login) {
         Call<AutheticationResult> call = RetrofitClient.getInstance().getMyApi().authenticate(login);
 

@@ -5,19 +5,14 @@ import androidx.lifecycle.ViewModel;
 
 import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.DemandeGeneric;
-import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
-import com.soul.fileattente.model.DemandeParam;
-import com.soul.fileattente.model.DemandeService;
 import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
-import com.soul.fileattente.model.User;
 import com.soul.fileattente.repository.FileAttenteRepository;
-import com.soul.fileattente.repository.UserRepository;
 
 import java.util.List;
 
@@ -53,16 +48,10 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.authenticate(login);//Inside and because it's async, the postValue is done inside
     }
 
-    public void getAllbirthdays() {
-        mFileAttenteRepository = FileAttenteRepository.getInstance();
-        mFileAttenteRepository.getAllbirthdays();//Inside and because it's async, the postValue is done inside
-    }
-
     public void login(Login login) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.login(login);//Inside and because it's async, the postValue is done inside
     }
-
 
     public void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
@@ -74,20 +63,10 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.demandeAllParams(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
-//    public void demandeAllServicesDestination(DemandeService demandeService) {
-//        mFileAttenteRepository = FileAttenteRepository.getInstance();
-//        mFileAttenteRepository.demandeAllServicesDestination(demandeService);//Inside and because it's async, the postValue is done inside
-//    }
-
     public void demandeAllServicesDestination(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.demandeAllServicesDestination(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
-
-//    public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeService demandeService) {
-//        mFileAttenteRepository = FileAttenteRepository.getInstance();
-//        mFileAttenteRepository.demandeAggregatAllServicesDestinationNumeroFiles(demandeService);//Inside and because it's async, the postValue is done inside
-//    }
 
     public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
@@ -96,7 +75,6 @@ public class UserViewModel extends ViewModel {
 
     public void appelerNumero(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
-        //mFileAttenteRepository.appelerNumero(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
         mFileAttenteRepository.appelerNumero(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
