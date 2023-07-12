@@ -51,8 +51,10 @@ public class EcranResumeActivity extends AppCompatActivity {
         binding.txtResumeLabel.setText("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + Utils.formatSenegalTelephoneNumberForTextToVoice(telephone) + "]");
         binding.txtGenNumeroLabel.setText(numeroPourLeService);
 
-        //TextToSpeech here
-        initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + telephone + "]");
+        //TextToSpeech
+        //initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + Utils.formatSenegalTelephoneNumberForTextToVoice(telephone) + "]");
+        //TextToSpeech
+
         System.out.println("mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur() -> " + mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur() + "  --  mGlobalSetOfExtra.mNumeroSuivantFile.toString() -> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
         String messToSend =
                 "Numero : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNumeroSuivant() + "\n" +

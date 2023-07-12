@@ -213,6 +213,21 @@ public class Utils {
         }
         return formattedTelephoneNumber;
     }
+
+    public static String formatNumeroDemandeurForTextToVoice(String numeroDemandeur){
+
+        if(numeroDemandeur == null) return "";
+        String formattedNumeroDemandeur = "";
+        int len = numeroDemandeur.length();
+        StringBuilder aStringBuilder = new StringBuilder();
+        for(int i=0; i<len; i++){
+            aStringBuilder.append(numeroDemandeur.charAt(i)).append(" ");
+            //aStringBuilder.append(numeroDemandeur.charAt(i)).append(";");
+        }
+        return aStringBuilder.toString();
+    }
+
+
     //Better Place this in the activity needing them because probably of the Contexte
     //-------------------------------------------------------------------------------
     //
