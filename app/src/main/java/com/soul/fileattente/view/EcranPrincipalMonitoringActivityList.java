@@ -216,8 +216,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomService() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
                 String messageAnnonce =
                         "Service " + numeroSuivantFile.getNomService() + "\n" +
-                                "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroSuivant()) + "\n" +
-                                "Votre tour est arrivé";
+                        "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroSuivant()) + "\n" +
+                        "Votre tour est arrivé";
                 String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
                 initializedTextToSpeechInstance(messageAnnonce);
                 Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
