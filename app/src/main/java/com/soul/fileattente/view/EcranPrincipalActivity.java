@@ -8,9 +8,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -34,9 +38,29 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
     static int nbTimesPostDataTriggered = 0;
 
+//    //Deasctivation du bouton de navigation Back
+//    @Override
+//    public void onBackPressed() {
+//        //super.onBackPressed();
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        //Setting Activity in FullScreenMode
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+//        WindowInsetsControllerCompat windowInsetsController =
+//                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+//        // Configure the behavior of the hidden system bars.
+//        windowInsetsController.setSystemBarsBehavior(
+//                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+//        );
+
+        //Screen Always ON to preventthem from sleeping
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         //Using ViewBinding to manage Layout Components
         binding = ActivityEcranPrincipalBinding.inflate(getLayoutInflater());
@@ -123,6 +147,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                 EcranPrincipalActivity.this.startActivity(intent);
                 finish();
                 finish();
+                //finish();
             }
         });
 

@@ -1,5 +1,7 @@
 package com.soul.fileattente.view;
 
+import static com.soul.fileattente.utils.ApplicationConstants.tempsAttenteAvantRetourListServices;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -76,7 +78,7 @@ public class EcranResumeActivity extends AppCompatActivity {
                 intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
                 EcranResumeActivity.this.startActivity(intent);
             }
-        }, 5000);
+        }, tempsAttenteAvantRetourListServices);
     }
 
     // create an object textToSpeech and adding features into it

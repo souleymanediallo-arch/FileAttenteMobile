@@ -59,6 +59,9 @@ dependencies {
     implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    //cardview
+    implementation "androidx.cardview:cardview:1.0.0"
+
 //    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
 //    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
 

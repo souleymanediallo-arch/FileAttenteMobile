@@ -19,28 +19,36 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".view.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
         </activity>
         <activity
             android:name=".view.EcranGenrationNumeroSuivantActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".view.EcranResumeActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".view.EcranPrincipalActivityList"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".view.EcranPrincipalMonitoringActivityList"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".view.EcranPrincipalActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".view.EcranPrincipalMonitoringNumeroFileActivityList"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".view.LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

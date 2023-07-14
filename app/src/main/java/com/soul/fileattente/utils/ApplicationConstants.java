@@ -10,6 +10,8 @@ public interface ApplicationConstants {
     public static final long writeTimeoutDuration = 50;
     public static final long readTimeoutDuration = 50;
 
+    public static final long tempsAttenteAvantRetourListServices = 5*1000;
+
     //Production
     public static final String serverURI = "tcp://51.91.9.235:1883"; //replace with your ip
     public static final String clientId = "android_client_fele_attente";

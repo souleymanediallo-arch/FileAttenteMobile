@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.EcranPrincipalActivity">
+    tools:context=".view.EcranPrincipalActivity"
+    android:keepScreenOn="true">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -23,12 +24,11 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:indeterminate="true"
                 android:visibility="invisible"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edtxtBienvenue"
@@ -170,7 +170,8 @@
                     android:gravity="center"
                     android:text="00"
                     android:textColor="@color/black"
-                    android:textSize="60dp"/>
+                    android:textSize="65dp"
+                    android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

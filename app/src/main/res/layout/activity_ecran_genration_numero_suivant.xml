@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="50dp"
-    tools:context=".view.EcranGenrationNumeroSuivantActivity">
+    tools:context=".view.EcranGenrationNumeroSuivantActivity"
+    android:keepScreenOn="true"
+    >
 
 </LinearLayout>
 

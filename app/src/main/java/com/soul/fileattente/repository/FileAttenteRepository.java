@@ -114,11 +114,12 @@ public class FileAttenteRepository {
             @Override
             public void onResponse(Call<List<Param>> call, Response<List<Param>> response) {
                 System.out.println("-------------------------------> " + response.code() + "  >--<  \n" + response.toString() + "  --  \n" + response.body());
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                //Simuler/Rajouter du temps d'attente
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 UserViewModel.getListParamForDemandeAllParams().postValue(response.body());
             }
 

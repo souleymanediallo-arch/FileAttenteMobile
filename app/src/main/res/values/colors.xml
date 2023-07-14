@@ -13,4 +13,7 @@
     <color name="platinum_silver">#CECECE</color>
     <color name="platinum">#E5E4E2</color>
     <color name="lgray">#EDEDED</color>
+    <color name="blueBackNumber">#E0FFFF</color>
+    <color name="whiteBackNumber">#F0F8FF</color>
+
 </resources>
