@@ -157,15 +157,34 @@ public class LoginActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.INVISIBLE);
     }
 
+    private void handleUsernameAndPasswordError() {
+        binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
+        binding.textErroMessage.setText("Login/Password et ou Profil Incorrect...");
+        binding.progressBar.setVisibility(View.INVISIBLE);
+    }
+
     void processTaskWhenloginButtonClicked() {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String chosenProfile = (binding.profilSpinnerEdtxt).getText().toString();
-                System.out.println("-------------------------------------------------------------> I got clicked  --->  " + chosenProfile);
-                mLogin = new Login("admin", "admin");
-                userViewModel.authenticate(mLogin);
-                binding.progressBar.setVisibility(View.VISIBLE);
+                String userame = binding.textInputEditTextLogin.getText().toString();
+                String password = binding.textInputEditPassword.getText().toString();
+
+                System.out.println("-------------------------------------------------------------> I got clicked  chosenProfile --->  " + chosenProfile);
+                System.out.println("-------------------------------------------------------------> I got clicked  userame --->  " + userame);
+                System.out.println("-------------------------------------------------------------> I got clicked  password --->  " + password);
+
+                if((userame!=null && userame.equals("patient") && password.equals("patient!") && chosenProfile.equals("Patient")) ||
+                   (userame!=null && userame.equals("moniteur") && password.equals("moniteur!") && chosenProfile.equals("Moniteur"))){
+                //if(userame!=null && password.equals(userame+"!") && (chosenProfile.equals("Patient") || chosenProfile.equals("Moniteur"))) {
+                    mLogin = new Login("admin", "admin");
+                    userViewModel.authenticate(mLogin);
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                    binding.textErroMessage.setVisibility(View.INVISIBLE);
+                }else{
+                    handleUsernameAndPasswordError();
+                }
             }
         });
     }
