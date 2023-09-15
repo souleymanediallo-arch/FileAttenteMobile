@@ -9,6 +9,7 @@ import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.model.SmsMessageRetour;
 
 import java.util.List;
 
@@ -48,4 +49,7 @@ public interface Api {
 
     @POST("annuler-numero-precedent-files")
     Call<NumeroSuivantFile> annuler_numero_precedent_files(@Body DemandeGeneric demandeGeneric);
+
+    @POST("send-sms-notification")
+    Call<SmsMessageRetour> sendSmsNotification(@Body NumeroSuivantFile numeroSuivantFile);
 }

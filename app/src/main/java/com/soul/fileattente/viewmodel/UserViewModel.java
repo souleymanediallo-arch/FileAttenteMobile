@@ -12,6 +12,7 @@ import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.model.SmsMessageRetour;
 import com.soul.fileattente.repository.FileAttenteRepository;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class UserViewModel extends ViewModel {
     private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForAppelerNumero = new MutableLiveData<>();
     private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForAnnulerAppelNumero = new MutableLiveData<>();
     private static MutableLiveData<List<NumeroSuivantFile>> listNumeroSuivantFileFordemandeAllNumerosSuivants = new MutableLiveData<>();
-
+    private static MutableLiveData<SmsMessageRetour> strRetourSendSmsNotification = new MutableLiveData<>();
 
     public void getAllNumerosSuivants() {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
@@ -88,6 +89,11 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.demandeAllNumerosSuivants(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
+    public void sendSmsNotification(NumeroSuivantFile numeroSuivantFile) {
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.sendSmsNotification(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
+    }
+
     public static MutableLiveData<AutheticationResult> getAutheticationResultForAuthenticate() {
         return autheticationResultForAuthenticate;
     }
@@ -126,5 +132,9 @@ public class UserViewModel extends ViewModel {
 
     public static MutableLiveData<List<NumeroSuivantFile>> getListNumeroSuivantFileFordemandeAllNumerosSuivants() {
         return listNumeroSuivantFileFordemandeAllNumerosSuivants;
+    }
+
+    public static MutableLiveData<SmsMessageRetour> getStrRetourSendSmsNotification() {
+        return strRetourSendSmsNotification;
     }
 }

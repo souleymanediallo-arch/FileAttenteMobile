@@ -9,11 +9,15 @@ import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.soul.fileattente.databinding.ActivityEcranResumeBinding;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.model.SmsMessageRetour;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
+import com.soul.fileattente.viewmodel.UserViewModel;
 
 import java.util.Locale;
 
@@ -21,6 +25,7 @@ public class EcranResumeActivity extends AppCompatActivity {
 
     TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
     GlobalSetOfExtra mGlobalSetOfExtra;
+    public static UserViewModel userViewModel;
 
     ActivityEcranResumeBinding binding;
 
@@ -65,20 +70,41 @@ public class EcranResumeActivity extends AppCompatActivity {
                         "Temps Attente Moyen : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteMoyen() + "\n" +
                         "Temps Attente Estime : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteEstime();
 
-        Utils.sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), messToSend); //à decommenter à la livraison
+        //Utils.sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), messToSend); //à decommenter à la livraison
+        userViewModel = new ViewModelProvider(EcranResumeActivity.this).get(UserViewModel.class);
+        userViewModel.sendSmsNotification(mGlobalSetOfExtra.mNumeroSuivantFile);
         launchAutomaticallyMainScreen();
     }
 
+//    void launchAutomaticallyMainScreen() {
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//                finish();
+//                Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalActivityList.class);
+//                intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+//                EcranResumeActivity.this.startActivity(intent);
+//            }
+//        }, tempsAttenteAvantRetourListServices);
+//    }
+
     void launchAutomaticallyMainScreen() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                finish();
-                Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalActivityList.class);
-                intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
-                EcranResumeActivity.this.startActivity(intent);
+
+        userViewModel.getStrRetourSendSmsNotification().observe(this, new Observer<SmsMessageRetour>() {
+            @Override
+            public void onChanged(SmsMessageRetour retourSendSmsNotification) {
+                System.out.println("RetourSendSmsNotification ------------> " + retourSendSmsNotification.getMessage());
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        finish();
+                        Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalActivityList.class);
+                        intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+                        EcranResumeActivity.this.startActivity(intent);
+                    }
+                }, tempsAttenteAvantRetourListServices);
             }
-        }, tempsAttenteAvantRetourListServices);
+        });
     }
 
     // create an object textToSpeech and adding features into it

@@ -22,6 +22,7 @@ import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
+import com.soul.fileattente.utils.StatutNumSuivantFileEnum;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
@@ -189,7 +190,13 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                         "Votre tour est arrivé";
                 String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
                 initializedTextToSpeechInstance(messageAnnonce);
-                Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
+                //Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
+                //numeroSuivantFile.setStatutNumSuivantFile(StatutNumSuivantFileEnum.Appele);
+                System.out.println("numeroSuivantFile.getStatutNumSuivantFile() ----> " + numeroSuivantFile.getStatutNumSuivantFile());
+                //Cette ligne ci dessous pour que le bon message soit enoyé cote BACK (meme si en principe c'est deja le cas),
+                //Prevoir le traitement du retour de cet appel à l'afficher pour eventuellement alter sur les pbs d'envois de sms (technique, credit entre autres)
+                numeroSuivantFile.setStatutNumSuivantFile("Appele");
+                userViewModel.sendSmsNotification(numeroSuivantFile);
             }
         });
     }

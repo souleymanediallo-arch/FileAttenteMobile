@@ -14,6 +14,7 @@ import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.model.SmsMessageRetour;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
 import java.util.List;
@@ -264,6 +265,25 @@ public class FileAttenteRepository {
             @Override
             public void onFailure(Call<List<NumeroSuivantFile>> call, Throwable t) {
                 System.out.printf(t.getMessage());
+            }
+        });
+    }
+
+    public void sendSmsNotification(NumeroSuivantFile numeroSuivantFile) {
+        Call<SmsMessageRetour> call = RetrofitClient.getInstance().getMyApi().sendSmsNotification(numeroSuivantFile);
+
+        call.enqueue(new Callback<SmsMessageRetour>() {
+            @Override
+            public void onResponse(Call<SmsMessageRetour> call, Response<SmsMessageRetour> response) {
+                System.out.println("getStrRetourSendSmsNotification-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getStrRetourSendSmsNotification().postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<SmsMessageRetour> call, Throwable t) {
+                System.out.printf("getStrRetourSendSmsNotification Error -------------------------------> "+ t.getMessage());
+                SmsMessageRetour smsMessageRetour = new SmsMessageRetour("error_sending");
+                UserViewModel.getStrRetourSendSmsNotification().postValue(smsMessageRetour);
             }
         });
     }
