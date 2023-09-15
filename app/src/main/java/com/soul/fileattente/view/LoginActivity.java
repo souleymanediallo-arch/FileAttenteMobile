@@ -175,16 +175,16 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("-------------------------------------------------------------> I got clicked  userame --->  " + userame);
                 System.out.println("-------------------------------------------------------------> I got clicked  password --->  " + password);
 
-                if((userame!=null && userame.equals("patient") && password.equals("patient!") && chosenProfile.equals("Patient")) ||
-                   (userame!=null && userame.equals("moniteur") && password.equals("moniteur!") && chosenProfile.equals("Moniteur"))){
+//                if((userame!=null && userame.equals("patient") && password.equals("patient!") && chosenProfile.equals("Patient")) ||
+//                   (userame!=null && userame.equals("moniteur") && password.equals("moniteur!") && chosenProfile.equals("Moniteur"))){
                 //if(userame!=null && password.equals(userame+"!") && (chosenProfile.equals("Patient") || chosenProfile.equals("Moniteur"))) {
                     mLogin = new Login("admin", "admin");
                     userViewModel.authenticate(mLogin);
                     binding.progressBar.setVisibility(View.VISIBLE);
                     binding.textErroMessage.setVisibility(View.INVISIBLE);
-                }else{
-                    handleUsernameAndPasswordError();
-                }
+//                }else{
+//                    handleUsernameAndPasswordError();
+//                }
             }
         });
     }
