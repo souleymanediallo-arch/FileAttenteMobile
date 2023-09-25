@@ -1,3 +1,4 @@
+//https://healthicons.org/ //Pour les icones Medicales
 package com.soul.fileattente.utils;
 
 import android.content.Context;
@@ -148,43 +149,137 @@ public class Utils {
         context.startActivity(intent);
     }
 
+//    public static int getRihtImageIdGivenServiceName(String serviceName){
+//
+//        switch(serviceName){
+//
+//            case "Pediatrie":
+//                return R.drawable.ic_child_care;
+//
+//            case "Gynecologie":
+//                return R.drawable.ic_pregnant_woman;
+//
+//            case "Chirurgie":
+//                return R.drawable.ic_airline_bed_surgery;
+//
+//            case "Laboratoire":
+//                return R.drawable.ic_lab;
+//
+//            case "Retrait Analyses":
+//                return R.drawable.ic_retrait_res;
+//
+//            case "Radiologie -Scanner":
+//                return R.drawable.ic_radio;
+//
+//            case "Scanner":
+//                return R.drawable.ic_scanner;
+//
+//            case "Medecine"://Generaliste
+//                return R.drawable.ic_stetoscope_generaliste;
+//
+//            case "Cardiologie":
+//                return R.drawable.ic_cardiologie;
+//
+//            case "Analyse (Biologie)":
+//                return R.drawable.ic_analyse;
+//            default:
+//                return R.drawable.ic_baseline_timer_24;
+//        }
+//    }
+
     public static int getRihtImageIdGivenServiceName(String serviceName){
 
         switch(serviceName){
 
-            case "Pediatrie":
-                return R.drawable.ic_child_care;
+            case "Medecine":
+                return R.drawable.ic_medecine;
 
-            case "Gyneco":
-                return R.drawable.ic_pregnant_woman;
+            case "Diabetologie":
+                return R.drawable.ic_diabetologie;
+
+            case "Gynecologie":
+                return R.drawable.ic_gynecologie;
+
+            case "Pediatrie":
+                return R.drawable.ic_pediatrie;
 
             case "Chirurgie":
-                return R.drawable.ic_airline_bed_surgery;
+                return R.drawable.ic_chirurgie;
 
-            case "Laboratoire":
-                return R.drawable.ic_lab;
+            case "Analyse (Biologie)":
+                return R.drawable.ic_analyse_biologie;
 
-            case "Retrait Resultat":
-                return R.drawable.ic_retrait_res;
+            case "Retrait Analyses":
+                return R.drawable.ic_retraitanalyses;
 
-            case "Radio":
-                return R.drawable.ic_radio;
+            case "Orthopedie"://Generaliste
+                return R.drawable.ic_orthopedie;
 
-            case "Scanner":
-                return R.drawable.ic_scanner;
+            case "Neurologie":
+                return R.drawable.ic_neurologie;
 
-            case "Generaliste":
-                return R.drawable.ic_stetoscope_generaliste;
+            case "Neurochirurgie":
+                return R.drawable.ic_neurochirurgie;
 
-            case "Cardiologue":
+            case "Ophtalmologie":
+                return R.drawable.ic_ophtalmologie;
+
+            case "Dermatologie":
+                return R.drawable.ic_kinesitherapie;
+
+            case "Psychiatrie":
+                return R.drawable.ic_psychiatrie;
+
+            case "Psychologie":
+                return R.drawable.ic_psychologie;
+
+            case "Kinesitherapie":
+                return R.drawable.ic_kinesitherapie;
+
+            case "Rhumatologie":
+                return R.drawable.ic_rhumatologie;
+
+            case "Radiologie -Scanner":
+                return R.drawable.ic_radiologie__scanner;
+
+            case "Chirurgie Pediatrie"://Generaliste
+                return R.drawable.ic_chirurgie_pediatrie;
+
+            case "Cardiologie":
                 return R.drawable.ic_cardiologie;
 
-            case "Analyse":
-                return R.drawable.ic_analyse;
+            case "Gastrologie":
+                return R.drawable.ic_gastrologie;
+
+            case "Nephrologie":
+                return R.drawable.ic_nephrologie;
+
+            case "Pneumologie":
+                return R.drawable.ic_pneumologie;
+
+            case "Urologie"://Generaliste
+                return R.drawable.ic_urologie;
+
+            case "ORL":
+                return R.drawable.ic_orl;
+
+            case "Anesthesie":
+                return R.drawable.ic_anesthesie;
+
+            case "Dieteticien"://Generaliste
+                return R.drawable.ic_dieteticien;
+
+            case "Hematologie":
+                return R.drawable.ic_hematologie;
+
+            case "Echographie":
+                return R.drawable.ic_echographie;
+
             default:
-                return R.drawable.ic_baseline_timer_24;
+                return R.drawable.ic_patient_band;
         }
     }
+
 
     public static String formatSenegalTelephoneNumberForTextToVoice(String telephoneNumber){
         String formattedTelephoneNumber = "";
