@@ -48,7 +48,8 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
 
         DemandeGeneric demandeGeneric = new DemandeGeneric();
         demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
-        demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+        //demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+        demandeGeneric.setDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
 
         userViewModel.demandeAllServicesDestination(demandeGeneric);
         binding.progressBar.setVisibility(View.VISIBLE);

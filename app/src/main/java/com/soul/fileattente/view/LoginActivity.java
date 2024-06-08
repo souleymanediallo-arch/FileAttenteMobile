@@ -25,6 +25,7 @@ import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.Param;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
+import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
 import java.util.List;
@@ -58,7 +59,8 @@ public class LoginActivity extends AppCompatActivity {
 
         DemandeGeneric demandeGeneric = new DemandeGeneric();
         demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
-        demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+        //demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+        demandeGeneric.setDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
 
         userViewModel.demandeAllParams(demandeGeneric);
 

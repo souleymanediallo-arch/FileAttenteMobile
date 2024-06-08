@@ -3,12 +3,17 @@ package com.soul.fileattente.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import com.soul.fileattente.R;
 import com.soul.fileattente.model.Param;
@@ -322,6 +327,10 @@ public class Utils {
         return aStringBuilder.toString();
     }
 
+    public static String getUniqueId(Context context){
+        String android_device_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return "_" + android_device_id;
+    }
 
     //Better Place this in the activity needing them because probably of the Contexte
     //-------------------------------------------------------------------------------

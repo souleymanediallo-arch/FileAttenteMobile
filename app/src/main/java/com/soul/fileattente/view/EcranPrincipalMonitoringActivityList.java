@@ -1,12 +1,16 @@
 package com.soul.fileattente.view;
 
+import static androidx.core.content.ContextCompat.getSystemService;
 import static com.soul.fileattente.utils.ApplicationConstants.clientId;
 import static com.soul.fileattente.utils.ApplicationConstants.publishTopic;
 import static com.soul.fileattente.utils.ApplicationConstants.serverURI;
 import static com.soul.fileattente.utils.ApplicationConstants.subscribeTopic;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -34,6 +38,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -70,7 +75,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
         demandeGeneric = new DemandeGeneric();
         demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
-        demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+        //demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
+        demandeGeneric.setDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
         userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
 
         //Process whenever there is a change
@@ -112,12 +118,16 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         });
     }
 
-    //Implementing The activeMQ Part
+//    private String getUniqueId(){
+//        String android_device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+//        return "_" + android_device_id;
+//    }
+
     private void connect() {
         MqttConnectOptions connectOptions = new MqttConnectOptions();
         connectOptions.setAutomaticReconnect(true);
-
-        client = new MqttAndroidClient(this, serverURI, clientId);
+        System.out.println("Utils.getUniqueId ----------------------------------> " + clientId + Utils.getUniqueId(this.getApplicationContext()));
+        client = new MqttAndroidClient(this, serverURI, clientId + Utils.getUniqueId(this.getApplicationContext()));
         try {
             client.connect(connectOptions, new IMqttActionListener() {
                 @Override

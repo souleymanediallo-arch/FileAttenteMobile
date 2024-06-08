@@ -12,6 +12,7 @@ package com.soul.fileattente.view;
 import static com.soul.fileattente.utils.ApplicationConstants.*;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.soul.fileattente.R;
+import com.soul.fileattente.utils.Utils;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -76,12 +78,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+//    private String getUniqueId(){
+//        String android_device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+//        return "_" + android_device_id;
+//    }
 
     private void connect() {
         MqttConnectOptions connectOptions = new MqttConnectOptions();
         connectOptions.setAutomaticReconnect(true);
-
-        client = new MqttAndroidClient(this, serverURI, clientId);
+        System.out.println("Utils.getUniqueId ----------------------------------> " + clientId + Utils.getUniqueId(this.getApplicationContext()));
+        client = new MqttAndroidClient(this, serverURI, clientId + Utils.getUniqueId(this.getApplicationContext()));
         try {
             client.connect(connectOptions, new IMqttActionListener() {
                 @Override
