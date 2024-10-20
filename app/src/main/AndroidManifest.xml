@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,42 +19,43 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".view.MainActivity"
-            android:screenOrientation="portrait"
             android:exported="false">
+<!--            android:screenOrientation="landscape">-->
         </activity>
         <activity
             android:name=".view.EcranGenrationNumeroSuivantActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"/>
+<!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".view.EcranResumeActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"/>
+<!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".view.EcranPrincipalActivityList"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"/>
+<!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".view.EcranPrincipalMonitoringActivityList"
-            android:screenOrientation="landscape"
-            android:exported="false" />
+            android:exported="false"/>
+<!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".view.EcranPrincipalActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"/>
+<!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".view.EcranPrincipalMonitoringNumeroFileActivityList"
-            android:screenOrientation="landscape"
-            android:exported="false" />
+            android:exported="false"/>
+<!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".view.LoginActivity"
-            android:screenOrientation="portrait"
             android:exported="true">
+<!--            android:screenOrientation="landscape">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 </manifest>
