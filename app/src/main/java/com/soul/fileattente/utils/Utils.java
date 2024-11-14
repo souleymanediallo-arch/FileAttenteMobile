@@ -314,18 +314,47 @@ public class Utils {
         return formattedTelephoneNumber;
     }
 
+
     public static String formatNumeroDemandeurForTextToVoice(String numeroDemandeur){
 
-        if(numeroDemandeur == null) return "";
-        String formattedNumeroDemandeur = "";
+        if(numeroDemandeur == null || numeroDemandeur.length()<=3)  return "";
         int len = numeroDemandeur.length();
-        StringBuilder aStringBuilder = new StringBuilder();
-        for(int i=0; i<len; i++){
-            aStringBuilder.append(numeroDemandeur.charAt(i)).append(" ");
-            //aStringBuilder.append(numeroDemandeur.charAt(i)).append(";");
+        StringBuilder prefixNumero = new StringBuilder();
+        StringBuilder suffixNumero = new StringBuilder();
+        for(int i=0; i<3; i++){
+            prefixNumero.append(numeroDemandeur.charAt(i)).append(" ");
         }
-        return aStringBuilder.toString();
+        //System.out.println("prefixNumero ---------------->" + prefixNumero.toString());
+
+        for(int i=3; i<len; i++){
+            suffixNumero.append(numeroDemandeur.charAt(i));
+        }
+        //System.out.println("suffixNumero ---------------->" + suffixNumero.toString());
+
+        if(suffixNumero.toString().startsWith("0")){
+            String strSuffix = suffixNumero.toString();
+            len = strSuffix.length();
+            suffixNumero = new StringBuilder();
+            for(int i=0; i<len; i++){
+                //System.out.println("strSuffix.charAt("+i+") - > " +  strSuffix.charAt(i));
+                suffixNumero.append(strSuffix.charAt(i)).append(" ");
+            }
+        }
+        return prefixNumero.toString() + " " + suffixNumero.toString();
     }
+
+//    public static String formatNumeroDemandeurForTextToVoice(String numeroDemandeur){
+//
+//        if(numeroDemandeur == null) return "";
+//        String formattedNumeroDemandeur = "";
+//        int len = numeroDemandeur.length();
+//        StringBuilder aStringBuilder = new StringBuilder();
+//        for(int i=0; i<len; i++){
+//            aStringBuilder.append(numeroDemandeur.charAt(i)).append(" ");
+//            //aStringBuilder.append(numeroDemandeur.charAt(i)).append(";");
+//        }
+//        return aStringBuilder.toString();
+//    }
 
     public static String getUniqueId(Context context){
         String android_device_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);

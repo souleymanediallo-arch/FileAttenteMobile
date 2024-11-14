@@ -16,8 +16,8 @@ public interface ApplicationConstants {
     //Production
     //public static final String serverURI = "tcp://51.91.9.235:1883"; //replace with your ip //Ancien serveu
     //public static final String serverURI = "tcp://92.222.164.174:1883"; //replace with your ip
-    //public static final String serverURI = "tcp://37.187.90.58:1883"; //replace with your ip
-    public static final String serverURI = "tcp://37.187.90.58:1889"; //replace with your ip # For Test Environment
+    public static final String serverURI = "tcp://37.187.90.58:1883"; //replace with your ip
+    //public static final String serverURI = "tcp://37.187.90.58:1889"; //replace with your ip # For Test Environment
     public static final String clientId = "android_client_file_attente";
     public static final String publishTopic = "android_client_outbox";
     public static final String subscribeTopic = "android_client_inbox";
