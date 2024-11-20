@@ -23,6 +23,16 @@ public class DemandeNumeroFile {
     private String  telephoneDemandeur;
     private String  emailDemandeur;
 
+//    {
+//            "idService": "672f9b05e434e738150a1cc2",
+//            "nomServiceDestination": "PEDIATRIE",
+//            "telephoneDemandeur": "221766482276",
+//            "patientDeviceId": "xdevice_idPatient",
+//            "monitorDeviceId": "xdevice_idMonitor",
+//            "emailDemandeur": "demandeur@demand.com"
+//    }
+
+
     public DemandeNumeroFile() {
     }
 

@@ -8,18 +8,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalBinding;
+import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceDestination;
@@ -78,7 +75,8 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
-        System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
         //System.out.println("------------> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
 
@@ -188,22 +186,33 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
-        System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
         binding.progressBar.setVisibility(View.VISIBLE);
 
         String nomService = mGlobalSetOfExtra.mServiceDestination.getNomServiceDestination();
-        String etablissementid = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getEtablissementid());
-        String serviceDestinationid = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getId());
-        String deviceId = "000000000000";//Mettre en place une fonction qui va retourner cette information à partir d'un vrai device
+        String idEtablissement = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getEtablissementAssocie());
+        String idService = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getIdService());
+        //String patientDeviceId = "000000000000";//Mettre en place une fonction qui va retourner cette information à partir d'un vrai device
+        String patientDeviceId = Utils.getUniqueId(this.getApplicationContext());
         String telephoneDemandeur = binding.editTextPhone.getText().toString();
         String emailDemandeur = "adresse_mail@recuperer.com";
 
-        DemandeNumeroFile demandeNumeroFile = new DemandeNumeroFile(nomService, etablissementid, serviceDestinationid, deviceId, telephoneDemandeur, emailDemandeur);
-        System.out.println(demandeNumeroFile.toString());
-        userViewModel.demandeNumerosSuivant(demandeNumeroFile);
+        //DemandeNumeroFile demandeNumeroFile = new DemandeNumeroFile(nomService, etablissementid, serviceDestinationid, deviceId, telephoneDemandeur, emailDemandeur);
+//        this.idEtablissement = idEtablissement;
+//        this.idService = idService;
+//        this.telephoneDemandeur = telephoneDemandeur;
+//        this.emailDemandeur = emailDemandeur;
+//        this.patientDeviceId = patientDeviceId;
+//        this.monitorDeviceId = monitorDeviceId;
+//        this.medecinDeviceId = medecinDeviceId;
+//        this.nomService = nomService;
+//        this.prefixeService = prefixeService;
+        DemandeGeneric demandeGeneric = new DemandeGeneric(idEtablissement,idService,telephoneDemandeur,emailDemandeur,patientDeviceId,"","",nomService,nomService.substring(3).toUpperCase(Locale.ROOT));
+        System.out.println(demandeGeneric.toString());
+        userViewModel.demandeNumerosSuivant(demandeGeneric);
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
-
     }
 
     void processWhenNumeroSuivantFileForDemandeNumerosSuivantChanged() {
@@ -220,9 +229,9 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                         System.out.println("NumeroSuivantFileForDemandeNumerosSuivant Data Changed............................................");
                         System.out.println("numeroSuivantFile  --------> " + numeroSuivantFile.toString());
                         makeVisibleRelevantCompnoent();
-                        binding.txtGenNumeroLabel.setText("Votre numéro pour le service [" + numeroSuivantFile.getNomService() + "] est :");
-                        binding.txtGenNumero.setText(numeroSuivantFile.getNumeroSuivant());
-                        strValueGenNumero = numeroSuivantFile.getNumeroSuivant();
+                        binding.txtGenNumeroLabel.setText("Votre numéro pour le service [" + numeroSuivantFile.getNomServiceDestination() + "] est :");
+                        binding.txtGenNumero.setText(numeroSuivantFile.getNumeroDansFileAttente());
+                        strValueGenNumero = numeroSuivantFile.getNumeroDansFileAttente();
                         mGlobalSetOfExtra.mNumeroSuivantFile = numeroSuivantFile;
                         binding.progressBar.setVisibility(View.INVISIBLE);
                         binding.buttonGenNumero.setEnabled(false);

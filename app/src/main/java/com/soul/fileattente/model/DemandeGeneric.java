@@ -1,79 +1,122 @@
 package com.soul.fileattente.model;
 
 public class DemandeGeneric {
-    private Long id;
-    private Long serviceDestinationid;
-    private String nomServiceDestination;
-    private String etablissementid;
-    private String clinique;
-    private String deviceId;
-    private String service;
-    private String dateHeureDemande;
+
+    String idEtablissement;
+    String idService;
+    String telephoneDemandeur;
+    String emailDemandeur;
+    String patientDeviceId;
+    String monitorDeviceId;
+    String medecinDeviceId;
+    String nomService;
+    String prefixeService;
+
+//    private Long id;
+//    //private Long idService;
+//    private String nomServiceDestination;
+//    //private String idEtablissement;
+//    //private String clinique;
+//    //private String deviceId;
+//    private String service;
+//    private String dateHeureDemande;
+
+
+//    String idEtablissement,
+//    String idService,
+//    String nomServiceDestination,//Juste à des fins de debug mais l'info se trouve dans le service dont l'id est donné idService
+//    String telephoneDemandeur,
+//    String patientDeviceId,
+//    String monitorDeviceId,//Doit etre supprimer car a cemoment, on ne sait pas quel device va traiter
+//    String emailDemandeur,
+//    LocalDateTime dateHeureDemande,//Doit etre supprimer car determine aussi par le serveur backEnd
+//    String servicesChoisi//Information redondante à priori car c'est la meme chose que idService
+
 
     public DemandeGeneric() {
     }
 
-    public Long getId() {
-        return id;
+    public DemandeGeneric(String idEtablissement, String idService, String telephoneDemandeur, String emailDemandeur, String patientDeviceId, String monitorDeviceId, String medecinDeviceId, String nomService, String prefixeService) {
+        this.idEtablissement = idEtablissement;
+        this.idService = idService;
+        this.telephoneDemandeur = telephoneDemandeur;
+        this.emailDemandeur = emailDemandeur;
+        this.patientDeviceId = patientDeviceId;
+        this.monitorDeviceId = monitorDeviceId;
+        this.medecinDeviceId = medecinDeviceId;
+        this.nomService = nomService;
+        this.prefixeService = prefixeService;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getIdEtablissement() {
+        return idEtablissement;
     }
 
-    public Long getServiceDestinationid() {
-        return serviceDestinationid;
+    public void setIdEtablissement(String idEtablissement) {
+        this.idEtablissement = idEtablissement;
     }
 
-    public void setServiceDestinationid(Long serviceDestinationid) {
-        this.serviceDestinationid = serviceDestinationid;
+    public String getIdService() {
+        return idService;
     }
 
-    public String getNomServiceDestination() {
-        return nomServiceDestination;
+    public void setIdService(String idService) {
+        this.idService = idService;
     }
 
-    public void setNomServiceDestination(String nomServiceDestination) {
-        this.nomServiceDestination = nomServiceDestination;
+    public String getTelephoneDemandeur() {
+        return telephoneDemandeur;
     }
 
-    public String getEtablissementid() {
-        return etablissementid;
+    public void setTelephoneDemandeur(String telephoneDemandeur) {
+        this.telephoneDemandeur = telephoneDemandeur;
     }
 
-    public void setEtablissementid(String etablissementid) {
-        this.etablissementid = etablissementid;
+    public String getEmailDemandeur() {
+        return emailDemandeur;
     }
 
-    public String getClinique() {
-        return clinique;
+    public void setEmailDemandeur(String emailDemandeur) {
+        this.emailDemandeur = emailDemandeur;
     }
 
-    public void setClinique(String clinique) {
-        this.clinique = clinique;
+    public String getPatientDeviceId() {
+        return patientDeviceId;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public void setPatientDeviceId(String patientDeviceId) {
+        this.patientDeviceId = patientDeviceId;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public String getMonitorDeviceId() {
+        return monitorDeviceId;
     }
 
-    public String getService() {
-        return service;
+    public void setMonitorDeviceId(String monitorDeviceId) {
+        this.monitorDeviceId = monitorDeviceId;
     }
 
-    public void setService(String service) {
-        this.service = service;
+    public String getNomService() {
+        return nomService;
     }
 
-    public String getDateHeureDemande() {
-        return dateHeureDemande;
+    public void setNomService(String nomService) {
+        this.nomService = nomService;
     }
 
-    public void setDateHeureDemande(String dateHeureDemande) {
-        this.dateHeureDemande = dateHeureDemande;
+    public String getPrefixeService() {
+        return prefixeService;
+    }
+
+    public void setPrefixeService(String prefixeService) {
+        this.prefixeService = prefixeService;
+    }
+
+    public String getMedecinDeviceId() {
+        return medecinDeviceId;
+    }
+
+    public void setMedecinDeviceId(String medecinDeviceId) {
+        this.medecinDeviceId = medecinDeviceId;
     }
 }

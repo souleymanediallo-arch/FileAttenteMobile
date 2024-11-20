@@ -3,11 +3,10 @@ package com.soul.fileattente.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.soul.fileattente.model.AutheticationResult;
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.DemandeNumeroFile;
+import com.soul.fileattente.model.Etablissement;
 import com.soul.fileattente.model.Login;
-import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceAGG;
@@ -27,9 +26,10 @@ public class UserViewModel extends ViewModel {
 
     private FileAttenteRepository mFileAttenteRepository;
 
-    private static MutableLiveData<AutheticationResult> autheticationResultForAuthenticate = new MutableLiveData<>();
-    private static MutableLiveData<LoginResult> loginResultForLogin = new MutableLiveData<>();
+    private static MutableLiveData<Login> autheticationResultForAuthenticate = new MutableLiveData<>();
+    private static MutableLiveData<Login> loginResultForLogin = new MutableLiveData<>();
     private static MutableLiveData<List<Param>> listParamForDemandeAllParams = new MutableLiveData<>();
+    private static MutableLiveData<Etablissement> etablissementFordemanderEtablissement  = new MutableLiveData<>();
     private static MutableLiveData<List<ServiceDestination>> listServiceDestinationForDemandeAllServicesDestination = new MutableLiveData<>();
     private static MutableLiveData<List<ServiceAGG>> listServiceAGGForDemandeAggregatAllServicesDestinationNumeroFiles = new MutableLiveData<>();
     private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForDemandeNumerosSuivant = new MutableLiveData<>();
@@ -54,15 +54,26 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.login(login);//Inside and because it's async, the postValue is done inside
     }
 
-    public void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile) {
+//    public void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile) {
+//        mFileAttenteRepository = FileAttenteRepository.getInstance();
+//        mFileAttenteRepository.demandeNumerosSuivant(demandeNumeroFile);//Inside and because it's async, the postValue is done inside
+//    }
+
+    public void demandeNumerosSuivant(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
-        mFileAttenteRepository.demandeNumerosSuivant(demandeNumeroFile);//Inside and because it's async, the postValue is done inside
+        mFileAttenteRepository.demandeNumerosSuivant(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
-    public void demandeAllParams(DemandeGeneric demandeGeneric) {
+//    public void demandeAllParams(DemandeGeneric demandeGeneric) {
+//        mFileAttenteRepository = FileAttenteRepository.getInstance();
+//        mFileAttenteRepository.demandeAllParams(demandeGeneric);//Inside and because it's async, the postValue is done inside
+//    }
+
+    public void demandeEtablissement(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
-        mFileAttenteRepository.demandeAllParams(demandeGeneric);//Inside and because it's async, the postValue is done inside
+        mFileAttenteRepository.demanderEtablissement(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
+
 
     public void demandeAllServicesDestination(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
@@ -94,16 +105,20 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.sendSmsNotification(numeroSuivantFile);//Inside and because it's async, the postValue is done inside
     }
 
-    public static MutableLiveData<AutheticationResult> getAutheticationResultForAuthenticate() {
+    public static MutableLiveData<Login> getAutheticationResultForAuthenticate() {
         return autheticationResultForAuthenticate;
     }
 
-    public static MutableLiveData<LoginResult> getLoginResultForLogin() {
+    public static MutableLiveData<Login> getLoginResultForLogin() {
         return loginResultForLogin;
     }
 
     public static MutableLiveData<List<Param>> getListParamForDemandeAllParams() {
         return listParamForDemandeAllParams;
+    }
+
+    public static MutableLiveData<Etablissement> getEtablissementFordemanderEtablissement() {
+        return etablissementFordemanderEtablissement;
     }
 
     public static MutableLiveData<List<ServiceDestination>> getListServiceDestinationForDemandeAllServicesDestination() {

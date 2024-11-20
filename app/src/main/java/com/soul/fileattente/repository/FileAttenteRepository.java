@@ -1,17 +1,15 @@
 package com.soul.fileattente.repository;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.soul.fileattente.api.RetrofitClient;
-import com.soul.fileattente.model.AutheticationResult;
-import com.soul.fileattente.model.Birthday;
 import com.soul.fileattente.model.DemandeGeneric;
-import com.soul.fileattente.model.DemandeNumSuiv;
 import com.soul.fileattente.model.DemandeNumeroFile;
-import com.soul.fileattente.model.DemandeParam;
-import com.soul.fileattente.model.DemandeService;
+import com.soul.fileattente.model.Etablissement;
 import com.soul.fileattente.model.Login;
-import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.NumeroSuivantFile;
-import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.model.SmsMessageRetour;
@@ -22,7 +20,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
 
 public class FileAttenteRepository {
 
@@ -37,41 +34,59 @@ public class FileAttenteRepository {
     }
 
     public void authenticate(Login login) {
-        Call<AutheticationResult> call = RetrofitClient.getInstance().getMyApi().authenticate(login);
+        Call<Login> call = RetrofitClient.getInstance().getMyApi().authenticate(login);
 
-        call.enqueue(new Callback<AutheticationResult>() {
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(Call<AutheticationResult> call, Response<AutheticationResult> response) {
+            public void onResponse(Call<Login> call, Response<Login> response) {
                 System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
                 UserViewModel.getAutheticationResultForAuthenticate().postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<AutheticationResult> call, Throwable t) {
+            public void onFailure(Call<Login> call, Throwable t) {
                 System.out.printf(t.getMessage());
             }
         });
     }
 
     public void login(Login login) {
-        Call<LoginResult> call = RetrofitClient.getInstance().getMyApi().login(login);
+        Call<Login> call = RetrofitClient.getInstance().getMyApi().login(login);
 
-        call.enqueue(new Callback<LoginResult>() {
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+            public void onResponse(Call<Login> call, Response<Login> response) {
                 System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
                 UserViewModel.getLoginResultForLogin().postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<LoginResult> call, Throwable t) {
+            public void onFailure(Call<Login> call, Throwable t) {
                 System.out.printf(t.getMessage());
             }
         });
     }
 
-    public void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile) {
-        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().demandeNumerosSuivant(demandeNumeroFile);
+//    public void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile) {
+//        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().demandeNumerosSuivant(demandeNumeroFile);
+//
+//        call.enqueue(new Callback<NumeroSuivantFile>() {
+//            @Override
+//            public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
+//                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+//                UserViewModel.getNumeroSuivantFileForDemandeNumerosSuivant().postValue(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NumeroSuivantFile> call, Throwable t) {
+//                UserViewModel.getNumeroSuivantFileForDemandeNumerosSuivant().postValue(null);
+//                System.out.printf(t.getMessage());
+//            }
+//        });
+//    }
+
+    public void demandeNumerosSuivant(DemandeGeneric demandeGeneric) {
+        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().demandeNumerosSuivant(demandeGeneric);
 
         call.enqueue(new Callback<NumeroSuivantFile>() {
             @Override
@@ -87,6 +102,7 @@ public class FileAttenteRepository {
             }
         });
     }
+
 
     public void getAllNumerosSuivants() {
         Call<List<NumeroSuivantFile>> call = RetrofitClient.getInstance().getMyApi().getAllNumerosSuivants();
@@ -108,28 +124,46 @@ public class FileAttenteRepository {
     //https://stackoverflow.com/questions/24562716/how-to-retry-http-requests-with-okhttp-retrofit
     //https://resilience4j.readme.io/v1.7.0/docs/retrofit#retry
     //https://itecnote.com/tecnote/android-how-to-retry-http-requests-with-okhttp-retrofit/
-    public void demandeAllParams(DemandeGeneric demandeGeneric) {
-        Call<List<Param>> call = RetrofitClient.getInstance().getMyApi().demandeAllParams(demandeGeneric);
+//    public void demandeAllParams(DemandeGeneric demandeGeneric) {
+//        Call<List<Param>> call = RetrofitClient.getInstance().getMyApi().demandeAllParams(demandeGeneric);
+//
+//        call.enqueue(new Callback<List<Param>>() {
+//            @Override
+//            public void onResponse(Call<List<Param>> call, Response<List<Param>> response) {
+//                System.out.println("-------------------------------> " + response.code() + "  >--<  \n" + response.toString() + "  --  \n" + response.body());
+////                //Simuler/Rajouter du temps d'attente
+////                try {
+////                    Thread.sleep(2000);
+////                } catch (InterruptedException e) {
+////                    e.printStackTrace();
+////                }
+//                UserViewModel.getListParamForDemandeAllParams().postValue(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Param>> call, Throwable t) {
+//                System.out.printf("-------------------------------> " + t.getMessage());
+//                //UserViewModel.getListParamForDemandeAllParams().postValue(response.body());
+//                UserViewModel.getListParamForDemandeAllParams().postValue(null);
+//                //call.
+//            }
+//        });
+//    }
 
-        call.enqueue(new Callback<List<Param>>() {
+    public void demanderEtablissement(DemandeGeneric demandeGeneric){
+        Call<Etablissement> call  = RetrofitClient.getInstance().getMyApi().demanderEtablissement(demandeGeneric);
+
+        call.enqueue(new Callback<Etablissement>() {
             @Override
-            public void onResponse(Call<List<Param>> call, Response<List<Param>> response) {
-                System.out.println("-------------------------------> " + response.code() + "  >--<  \n" + response.toString() + "  --  \n" + response.body());
-//                //Simuler/Rajouter du temps d'attente
-//                try {
-//                    Thread.sleep(2000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-                UserViewModel.getListParamForDemandeAllParams().postValue(response.body());
+            public void onResponse(Call<Etablissement> call, Response<Etablissement> response) {
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getEtablissementFordemanderEtablissement().postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Param>> call, Throwable t) {
-                System.out.printf("-------------------------------> " + t.getMessage());
-                //UserViewModel.getListParamForDemandeAllParams().postValue(response.body());
-                UserViewModel.getListParamForDemandeAllParams().postValue(null);
-                //call.
+            public void onFailure(Call<Etablissement> call, Throwable t) {
+                System.out.printf(t.getMessage());
+                UserViewModel.getEtablissementFordemanderEtablissement().postValue(null);
             }
         });
     }
@@ -154,10 +188,15 @@ public class FileAttenteRepository {
     public void demandeAggregatAllServicesDestinationNumeroFiles(DemandeGeneric demandeGeneric) {
         Call<List<ServiceAGG>> call = RetrofitClient.getInstance().getMyApi().demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
 
+        System.out.println("-------------------------------------> Data Changed in demandeAggregatAllServicesDestinationNumeroFiles " );
         call.enqueue(new Callback<List<ServiceAGG>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<ServiceAGG>> call, Response<List<ServiceAGG>> response) {
-                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                System.out.println("-------------------------------> response.code() : " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                System.out.println("-------------------------------> response.body().isEmpty() : " + response.body().isEmpty());
+                System.out.println("-------------------------------> response.body().size() : " + response.body().size());
+                response.body().forEach(s -> System.out.println(s));
                 UserViewModel.getListForDemandeAggregatAllServicesDestinationNumeroFiles().postValue(response.body());
             }
 

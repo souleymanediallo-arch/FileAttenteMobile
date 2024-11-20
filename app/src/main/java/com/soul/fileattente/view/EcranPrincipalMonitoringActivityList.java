@@ -1,16 +1,12 @@
 package com.soul.fileattente.view;
 
-import static androidx.core.content.ContextCompat.getSystemService;
 import static com.soul.fileattente.utils.ApplicationConstants.clientId;
 import static com.soul.fileattente.utils.ApplicationConstants.publishTopic;
 import static com.soul.fileattente.utils.ApplicationConstants.serverURI;
 import static com.soul.fileattente.utils.ApplicationConstants.subscribeTopic;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,7 +22,6 @@ import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
-import com.soul.fileattente.utils.StatutNumSuivantFileEnum;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
@@ -38,7 +33,6 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -68,15 +62,17 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
-        System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
 
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
 
         demandeGeneric = new DemandeGeneric();
-        demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+        //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
         //demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
-        demandeGeneric.setDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
+        demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
         userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
 
         //Process whenever there is a change
@@ -106,7 +102,9 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 if (serviceAGGs != null) {
                     serviceAGGListData.clear();
                     for (ServiceAGG serviceAGG : serviceAGGs) {
-                        int imageId = Utils.getRihtImageIdGivenServiceName(serviceAGG.getNomService());
+                        System.out.println("------------> serviceAGG " + serviceAGG);
+                        System.out.println("------------> serviceAGG.getNomServiceDestination() " + serviceAGG.getNomServiceDestination());
+                        int imageId = Utils.getRihtImageIdGivenServiceName(serviceAGG.getNomServiceDestination());
                         serviceAGGListData.add(new ServiceAGGListData(serviceAGG, imageId));
                     }
                     serviceAGGMonitoringListDataAdapter.notifyDataSetChanged();
@@ -193,19 +191,20 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomService() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
+                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile + "] au numero [" + numeroSuivantFile + "]");
+                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomServiceDestination() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
                 String messageAnnonce =
-                        "Service " + numeroSuivantFile.getNomService() + "\n" +
-                        "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroSuivant()) + "\n" +
+                        "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
+                        "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroDansFileAttente()) + "\n" +
                         "Votre tour est arrivé";
                 String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
                 initializedTextToSpeechInstance(messageAnnonce);
                 //Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
                 //numeroSuivantFile.setStatutNumSuivantFile(StatutNumSuivantFileEnum.Appele);
-                System.out.println("numeroSuivantFile.getStatutNumSuivantFile() ----> " + numeroSuivantFile.getStatutNumSuivantFile());
+                System.out.println("numeroSuivantFile.getStatutNumSuivantFile() ----> " + numeroSuivantFile.getStatut());
                 //Cette ligne ci dessous pour que le bon message soit enoyé cote BACK (meme si en principe c'est deja le cas),
                 //Prevoir le traitement du retour de cet appel à l'afficher pour eventuellement alter sur les pbs d'envois de sms (technique, credit entre autres)
-                numeroSuivantFile.setStatutNumSuivantFile("Appele");
+                numeroSuivantFile.setStatut("Appele");
                 userViewModel.sendSmsNotification(numeroSuivantFile);
             }
         });

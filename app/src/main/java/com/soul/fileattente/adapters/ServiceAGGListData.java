@@ -1,7 +1,6 @@
 package com.soul.fileattente.adapters;
 
 import com.soul.fileattente.model.ServiceAGG;
-import com.soul.fileattente.model.ServiceDestination;
 
 public class ServiceAGGListData extends ServiceAGG {
 
@@ -9,9 +8,9 @@ public class ServiceAGGListData extends ServiceAGG {
     private ServiceAGG serviceAGG;
 
     public ServiceAGGListData(ServiceAGG serviceAGG, int imgId) {
-        super.setIdService(serviceAGG.getIdService());
-        super.setNomService(serviceAGG.getNomService());
-        super.setNbDemandeur(serviceAGG.getNbDemandeur());
+        super.setServicesChoisi(serviceAGG.getServicesChoisi());
+        super.setNomServiceDestination(serviceAGG.getNomServiceDestination());
+        super.setNumberOfElementInQueue(serviceAGG.getNumberOfElementInQueue());
         super.setNumeroSuivant(serviceAGG.getNumeroSuivant());
         super.setNumeroSuivantFile(serviceAGG.getNumeroSuivantFile());
         this.imgId = imgId;

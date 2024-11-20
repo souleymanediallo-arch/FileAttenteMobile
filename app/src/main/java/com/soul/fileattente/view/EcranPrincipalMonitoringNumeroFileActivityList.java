@@ -41,12 +41,14 @@ public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatAct
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
-        System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
 
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalMonitoringNumeroFileActivityList.this).get(UserViewModel.class);
         DemandeGeneric demandeGeneric = new DemandeGeneric();
-        demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+        //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
         userViewModel.demandeAllNumerosSuivants(demandeGeneric);
 
         //Process whenever there is a change

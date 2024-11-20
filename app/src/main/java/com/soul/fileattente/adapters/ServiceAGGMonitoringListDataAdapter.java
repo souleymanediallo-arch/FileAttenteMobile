@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.soul.fileattente.R;
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
-import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
 
 import java.util.ArrayList;
@@ -45,8 +44,8 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
 //        holder.textView.setText(serviceAGGListData.getNomService() + " -- " + serviceAGGListData.getNumeroSuivant() + " -- " + serviceAGGListData.getNbDemandeur());
 
         //holder.txtServiceDestination.setText(Utils.formatStringForView(serviceAGGListData.getNomService()));
-        holder.txtServiceDestination.setText(serviceAGGListData.getNomService());
-        holder.txtNbPatientServiceCourant.setText(serviceAGGListData.getNbDemandeur());
+        holder.txtServiceDestination.setText(serviceAGGListData.getNomServiceDestination());
+        holder.txtNbPatientServiceCourant.setText(serviceAGGListData.getNumberOfElementInQueue());
         holder.txtnumPatientSuivant.setText(serviceAGGListData.getNumeroSuivant());
         holder.txtSuivant.setText("Suivant");
         holder.txtAnnuler.setText("Annuler");
@@ -92,8 +91,8 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
 //                }
 
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                demandeGeneric.setServiceDestinationid(serviceAGGListData.getIdService());
-                demandeGeneric.setNomServiceDestination(serviceAGGListData.getNomService());
+                demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi()+"");
+                demandeGeneric.setIdService(serviceAGGListData.getNomServiceDestination());
                 //demandeGeneric.setEtablissementid("1");//A determiner
 
                 EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(demandeGeneric);
@@ -109,8 +108,8 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
 
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                demandeGeneric.setServiceDestinationid(serviceAGGListData.getIdService());
-                demandeGeneric.setNomServiceDestination(serviceAGGListData.getNomService());
+                demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi()+"");
+                demandeGeneric.setNomService(serviceAGGListData.getNomServiceDestination());
                 //demandeGeneric.setEtablissementid();//A determiner
 
                 EcranPrincipalMonitoringActivityList.userViewModel.annulerAppelNumero(demandeGeneric);

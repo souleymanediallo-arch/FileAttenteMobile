@@ -41,15 +41,17 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
-        System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
 
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalActivityList.this).get(UserViewModel.class);
 
         DemandeGeneric demandeGeneric = new DemandeGeneric();
-        demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+        //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
         //demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
-        demandeGeneric.setDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
+        demandeGeneric.setPatientDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
 
         userViewModel.demandeAllServicesDestination(demandeGeneric);
         binding.progressBar.setVisibility(View.VISIBLE);

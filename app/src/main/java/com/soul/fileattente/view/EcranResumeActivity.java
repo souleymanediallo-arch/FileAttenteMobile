@@ -45,7 +45,8 @@ public class EcranResumeActivity extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
-        System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
+        System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
         System.out.println("------------> " + GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY);
@@ -64,8 +65,8 @@ public class EcranResumeActivity extends AppCompatActivity {
 
         System.out.println("mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur() -> " + mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur() + "  --  mGlobalSetOfExtra.mNumeroSuivantFile.toString() -> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
         String messToSend =
-                "Numero : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNumeroSuivant() + "\n" +
-                        "Service : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNomService() + "\n" +
+                "Numero : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNumeroDansFileAttente() + "\n" +
+                        "Service : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNomServiceDestination() + "\n" +
                         "Nb Pers en Attente : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNbTotalDemandeursEnCours() + "\n" +
                         "Temps Attente Moyen : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteMoyen() + "\n" +
                         "Temps Attente Estime : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteEstime();

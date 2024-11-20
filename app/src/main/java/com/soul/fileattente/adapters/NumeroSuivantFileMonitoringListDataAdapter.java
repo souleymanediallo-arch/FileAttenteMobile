@@ -62,9 +62,9 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
         final NumeroSuivantFileListData numeroSuivantFileListData = listdata.get(position);
 
 //        holder.txtServiceDestination.setText(serviceDestinationListData.getNomService() + " -- " + serviceDestinationListData.getStatutService());
-        holder.txtServiceDestination.setText(Utils.formatStringForView(numeroSuivantFileListData.getNomService()));
-        holder.txtNumPatientCourant.setText(numeroSuivantFileListData.getNumeroSuivant());
-        holder.txtnumPatientSuivant.setText(numeroSuivantFileListData.getNumeroSuivant());
+        holder.txtServiceDestination.setText(Utils.formatStringForView(numeroSuivantFileListData.getNomServiceDestination()));
+        holder.txtNumPatientCourant.setText(numeroSuivantFileListData.getNumeroDansFileAttente());
+        holder.txtnumPatientSuivant.setText(numeroSuivantFileListData.getNumeroDansFileAttente());
         holder.txtSuivant.setText("Suivant");
         holder.txtAnnuler.setText("Annuler");
 
@@ -90,7 +90,8 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
                 //demandeGeneric.setId(1L);
                 //demandeGeneric.setNomServiceDestination("nomServiceDestination");
-                demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+                //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
+                demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
 
                 EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(demandeGeneric);
                 //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)
@@ -109,7 +110,8 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
                 //demandeGeneric.setId(1L);
                 //demandeGeneric.setNomServiceDestination("nomServiceDestination");
-                demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
+                //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
+                demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
 
                 EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
                 //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)

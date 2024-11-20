@@ -3,33 +3,45 @@ package com.soul.fileattente.model;
 import java.io.Serializable;
 
 public class ServiceDestination implements Serializable {
-    Long id;
-    String nomServiceDestination;
-    String libelleServiceDestination;
-    String statutServiceDestination;
-    Long tempsAttenteMoyen;
-    Long tempsAttenteEstime;
-    Long etablissementid;
+    //String idService;
+    //String nomServiceDestination;
+    //String libelleServiceDestination;
+    //String statutServiceDestination;
+    //Long tempsAttenteMoyen;
+    //Long tempsAttenteEstime;
+    //Long etablissementAssocie;
+
+
+    private String idService;
+    private String prefixeServiceAAfficher;
+    private String nomServiceDestination;
+    private String libelleServiceDestination;
+    private String statutServiceDestination;
+//    private boolean statutServiceDestination;
+    private Long tempsAttenteMoyen;
+    private Long tempsAttenteEstime;
+    private String etablissementAssocie;
+
 
     public ServiceDestination() {
     }
 
-    public ServiceDestination(Long id, String nomServiceDestination, String libelleServiceDestination, String statutServiceDestination, Long tempsAttenteMoyen, Long tempsAttenteEstime, Long etablissementid) {
-        this.id = id;
+    public ServiceDestination(String idService, String nomServiceDestination, String libelleServiceDestination, String statutServiceDestination, Long tempsAttenteMoyen, Long tempsAttenteEstime, String etablissementAssocie) {
+        this.idService = idService;
         this.nomServiceDestination = nomServiceDestination;
         this.libelleServiceDestination = libelleServiceDestination;
         this.statutServiceDestination = statutServiceDestination;
         this.tempsAttenteMoyen = tempsAttenteMoyen;
         this.tempsAttenteEstime = tempsAttenteEstime;
-        this.etablissementid = etablissementid;
+        this.etablissementAssocie = etablissementAssocie;
     }
 
-    public Long getId() {
-        return id;
+    public String getIdService() {
+        return idService;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdService(String idService) {
+        this.idService = idService;
     }
 
     public String getNomServiceDestination() {
@@ -72,11 +84,19 @@ public class ServiceDestination implements Serializable {
         this.tempsAttenteEstime = tempsAttenteEstime;
     }
 
-    public Long getEtablissementid() {
-        return etablissementid;
+    public String getEtablissementAssocie() {
+        return etablissementAssocie;
     }
 
-    public void setEtablissementid(Long etablissementid) {
-        this.etablissementid = etablissementid;
+    public void setEtablissementAssocie(String etablissementAssocie) {
+        this.etablissementAssocie = etablissementAssocie;
+    }
+
+    public String getPrefixeServiceAAfficher() {
+        return prefixeServiceAAfficher;
+    }
+
+    public void setPrefixeServiceAAfficher(String prefixeServiceAAfficher) {
+        this.prefixeServiceAAfficher = prefixeServiceAAfficher;
     }
 }

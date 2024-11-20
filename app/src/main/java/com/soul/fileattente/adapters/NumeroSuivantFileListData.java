@@ -14,8 +14,8 @@ public class NumeroSuivantFileListData extends NumeroSuivantFile {
 //        this.imgId = imgId;
 //        this.serviceDestination = serviceDestination;
 
-        super.setNomService(numeroSuivantFile.getNomService());
-        super.setStatutNumSuivantFile(numeroSuivantFile.getStatutNumSuivantFile());
+        super.setNomServiceDestination(numeroSuivantFile.getNomServiceDestination());
+        super.setStatut(numeroSuivantFile.getStatut());
         this.imgId = imgId;
         this.numeroSuivantFile = numeroSuivantFile;
     }

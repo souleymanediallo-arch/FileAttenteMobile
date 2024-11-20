@@ -1,20 +1,19 @@
 package com.soul.fileattente.utils;
 
-import com.soul.fileattente.model.AutheticationResult;
+import com.soul.fileattente.model.Etablissement;
 import com.soul.fileattente.model.Login;
-import com.soul.fileattente.model.LoginResult;
 import com.soul.fileattente.model.NumeroSuivantFile;
-import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceDestination;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class GlobalSetOfExtra implements Serializable {
     public Login mLogin;
-    public AutheticationResult mAuthenticationResult;
-    public LoginResult mLoginResult;
-    public List<Param> mListParams;
+    //public AutheticationResult mAuthenticationResult;
+    public Login mAuthenticationResult;
+    public Login mLoginResult;
+    //public List<Param> mListParams;
+    public Etablissement mEtablissement;
     public ServiceDestination mServiceDestination;
     public NumeroSuivantFile mNumeroSuivantFile;
 

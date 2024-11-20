@@ -1,6 +1,7 @@
 package com.soul.fileattente.model;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 public class NumeroSuivantFile implements Serializable {
 
@@ -50,86 +51,167 @@ public class NumeroSuivantFile implements Serializable {
 //    private String dateHeureDemande;
 
 
-    private Long id;
-    private Long demandeNumeroFileid;
-    private String numeroSuivant;
-    private String statutNumSuivantFile;
+//    private Long id;
+//    private Long demandeNumeroFileid;
+//    private String numeroSuivant;
+//    private String statutNumSuivantFile;
+//    //private String dateHeureDemande;
+//    //private String dateHeureRetour;
+//    private String dateHeureAppel;
+//    private String dateHeureAnnulation;
+//    //private Integer nbAnnulation;
+//    //private Long nbTotalDemandeursEnCours;
+//    //private Long tempsAttenteMoyen;
+//    //private Long tempsAttenteEstime;
+//    //private Long tempsAttenteEffectif;
+//    private String additionalKeyValuePairCSList;
+//    private String  nomService;
+//    private String  serviceDestinationid;
+//    private String  deviceId;
+//    //private String  telephoneDemandeur;
+//    //private String  emailDemandeur;
+//    private String  etablissementid;
+
+    //From New
+    private String idFileAttente;
+    private String nomEtablissement;
+    private String nomServiceDestination;
+    private String prefixeServiceAAfficher;
+    private String numeroDansFileAttente;
+    private String telephoneDemandeur;
+    private String patientDeviceId;
+    private String monitorDeviceId;
+    private String medecinDeviceId;
+    private String emailDemandeur;
     private String dateHeureDemande;
     private String dateHeureRetour;
-    private String dateHeureAppel;
-    private String dateHeureAnnulation;
-    private Integer nbAnnulation;
-    private Long nbTotalDemandeursEnCours;
+    private String dateHeureAppelMonitor;
+    private String dateHeureAppelMedecin;
+    private int nbAnnulation;
+    private Instant dateHeureDerniereAnnulation;
     private Long tempsAttenteMoyen;
     private Long tempsAttenteEstime;
     private Long tempsAttenteEffectif;
-    private String additionalKeyValuePairCSList;
-    //
-    private String  nomService;
-    private String  serviceDestinationid;
-    private String  deviceId;
-    private String  telephoneDemandeur;
-    private String  emailDemandeur;
-    private String  etablissementid;
-
-    //
+    private Long nbTotalDemandeursEnCours;
+    private String servicesChoisi;
+    private String statut;
+    private String errorMessageIfAny;
 
     public NumeroSuivantFile() {
     }
 
-    public NumeroSuivantFile(Long id, Long demandeNumeroFileid, String numeroSuivant, String statutNumSuivantFile, String dateHeureDemande, String dateHeureRetour, String dateHeureAppel, String dateHeureAnnulation, Integer nbAnnulation, Long nbTotalDemandeursEnCours, Long tempsAttenteMoyen, Long tempsAttenteEstime, Long tempsAttenteEffectif, String additionalKeyValuePairCSList, String nomService, String serviceDestinationid, String deviceId, String telephoneDemandeur, String emailDemandeur) {
-        this.id = id;
-        this.demandeNumeroFileid = demandeNumeroFileid;
-        this.numeroSuivant = numeroSuivant;
-        this.statutNumSuivantFile = statutNumSuivantFile;
-        this.dateHeureDemande = dateHeureDemande;
-        this.dateHeureRetour = dateHeureRetour;
-        this.dateHeureAppel = dateHeureAppel;
-        this.dateHeureAnnulation = dateHeureAnnulation;
-        this.nbAnnulation = nbAnnulation;
-        this.nbTotalDemandeursEnCours = nbTotalDemandeursEnCours;
-        this.tempsAttenteMoyen = tempsAttenteMoyen;
-        this.tempsAttenteEstime = tempsAttenteEstime;
-        this.tempsAttenteEffectif = tempsAttenteEffectif;
-        this.additionalKeyValuePairCSList = additionalKeyValuePairCSList;
-        this.nomService = nomService;
-        this.serviceDestinationid = serviceDestinationid;
-        this.deviceId = deviceId;
+    public String getIdFileAttente() {
+        return idFileAttente;
+    }
+
+    public void setIdFileAttente(String idFileAttente) {
+        this.idFileAttente = idFileAttente;
+    }
+
+    public String getNomEtablissement() {
+        return nomEtablissement;
+    }
+
+    public void setNomEtablissement(String nomEtablissement) {
+        this.nomEtablissement = nomEtablissement;
+    }
+
+    public String getNomServiceDestination() {
+        return nomServiceDestination;
+    }
+
+    public void setNomServiceDestination(String nomServiceDestination) {
+        this.nomServiceDestination = nomServiceDestination;
+    }
+
+    public String getPrefixeServiceAAfficher() {
+        return prefixeServiceAAfficher;
+    }
+
+    public void setPrefixeServiceAAfficher(String prefixeServiceAAfficher) {
+        this.prefixeServiceAAfficher = prefixeServiceAAfficher;
+    }
+
+    public String getNumeroDansFileAttente() {
+        return numeroDansFileAttente;
+    }
+
+    public void setNumeroDansFileAttente(String numeroDansFileAttente) {
+        this.numeroDansFileAttente = numeroDansFileAttente;
+    }
+
+    public String getTelephoneDemandeur() {
+        return telephoneDemandeur;
+    }
+
+    public void setTelephoneDemandeur(String telephoneDemandeur) {
         this.telephoneDemandeur = telephoneDemandeur;
+    }
+
+    public String getPatientDeviceId() {
+        return patientDeviceId;
+    }
+
+    public void setPatientDeviceId(String patientDeviceId) {
+        this.patientDeviceId = patientDeviceId;
+    }
+
+    public String getMonitorDeviceId() {
+        return monitorDeviceId;
+    }
+
+    public void setMonitorDeviceId(String monitorDeviceId) {
+        this.monitorDeviceId = monitorDeviceId;
+    }
+
+    public String getMedecinDeviceId() {
+        return medecinDeviceId;
+    }
+
+    public void setMedecinDeviceId(String medecinDeviceId) {
+        this.medecinDeviceId = medecinDeviceId;
+    }
+
+    public String getEmailDemandeur() {
+        return emailDemandeur;
+    }
+
+    public void setEmailDemandeur(String emailDemandeur) {
         this.emailDemandeur = emailDemandeur;
     }
+//
+//    public Instant getDateHeureDemande() {
+//        return dateHeureDemande;
+//    }
+//
+//    public void setDateHeureDemande(Instant dateHeureDemande) {
+//        this.dateHeureDemande = dateHeureDemande;
+//    }
+//
+//    public Instant getDateHeureRetour() {
+//        return dateHeureRetour;
+//    }
+//
+//    public void setDateHeureRetour(Instant dateHeureRetour) {
+//        this.dateHeureRetour = dateHeureRetour;
+//    }
+//
+//    public Instant getDateHeureAppelMonitor() {
+//        return dateHeureAppelMonitor;
+//    }
+//
+//    public void setDateHeureAppelMonitor(Instant dateHeureAppelMonitor) {
+//        this.dateHeureAppelMonitor = dateHeureAppelMonitor;
+//    }
+//
+//    public Instant getDateHeureAppelMedecin() {
+//        return dateHeureAppelMedecin;
+//    }
+//
+//    public void setDateHeureAppelMedecin(Instant dateHeureAppelMedecin) {
+//        this.dateHeureAppelMedecin = dateHeureAppelMedecin;
+//    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getDemandeNumeroFileid() {
-        return demandeNumeroFileid;
-    }
-
-    public void setDemandeNumeroFileid(Long demandeNumeroFileid) {
-        this.demandeNumeroFileid = demandeNumeroFileid;
-    }
-
-    public String getNumeroSuivant() {
-        return numeroSuivant;
-    }
-
-    public void setNumeroSuivant(String numeroSuivant) {
-        this.numeroSuivant = numeroSuivant;
-    }
-
-    public String getStatutNumSuivantFile() {
-        return statutNumSuivantFile;
-    }
-
-    public void setStatutNumSuivantFile(String statutNumSuivantFile) {
-        this.statutNumSuivantFile = statutNumSuivantFile;
-    }
 
     public String getDateHeureDemande() {
         return dateHeureDemande;
@@ -147,36 +229,36 @@ public class NumeroSuivantFile implements Serializable {
         this.dateHeureRetour = dateHeureRetour;
     }
 
-    public String getDateHeureAppel() {
-        return dateHeureAppel;
+    public String getDateHeureAppelMonitor() {
+        return dateHeureAppelMonitor;
     }
 
-    public void setDateHeureAppel(String dateHeureAppel) {
-        this.dateHeureAppel = dateHeureAppel;
+    public void setDateHeureAppelMonitor(String dateHeureAppelMonitor) {
+        this.dateHeureAppelMonitor = dateHeureAppelMonitor;
     }
 
-    public String getDateHeureAnnulation() {
-        return dateHeureAnnulation;
+    public String getDateHeureAppelMedecin() {
+        return dateHeureAppelMedecin;
     }
 
-    public void setDateHeureAnnulation(String dateHeureAnnulation) {
-        this.dateHeureAnnulation = dateHeureAnnulation;
+    public void setDateHeureAppelMedecin(String dateHeureAppelMedecin) {
+        this.dateHeureAppelMedecin = dateHeureAppelMedecin;
     }
 
-    public Integer getNbAnnulation() {
+    public int getNbAnnulation() {
         return nbAnnulation;
     }
 
-    public void setNbAnnulation(Integer nbAnnulation) {
+    public void setNbAnnulation(int nbAnnulation) {
         this.nbAnnulation = nbAnnulation;
     }
 
-    public Long getNbTotalDemandeursEnCours() {
-        return nbTotalDemandeursEnCours;
+    public Instant getDateHeureDerniereAnnulation() {
+        return dateHeureDerniereAnnulation;
     }
 
-    public void setNbTotalDemandeursEnCours(Long nbTotalDemandeursEnCours) {
-        this.nbTotalDemandeursEnCours = nbTotalDemandeursEnCours;
+    public void setDateHeureDerniereAnnulation(Instant dateHeureDerniereAnnulation) {
+        this.dateHeureDerniereAnnulation = dateHeureDerniereAnnulation;
     }
 
     public Long getTempsAttenteMoyen() {
@@ -203,87 +285,249 @@ public class NumeroSuivantFile implements Serializable {
         this.tempsAttenteEffectif = tempsAttenteEffectif;
     }
 
-    public String getAdditionalKeyValuePairCSList() {
-        return additionalKeyValuePairCSList;
+    public Long getNbTotalDemandeursEnCours() {
+        return nbTotalDemandeursEnCours;
     }
 
-    public void setAdditionalKeyValuePairCSList(String additionalKeyValuePairCSList) {
-        this.additionalKeyValuePairCSList = additionalKeyValuePairCSList;
+    public void setNbTotalDemandeursEnCours(Long nbTotalDemandeursEnCours) {
+        this.nbTotalDemandeursEnCours = nbTotalDemandeursEnCours;
     }
 
-    public String getNomService() {
-        return nomService;
+    public String getServicesChoisi() {
+        return servicesChoisi;
     }
 
-    public void setNomService(String nomService) {
-        this.nomService = nomService;
+    public void setServicesChoisi(String servicesChoisi) {
+        this.servicesChoisi = servicesChoisi;
     }
 
-    public String getServiceDestinationid() {
-        return serviceDestinationid;
+    public String getStatut() {
+        return statut;
     }
 
-    public void setServiceDestinationid(String serviceDestinationid) {
-        this.serviceDestinationid = serviceDestinationid;
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getErrorMessageIfAny() {
+        return errorMessageIfAny;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setErrorMessageIfAny(String errorMessageIfAny) {
+        this.errorMessageIfAny = errorMessageIfAny;
     }
 
-    public String getTelephoneDemandeur() {
-        return telephoneDemandeur;
-    }
-
-    public void setTelephoneDemandeur(String telephoneDemandeur) {
-        this.telephoneDemandeur = telephoneDemandeur;
-    }
-
-    public String getEmailDemandeur() {
-        return emailDemandeur;
-    }
-
-    public void setEmailDemandeur(String emailDemandeur) {
-        this.emailDemandeur = emailDemandeur;
-    }
-
-    public String getEtablissementid() {
-        return etablissementid;
-    }
-
-    public void setEtablissementid(String etablissementid) {
-        this.etablissementid = etablissementid;
-    }
-
-    @Override
-    public String toString() {
-        return "NumeroSuivantFile{" +
-                "id=" + id +
-                ", demandeNumeroFileid=" + demandeNumeroFileid +
-                ", numeroSuivant='" + numeroSuivant + '\'' +
-                ", statutNumSuivantFile='" + statutNumSuivantFile + '\'' +
-                ", dateHeureDemande='" + dateHeureDemande + '\'' +
-                ", dateHeureRetour='" + dateHeureRetour + '\'' +
-                ", dateHeureAppel='" + dateHeureAppel + '\'' +
-                ", dateHeureAnnulation='" + dateHeureAnnulation + '\'' +
-                ", nbAnnulation=" + nbAnnulation +
-                ", nbTotalDemandeursEnCours=" + nbTotalDemandeursEnCours +
-                ", tempsAttenteMoyen=" + tempsAttenteMoyen +
-                ", tempsAttenteEstime=" + tempsAttenteEstime +
-                ", tempsAttenteEffectif=" + tempsAttenteEffectif +
-                ", additionalKeyValuePairCSList='" + additionalKeyValuePairCSList + '\'' +
-                ", nomService='" + nomService + '\'' +
-                ", serviceDestinationid='" + serviceDestinationid + '\'' +
-                ", deviceId='" + deviceId + '\'' +
-                ", telephoneDemandeur='" + telephoneDemandeur + '\'' +
-                ", emailDemandeur='" + emailDemandeur + '\'' +
-                ", etablissementid='" + etablissementid + '\'' +
-                '}';
-    }
+    //
+//    public NumeroSuivantFile() {
+//    }
+//
+//    public NumeroSuivantFile(Long id, Long demandeNumeroFileid, String numeroSuivant, String statutNumSuivantFile, String dateHeureDemande, String dateHeureRetour, String dateHeureAppel, String dateHeureAnnulation, Integer nbAnnulation, Long nbTotalDemandeursEnCours, Long tempsAttenteMoyen, Long tempsAttenteEstime, Long tempsAttenteEffectif, String additionalKeyValuePairCSList, String nomService, String serviceDestinationid, String deviceId, String telephoneDemandeur, String emailDemandeur) {
+//        this.id = id;
+//        this.demandeNumeroFileid = demandeNumeroFileid;
+//        this.numeroSuivant = numeroSuivant;
+//        this.statutNumSuivantFile = statutNumSuivantFile;
+//        this.dateHeureDemande = dateHeureDemande;
+//        this.dateHeureRetour = dateHeureRetour;
+//        this.dateHeureAppel = dateHeureAppel;
+//        this.dateHeureAnnulation = dateHeureAnnulation;
+//        this.nbAnnulation = nbAnnulation;
+//        this.nbTotalDemandeursEnCours = nbTotalDemandeursEnCours;
+//        this.tempsAttenteMoyen = tempsAttenteMoyen;
+//        this.tempsAttenteEstime = tempsAttenteEstime;
+//        this.tempsAttenteEffectif = tempsAttenteEffectif;
+//        this.additionalKeyValuePairCSList = additionalKeyValuePairCSList;
+//        this.nomService = nomService;
+//        this.serviceDestinationid = serviceDestinationid;
+//        this.deviceId = deviceId;
+//        this.telephoneDemandeur = telephoneDemandeur;
+//        this.emailDemandeur = emailDemandeur;
+//    }
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public Long getDemandeNumeroFileid() {
+//        return demandeNumeroFileid;
+//    }
+//
+//    public void setDemandeNumeroFileid(Long demandeNumeroFileid) {
+//        this.demandeNumeroFileid = demandeNumeroFileid;
+//    }
+//
+//    public String getNumeroSuivant() {
+//        return numeroSuivant;
+//    }
+//
+//    public void setNumeroSuivant(String numeroSuivant) {
+//        this.numeroSuivant = numeroSuivant;
+//    }
+//
+//    public String getStatutNumSuivantFile() {
+//        return statutNumSuivantFile;
+//    }
+//
+//    public void setStatutNumSuivantFile(String statutNumSuivantFile) {
+//        this.statutNumSuivantFile = statutNumSuivantFile;
+//    }
+//
+//    public String getDateHeureDemande() {
+//        return dateHeureDemande;
+//    }
+//
+//    public void setDateHeureDemande(String dateHeureDemande) {
+//        this.dateHeureDemande = dateHeureDemande;
+//    }
+//
+//    public String getDateHeureRetour() {
+//        return dateHeureRetour;
+//    }
+//
+//    public void setDateHeureRetour(String dateHeureRetour) {
+//        this.dateHeureRetour = dateHeureRetour;
+//    }
+//
+//    public String getDateHeureAppel() {
+//        return dateHeureAppel;
+//    }
+//
+//    public void setDateHeureAppel(String dateHeureAppel) {
+//        this.dateHeureAppel = dateHeureAppel;
+//    }
+//
+//    public String getDateHeureAnnulation() {
+//        return dateHeureAnnulation;
+//    }
+//
+//    public void setDateHeureAnnulation(String dateHeureAnnulation) {
+//        this.dateHeureAnnulation = dateHeureAnnulation;
+//    }
+//
+//    public Integer getNbAnnulation() {
+//        return nbAnnulation;
+//    }
+//
+//    public void setNbAnnulation(Integer nbAnnulation) {
+//        this.nbAnnulation = nbAnnulation;
+//    }
+//
+//    public Long getNbTotalDemandeursEnCours() {
+//        return nbTotalDemandeursEnCours;
+//    }
+//
+//    public void setNbTotalDemandeursEnCours(Long nbTotalDemandeursEnCours) {
+//        this.nbTotalDemandeursEnCours = nbTotalDemandeursEnCours;
+//    }
+//
+//    public Long getTempsAttenteMoyen() {
+//        return tempsAttenteMoyen;
+//    }
+//
+//    public void setTempsAttenteMoyen(Long tempsAttenteMoyen) {
+//        this.tempsAttenteMoyen = tempsAttenteMoyen;
+//    }
+//
+//    public Long getTempsAttenteEstime() {
+//        return tempsAttenteEstime;
+//    }
+//
+//    public void setTempsAttenteEstime(Long tempsAttenteEstime) {
+//        this.tempsAttenteEstime = tempsAttenteEstime;
+//    }
+//
+//    public Long getTempsAttenteEffectif() {
+//        return tempsAttenteEffectif;
+//    }
+//
+//    public void setTempsAttenteEffectif(Long tempsAttenteEffectif) {
+//        this.tempsAttenteEffectif = tempsAttenteEffectif;
+//    }
+//
+//    public String getAdditionalKeyValuePairCSList() {
+//        return additionalKeyValuePairCSList;
+//    }
+//
+//    public void setAdditionalKeyValuePairCSList(String additionalKeyValuePairCSList) {
+//        this.additionalKeyValuePairCSList = additionalKeyValuePairCSList;
+//    }
+//
+//    public String getNomService() {
+//        return nomService;
+//    }
+//
+//    public void setNomService(String nomService) {
+//        this.nomService = nomService;
+//    }
+//
+//    public String getServiceDestinationid() {
+//        return serviceDestinationid;
+//    }
+//
+//    public void setServiceDestinationid(String serviceDestinationid) {
+//        this.serviceDestinationid = serviceDestinationid;
+//    }
+//
+//    public String getDeviceId() {
+//        return deviceId;
+//    }
+//
+//    public void setDeviceId(String deviceId) {
+//        this.deviceId = deviceId;
+//    }
+//
+//    public String getTelephoneDemandeur() {
+//        return telephoneDemandeur;
+//    }
+//
+//    public void setTelephoneDemandeur(String telephoneDemandeur) {
+//        this.telephoneDemandeur = telephoneDemandeur;
+//    }
+//
+//    public String getEmailDemandeur() {
+//        return emailDemandeur;
+//    }
+//
+//    public void setEmailDemandeur(String emailDemandeur) {
+//        this.emailDemandeur = emailDemandeur;
+//    }
+//
+//    public String getEtablissementid() {
+//        return etablissementid;
+//    }
+//
+//    public void setEtablissementid(String etablissementid) {
+//        this.etablissementid = etablissementid;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "NumeroSuivantFile{" +
+//                "id=" + id +
+//                ", demandeNumeroFileid=" + demandeNumeroFileid +
+//                ", numeroSuivant='" + numeroSuivant + '\'' +
+//                ", statutNumSuivantFile='" + statutNumSuivantFile + '\'' +
+//                ", dateHeureDemande='" + dateHeureDemande + '\'' +
+//                ", dateHeureRetour='" + dateHeureRetour + '\'' +
+//                ", dateHeureAppel='" + dateHeureAppel + '\'' +
+//                ", dateHeureAnnulation='" + dateHeureAnnulation + '\'' +
+//                ", nbAnnulation=" + nbAnnulation +
+//                ", nbTotalDemandeursEnCours=" + nbTotalDemandeursEnCours +
+//                ", tempsAttenteMoyen=" + tempsAttenteMoyen +
+//                ", tempsAttenteEstime=" + tempsAttenteEstime +
+//                ", tempsAttenteEffectif=" + tempsAttenteEffectif +
+//                ", additionalKeyValuePairCSList='" + additionalKeyValuePairCSList + '\'' +
+//                ", nomService='" + nomService + '\'' +
+//                ", serviceDestinationid='" + serviceDestinationid + '\'' +
+//                ", deviceId='" + deviceId + '\'' +
+//                ", telephoneDemandeur='" + telephoneDemandeur + '\'' +
+//                ", emailDemandeur='" + emailDemandeur + '\'' +
+//                ", etablissementid='" + etablissementid + '\'' +
+//                '}';
+//    }
 
     //    public NumeroSuivantFile() {
 //    }
