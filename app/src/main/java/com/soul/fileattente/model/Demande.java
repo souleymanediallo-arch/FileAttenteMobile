@@ -1,24 +1,10 @@
 package com.soul.fileattente.model;
 
 public class Demande {
-    //{
-    //    "clinique": "Vision Medicale Coumba",
-    //        "deviceId": "0122455789632111441251",
-    //        "dateHeureDemande": "2023-05-13T10:35:02.678Z"
-    // }
 
     String clinique;
     String deviceId;
     String dateHeureDemande;
-
-//    public Demande() {
-//    }
-//
-//    public Demande(String clinique, String deviceId, String dateHeureDemande) {
-//        this.clinique = clinique;
-//        this.deviceId = deviceId;
-//        this.dateHeureDemande = dateHeureDemande;
-//    }
 
     public String getClinique() {
         return clinique;

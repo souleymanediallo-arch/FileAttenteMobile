@@ -62,22 +62,15 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
-        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
-
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
-
         demandeGeneric = new DemandeGeneric();
-        //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
-        //demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
         demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
         userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-
         //Process whenever there is a change
         processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged();
-
         //binding.recyclerView. - Managing the list of service List
         serviceAGGListData = new ArrayList<>();
         serviceAGGMonitoringListDataAdapter = new ServiceAGGMonitoringListDataAdapter(serviceAGGListData, mGlobalSetOfExtra);
@@ -85,10 +78,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(serviceAGGMonitoringListDataAdapter);
         binding.progressBar.setVisibility(View.VISIBLE);
-
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
         connect(); // it will connect and subscribe if connextion is successuful..
-
         processWhenNumeroSuivantFileForAppelerNumeroChanged();
         processWhenNumeroSuivantFileForAnnulerAppelNumeroChanged();
     }
@@ -98,7 +89,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             @Override
             public void onChanged(List<ServiceAGG> serviceAGGs) {
                 System.out.println("processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged Data Changed............................................" + serviceAGGs + "******");
-
                 if (serviceAGGs != null) {
                     serviceAGGListData.clear();
                     for (ServiceAGG serviceAGG : serviceAGGs) {
@@ -115,11 +105,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             }
         });
     }
-
-//    private String getUniqueId(){
-//        String android_device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-//        return "_" + android_device_id;
-//    }
 
     private void connect() {
         MqttConnectOptions connectOptions = new MqttConnectOptions();
@@ -191,7 +176,6 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile + "] au numero [" + numeroSuivantFile + "]");
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomServiceDestination() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
                 String messageAnnonce =
                         "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +

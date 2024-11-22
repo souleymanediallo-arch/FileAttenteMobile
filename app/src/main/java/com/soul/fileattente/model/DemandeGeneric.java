@@ -13,31 +13,10 @@ public class DemandeGeneric {
     String prefixeService;
     String servicesChoisi;
 
-//    private Long id;
-//    //private Long idService;
-//    private String nomServiceDestination;
-//    //private String idEtablissement;
-//    //private String clinique;
-//    //private String deviceId;
-//    private String service;
-//    private String dateHeureDemande;
-
-
-//    String idEtablissement,
-//    String idService,
-//    String nomServiceDestination,//Juste à des fins de debug mais l'info se trouve dans le service dont l'id est donné idService
-//    String telephoneDemandeur,
-//    String patientDeviceId,
-//    String monitorDeviceId,//Doit etre supprimer car a cemoment, on ne sait pas quel device va traiter
-//    String emailDemandeur,
-//    LocalDateTime dateHeureDemande,//Doit etre supprimer car determine aussi par le serveur backEnd
-//    String servicesChoisi//Information redondante à priori car c'est la meme chose que idService
-
-
     public DemandeGeneric() {
     }
 
-    public DemandeGeneric(String idEtablissement, String idService, String telephoneDemandeur, String emailDemandeur, String patientDeviceId, String monitorDeviceId, String medecinDeviceId, String nomService, String prefixeService) {
+    public DemandeGeneric(String idEtablissement, String idService, String telephoneDemandeur, String emailDemandeur, String patientDeviceId, String monitorDeviceId, String medecinDeviceId, String nomService, String prefixeService, String servicesChoisi) {
         this.idEtablissement = idEtablissement;
         this.idService = idService;
         this.telephoneDemandeur = telephoneDemandeur;
@@ -47,6 +26,7 @@ public class DemandeGeneric {
         this.medecinDeviceId = medecinDeviceId;
         this.nomService = nomService;
         this.prefixeService = prefixeService;
+        this.servicesChoisi = servicesChoisi;
     }
 
     public String getIdEtablissement() {

@@ -28,10 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
     private Login mLogin;
     private Login mAuthenticationResult;
-    //private AutheticationResult mAuthenticationResult;
-    //private LoginResult mLoginResult;
     private Login mLoginResult;
-    //private List<Param> mListParams;
     private Etablissement mEtablissement;
     private GlobalSetOfExtra mGlobalSetOfExtra;
 
@@ -44,21 +41,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(view);
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(LoginActivity.this).get(UserViewModel.class);
-        //adjustViewComponentsStatusBeforeParamSyncCompleted();
         adjustViewComponentsStatusBeforeEtablissementSyncCompleted();
-        //DemandeParam demandeParam = new DemandeParam("Vision Medicale Coumba", "0122455789632111441251", "2023-05-13T10:35:02.678Z");
         DemandeGeneric demandeGeneric = new DemandeGeneric();
-        //demandeGeneric.setEtablissementid("1"); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
-        //demandeGeneric.setDeviceId("000000000000");//Infomations à calculer
         demandeGeneric.setPatientDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
-        //userViewModel.demandeAllParams(demandeGeneric);
         userViewModel.demandeEtablissement(demandeGeneric);
         binding.btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 System.out.println("Refresh Button Click.............................................................................................");
-                //userViewModel.demandeAllParams(demandeGeneric);
                 userViewModel.demandeEtablissement(demandeGeneric);
             }
         });
@@ -90,14 +81,12 @@ public class LoginActivity extends AppCompatActivity {
         //Be prepared to process the changes of the values for var in viewModel: User
         processWhenLoginResultForLoginChanged();
         //Be prepared to process the changes of the values for var in viewModel: Results
-        //processWhenListParamForDemandeAllParamsChanged();
         processWhenEtablissementForDemandeEtablissementChanged();
         //Precess Btnlogin Click
         processTaskWhenloginButtonClicked();
     }
 
     private void handleSpinner() {
-        //String[] listProfiles = {"Patient", "Moniteur", "Docteur", "Administrateur"};
         String[] listProfiles = getResources().getStringArray(R.array.profile_array);;
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_item, listProfiles);
         binding.profilSpinnerEdtxt.setAdapter(adapter);
@@ -109,9 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         mGlobalSetOfExtra = new GlobalSetOfExtra();
         mGlobalSetOfExtra.mLogin = mLogin;
         mGlobalSetOfExtra.mLoginResult = mLoginResult;
-        //mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
         mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
-        //mGlobalSetOfExtra.mListParams = mListParams;
         mGlobalSetOfExtra.mEtablissement = mEtablissement;
         intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
         binding.progressBar.setVisibility(View.INVISIBLE);
@@ -124,9 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         mGlobalSetOfExtra = new GlobalSetOfExtra();
         mGlobalSetOfExtra.mLogin = mLogin;
         mGlobalSetOfExtra.mLoginResult = mLoginResult;
-        //mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
         mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
-        //mGlobalSetOfExtra.mListParams = mListParams;
         mGlobalSetOfExtra.mEtablissement = mEtablissement;
         intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
         binding.progressBar.setVisibility(View.INVISIBLE);
@@ -206,10 +191,8 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("LoginResultForLogin Data Changed............................................");
                 System.out.println("loginResult-------------------------------------------> " + loginResult);
                 mLoginResult = loginResult;
-
                 String chosenProfile = (binding.profilSpinnerEdtxt).getText().toString();
                 System.out.println("chosenProfile--------------------------------------> = " + chosenProfile);
-
                 if(chosenProfile.equalsIgnoreCase("Moniteur"))  {
                     navigateToEcranPrincipalMonitoringActivityList();
                 }
@@ -226,25 +209,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-//    void processWhenListParamForDemandeAllParamsChanged() {
-//        userViewModel.getListParamForDemandeAllParams().observe(this, new Observer<List<Param>>() {
-//            @Override
-//            public void onChanged(List<Param> params) {
-//                if(params == null){
-//                    System.out.println(" ERROR ListParamForDemandeAllParams Data Changed............................................");
-//                    binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
-//                    binding.textErroMessage.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
-//                    binding.progressBar.setVisibility(View.INVISIBLE);
-//                    hanldeRefreshButtonWhenNotOK();
-//                }else {
-//                    System.out.println("ListParamForDemandeAllParams Data Changed............................................");
-//                    mListParams = params;
-//                    adjustViewComponentsStatusAfterParamSyncCompleted();
-//                    hanldeRefreshButtonWhenOK();
-//                }
-//            }
-//        });
-//    }
 
     void processWhenEtablissementForDemandeEtablissementChanged() {
         userViewModel.getEtablissementFordemanderEtablissement().observe(this, new Observer<Etablissement>() {
@@ -268,8 +232,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-    //void adjustViewComponentsStatusBeforeParamSyncCompleted() {
     void adjustViewComponentsStatusBeforeEtablissementSyncCompleted() {
         //https://www.computerhope.com/htmcolor.htm#color-codes
         binding.btnLogin.setText("Loading Applications Params..");
@@ -282,7 +244,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnRefresh.setVisibility(View.INVISIBLE);
     }
 
-    //void adjustViewComponentsStatusAfterParamSyncCompleted() {
     void adjustViewComponentsStatusAfterEtablissementSyncCompleted() {
         binding.btnLogin.setText("Se Connecter");
         //binding.btnLogin.setTextColor(Color.BLACK);

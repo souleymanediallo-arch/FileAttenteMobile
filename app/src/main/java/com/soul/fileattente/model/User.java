@@ -6,7 +6,6 @@ public class User {
     private String password;
     private Boolean userstatus;
 
-
     public User() {
     }
 

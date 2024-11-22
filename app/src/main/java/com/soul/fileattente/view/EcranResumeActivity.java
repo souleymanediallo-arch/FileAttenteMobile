@@ -32,37 +32,29 @@ public class EcranResumeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //Using ViewBinding to manage Layout Components
         binding = ActivityEcranResumeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
         Intent intent = getIntent();
         //Getting GlobalSetOfExtra
         mGlobalSetOfExtra = (GlobalSetOfExtra) getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
-
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
-        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
         System.out.println("------------> " + GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY);
         System.out.println("------------> " + GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY);
-
         ServiceDestination selectedServiceDestination = mGlobalSetOfExtra.mServiceDestination;
         String telephone = intent.getStringExtra(GlobalSetOfExtra.PROVIDED_TELEPHONE_NUMBER_KEY);
         String numeroPourLeService = intent.getStringExtra(GlobalSetOfExtra.GENERATED_NUMNER_FOR_CURRENT_SERVICE_KEY);
-
         binding.txtResumeLabel.setText("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + Utils.formatSenegalTelephoneNumberForTextToVoice(telephone) + "]");
         binding.txtGenNumeroLabel.setText(numeroPourLeService);
-
         //TextToSpeech
         //initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + Utils.formatSenegalTelephoneNumberForTextToVoice(telephone) + "]");
         //TextToSpeech
-
         System.out.println("mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur() -> " + mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur() + "  --  mGlobalSetOfExtra.mNumeroSuivantFile.toString() -> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
         String messToSend =
                 "Numero : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNumeroDansFileAttente() + "\n" +
@@ -70,24 +62,11 @@ public class EcranResumeActivity extends AppCompatActivity {
                         "Nb Pers en Attente : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNbTotalDemandeursEnCours() + "\n" +
                         "Temps Attente Moyen : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteMoyen() + "\n" +
                         "Temps Attente Estime : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteEstime();
-
         //Utils.sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), messToSend); //à decommenter à la livraison
         userViewModel = new ViewModelProvider(EcranResumeActivity.this).get(UserViewModel.class);
         userViewModel.sendSmsNotification(mGlobalSetOfExtra.mNumeroSuivantFile);
         launchAutomaticallyMainScreen();
     }
-
-//    void launchAutomaticallyMainScreen() {
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            public void run() {
-//                finish();
-//                Intent intent = new Intent(EcranResumeActivity.this, EcranPrincipalActivityList.class);
-//                intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
-//                EcranResumeActivity.this.startActivity(intent);
-//            }
-//        }, tempsAttenteAvantRetourListServices);
-//    }
 
     void launchAutomaticallyMainScreen() {
 

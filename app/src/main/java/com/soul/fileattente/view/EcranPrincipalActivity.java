@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalBinding;
 import com.soul.fileattente.model.DemandeGeneric;
-import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
@@ -34,12 +33,6 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
     TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
     static int nbTimesPostDataTriggered = 0;
-
-//    //Deasctivation du bouton de navigation Back
-//    @Override
-//    public void onBackPressed() {
-//        //super.onBackPressed();
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,28 +59,21 @@ public class EcranPrincipalActivity extends AppCompatActivity {
 
         //Getting the Business part - Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalActivity.this).get(UserViewModel.class);
-
         //Getting selected selectedServiceDestination
         Intent intent = getIntent();
         //Getting GlobalSetOfExtra
         mGlobalSetOfExtra = (GlobalSetOfExtra) getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
-
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
-        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
-        //System.out.println("------------> " + mGlobalSetOfExtra.mNumeroSuivantFile.toString());
 
         ServiceDestination selectedServiceDestination = mGlobalSetOfExtra.mServiceDestination;
-        //
         binding.buttonGenNumero.setTextColor(Color.WHITE);
         binding.buttonGenNumero.setEnabled(false);
         binding.buttonGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
-
-        //Making relevent compoennt INVISBLE
-        makeInvisibleRelevantCompnoent();
+        makeInvisibleRelevantComponent();
         //
         processWhenNumeroSuivantFileForDemandeNumerosSuivantChanged();
         //
@@ -177,16 +163,14 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        makeInvisibleRelevantCompnoent();
+        makeInvisibleRelevantComponent();
     }
 
-    //--------------------
     void getNextNumberForDestinationService() {
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
-        //System.out.println("------------> " + mGlobalSetOfExtra.mListParams.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
         binding.progressBar.setVisibility(View.VISIBLE);
@@ -194,22 +178,11 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         String nomService = mGlobalSetOfExtra.mServiceDestination.getNomServiceDestination();
         String idEtablissement = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getEtablissementAssocie());
         String idService = String.valueOf(mGlobalSetOfExtra.mServiceDestination.getIdService());
-        //String patientDeviceId = "000000000000";//Mettre en place une fonction qui va retourner cette information à partir d'un vrai device
         String patientDeviceId = Utils.getUniqueId(this.getApplicationContext());
         String telephoneDemandeur = binding.editTextPhone.getText().toString();
         String emailDemandeur = "adresse_mail@recuperer.com";
 
-        //DemandeNumeroFile demandeNumeroFile = new DemandeNumeroFile(nomService, etablissementid, serviceDestinationid, deviceId, telephoneDemandeur, emailDemandeur);
-//        this.idEtablissement = idEtablissement;
-//        this.idService = idService;
-//        this.telephoneDemandeur = telephoneDemandeur;
-//        this.emailDemandeur = emailDemandeur;
-//        this.patientDeviceId = patientDeviceId;
-//        this.monitorDeviceId = monitorDeviceId;
-//        this.medecinDeviceId = medecinDeviceId;
-//        this.nomService = nomService;
-//        this.prefixeService = prefixeService;
-        DemandeGeneric demandeGeneric = new DemandeGeneric(idEtablissement,idService,telephoneDemandeur,emailDemandeur,patientDeviceId,"","",nomService,nomService.substring(3).toUpperCase(Locale.ROOT));
+        DemandeGeneric demandeGeneric = new DemandeGeneric(idEtablissement,idService,telephoneDemandeur,emailDemandeur,patientDeviceId,"","",nomService,nomService.substring(3).toUpperCase(Locale.ROOT),idService);
         System.out.println(demandeGeneric.toString());
         userViewModel.demandeNumerosSuivant(demandeGeneric);
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -220,7 +193,6 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         userViewModel.getNumeroSuivantFileForDemandeNumerosSuivant().observe(this, new Observer<NumeroSuivantFile>() {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
-
                 nbTimesPostDataTriggered++;
                 System.out.println("nbTimesPostDataTriggered............................................" + nbTimesPostDataTriggered);
 
@@ -228,7 +200,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                     if (numeroSuivantFile != null) {
                         System.out.println("NumeroSuivantFileForDemandeNumerosSuivant Data Changed............................................");
                         System.out.println("numeroSuivantFile  --------> " + numeroSuivantFile.toString());
-                        makeVisibleRelevantCompnoent();
+                        makeVisibleRelevantComponent();
                         binding.txtGenNumeroLabel.setText("Votre numéro pour le service [" + numeroSuivantFile.getNomServiceDestination() + "] est :");
                         binding.txtGenNumero.setText(numeroSuivantFile.getNumeroDansFileAttente());
                         strValueGenNumero = numeroSuivantFile.getNumeroDansFileAttente();
@@ -237,7 +209,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
                         binding.buttonGenNumero.setEnabled(false);
                         binding.buttonGenNumero.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_200));
                     } else {
-                        makeVisibleRelevantCompnoent();
+                        makeVisibleRelevantComponent();
                         binding.txtGenNumeroLabel.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
                         binding.txtGenNumero.setText("XXX.00");
                         binding.progressBar.setVisibility(View.INVISIBLE);
@@ -257,20 +229,19 @@ public class EcranPrincipalActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        makeInvisibleRelevantCompnoent();
+        makeInvisibleRelevantComponent();
     }
 
-    public void makeVisibleRelevantCompnoent() {
+    public void makeVisibleRelevantComponent() {
 
         binding.txtGenNumeroLabel.setVisibility(View.VISIBLE);
         binding.txtGenNumero.setVisibility(View.VISIBLE);
         binding.buttonSendSMS.setVisibility(View.VISIBLE);
-
         binding.buttonSendSMS.setTextColor(Color.WHITE);
         binding.buttonSendSMS.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500));
     }
 
-    public void makeInvisibleRelevantCompnoent() {
+    public void makeInvisibleRelevantComponent() {
         binding.txtGenNumeroLabel.setVisibility(View.INVISIBLE);
         binding.txtGenNumero.setVisibility(View.INVISIBLE);
         binding.buttonSendSMS.setVisibility(View.INVISIBLE);

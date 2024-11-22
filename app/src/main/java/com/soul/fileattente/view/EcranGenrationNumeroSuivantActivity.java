@@ -1,9 +1,7 @@
 package com.soul.fileattente.view;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.soul.fileattente.R;
 
 public class EcranGenrationNumeroSuivantActivity extends AppCompatActivity {

@@ -3,21 +3,12 @@ package com.soul.fileattente.model;
 import java.io.Serializable;
 
 public class ServiceDestination implements Serializable {
-    //String idService;
-    //String nomServiceDestination;
-    //String libelleServiceDestination;
-    //String statutServiceDestination;
-    //Long tempsAttenteMoyen;
-    //Long tempsAttenteEstime;
-    //Long etablissementAssocie;
-
 
     private String idService;
     private String prefixeServiceAAfficher;
     private String nomServiceDestination;
     private String libelleServiceDestination;
     private String statutServiceDestination;
-//    private boolean statutServiceDestination;
     private Long tempsAttenteMoyen;
     private Long tempsAttenteEstime;
     private String etablissementAssocie;

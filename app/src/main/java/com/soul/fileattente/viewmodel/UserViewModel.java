@@ -54,20 +54,10 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.login(login);//Inside and because it's async, the postValue is done inside
     }
 
-//    public void demandeNumerosSuivant(DemandeNumeroFile demandeNumeroFile) {
-//        mFileAttenteRepository = FileAttenteRepository.getInstance();
-//        mFileAttenteRepository.demandeNumerosSuivant(demandeNumeroFile);//Inside and because it's async, the postValue is done inside
-//    }
-
     public void demandeNumerosSuivant(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.demandeNumerosSuivant(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
-
-//    public void demandeAllParams(DemandeGeneric demandeGeneric) {
-//        mFileAttenteRepository = FileAttenteRepository.getInstance();
-//        mFileAttenteRepository.demandeAllParams(demandeGeneric);//Inside and because it's async, the postValue is done inside
-//    }
 
     public void demandeEtablissement(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
@@ -111,10 +101,6 @@ public class UserViewModel extends ViewModel {
 
     public static MutableLiveData<Login> getLoginResultForLogin() {
         return loginResultForLogin;
-    }
-
-    public static MutableLiveData<List<Param>> getListParamForDemandeAllParams() {
-        return listParamForDemandeAllParams;
     }
 
     public static MutableLiveData<Etablissement> getEtablissementFordemanderEtablissement() {
