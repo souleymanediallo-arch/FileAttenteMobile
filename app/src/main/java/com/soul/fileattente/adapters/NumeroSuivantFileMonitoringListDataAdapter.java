@@ -8,9 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.NumeroSuivantFilesMonitorListItemBinding;
 import com.soul.fileattente.model.DemandeGeneric;
@@ -25,20 +23,12 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
     GlobalSetOfExtra mGlobalSetOfExtra;
 
     private ArrayList<NumeroSuivantFileListData> listdata;
-//    LayoutInflater inflater;
-//    ServiceMonitorListItemBinding binding;
     NumeroSuivantFilesMonitorListItemBinding binding;
 
     public NumeroSuivantFileMonitoringListDataAdapter(ArrayList<NumeroSuivantFileListData> listdata, GlobalSetOfExtra globalSetOfExtra) {
         this.listdata = listdata;
         this.mGlobalSetOfExtra = globalSetOfExtra;
     }
-
-//    public ServiceDestinationMonitoringListDataAdapter(Context context, ArrayList<ServiceDestinationListData> listdata, GlobalSetOfExtra globalSetOfExtra) {
-//        this.listdata = listdata;
-//        this.mGlobalSetOfExtra = globalSetOfExtra;
-//        inflater = LayoutInflater.from(context);
-//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,54 +38,23 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
         return viewHolder;
     }
 
-//    @Override
-//    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        binding = ServiceMonitorListItemBinding.inflate(inflater);
-//        View listItem = binding.getRoot();
-//        ViewHolder viewHolder = new ViewHolder(listItem);
-//        return viewHolder;
-//    }
-
-
     @Override
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final NumeroSuivantFileListData numeroSuivantFileListData = listdata.get(position);
-
-//        holder.txtServiceDestination.setText(serviceDestinationListData.getNomService() + " -- " + serviceDestinationListData.getStatutService());
         holder.txtServiceDestination.setText(Utils.formatStringForView(numeroSuivantFileListData.getNomServiceDestination()));
         holder.txtNumPatientCourant.setText(numeroSuivantFileListData.getNumeroDansFileAttente());
-        holder.txtnumPatientSuivant.setText(numeroSuivantFileListData.getNumeroDansFileAttente());
+        holder.txtNumPatientSuivant.setText(numeroSuivantFileListData.getNumeroDansFileAttente());
         holder.txtSuivant.setText("Suivant");
         holder.txtAnnuler.setText("Annuler");
-
         holder.imageView.setImageResource(numeroSuivantFileListData.getImgId());
-//        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), EcranPrincipalActivity.class);
-//
-//                mGlobalSetOfExtra.mServiceDestination = serviceDestinationListData.getServiceDestination();
-//                intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
-//
-//                view.getContext().startActivity(intent);
-//            }
-//        });
 
         holder.txtSuivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 System.out.println("txtSuivant.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Suivant just Clicked ! ", Toast.LENGTH_SHORT).show();
-
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                //demandeGeneric.setId(1L);
-                //demandeGeneric.setNomServiceDestination("nomServiceDestination");
-                //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
                 demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
-                //System.out.println("------------------------------> ");
-                //System.out.println("------------------------------> " + listdata.get(position).);
-                //demandeGeneric.setServicesChoisi("672f9b05e434e738150a1cc2");
-
                 EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(demandeGeneric);
                 //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)
                 //A defaut faire +1 pour Suivant et -1 pour Annuler ey on Success ou meme cote Back en testant sur le meme ecran
@@ -109,18 +68,12 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
             public void onClick(View view) {
                 System.out.println("txtAnnuler.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Annuler just Clicked ! ", Toast.LENGTH_SHORT).show();
-
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                //demandeGeneric.setId(1L);
-                //demandeGeneric.setNomServiceDestination("nomServiceDestination");
-                //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
                 demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
-
                 EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
                 //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)
                 //A defaut faire +1 pour Suivant et -1 pour Annuler ey on Success ou cote Back en testant sur le meme ecran
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(); //Automatique à implementer
             }
         });
@@ -135,22 +88,20 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
         public ImageView imageView;
         public TextView txtServiceDestination;
         public TextView txtNumPatientCourant;
-        public TextView txtnumPatientSuivant;
+        public TextView txtNumPatientSuivant;
         public TextView txtSuivant;
         public TextView txtAnnuler;
         public RelativeLayout relativeLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             this.imageView = (ImageView) itemView.findViewById(R.id.imageView);
             this.txtServiceDestination = (TextView) itemView.findViewById(R.id.txtServiceDestination);
             this.txtNumPatientCourant = (TextView) itemView.findViewById(R.id.txtNbPatientServiceCourant);
-            this.txtnumPatientSuivant = (TextView) itemView.findViewById(R.id.txtnumPatientSuivant);
+            this.txtNumPatientSuivant = (TextView) itemView.findViewById(R.id.txtnumPatientSuivant);
             this.txtSuivant = (TextView) itemView.findViewById(R.id.txtSuivant);
             this.txtAnnuler = (TextView) itemView.findViewById(R.id.txtAnnuler);
             relativeLayout = (RelativeLayout) itemView.findViewById(R.id.linearLayout);
-
         }
     }
 }

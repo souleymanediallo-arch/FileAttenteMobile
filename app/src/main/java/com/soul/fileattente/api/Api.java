@@ -8,9 +8,7 @@ import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.model.SmsMessageRetour;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

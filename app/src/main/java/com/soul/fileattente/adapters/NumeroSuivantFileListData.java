@@ -8,12 +8,6 @@ public class NumeroSuivantFileListData extends NumeroSuivantFile {
     private NumeroSuivantFile numeroSuivantFile;
 
     public NumeroSuivantFileListData(NumeroSuivantFile numeroSuivantFile, int imgId) {
-//        super.setLibelleServiceDestination(serviceDestination.getLibelleServiceDestination());
-//        super.setNomServiceDestination(serviceDestination.getNomServiceDestination());
-//        super.setStatutServiceDestination(serviceDestination.getStatutServiceDestination());
-//        this.imgId = imgId;
-//        this.serviceDestination = serviceDestination;
-
         super.setNomServiceDestination(numeroSuivantFile.getNomServiceDestination());
         super.setStatut(numeroSuivantFile.getStatut());
         this.imgId = imgId;

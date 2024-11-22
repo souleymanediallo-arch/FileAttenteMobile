@@ -42,8 +42,6 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
     @Override
     public void onBindViewHolder(ViewHolder holder,  @SuppressLint("RecyclerView") int position) {
         final ServiceAGGListData serviceAGGListData = listdata.get(position);
-//        holder.textView.setText(serviceAGGListData.getNomService() + " -- " + serviceAGGListData.getNumeroSuivant() + " -- " + serviceAGGListData.getNbDemandeur());
-
         //holder.txtServiceDestination.setText(Utils.formatStringForView(serviceAGGListData.getNomService()));
         holder.txtServiceDestination.setText(serviceAGGListData.getNomServiceDestination());
         holder.txtNbPatientServiceCourant.setText(serviceAGGListData.getNumberOfElementInQueue());
@@ -56,54 +54,18 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
             //holder.linearLayout.setBackgroundColor(Color.BLUE);
             holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.imageView.getContext(), R.color.lgray));
         }
-
         holder.imageView.setImageResource(serviceAGGListData.getImgId());
-//        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //Toast.makeText(view.getContext(),"click on item: "+ serviceDestinationListData.getNomService(),Toast.LENGTH_LONG).show();
-//                //Intent intent = new Intent(context, EcranPrincipalActivity.class);
-//
-//                //GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra)getIntent().getSerializableExtra(Global.GLOBALSETOFEXTRA);
-//                //view.getContext().inte
-//
-//                Intent intent = new Intent(view.getContext(), EcranPrincipalActivity.class);
-//
-//                //mGlobalSetOfExtra.mServiceDestination = serviceDestinationListData.getServiceDestination();
-//                //mGlobalSetOfExtra.mServiceDestination = new ServiceDestination();//Pou eviter des erreurs eventuelles
-//                intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
-//                //intent.putExtra(Global.SELECTED_SERVICE_DESTINATION_KEY, serviceDestinationListData.getServiceDestination());
-//                view.getContext().startActivity(intent);
-//            }
-//        });
-
-
         holder.txtSuivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 System.out.println("txtSuivant.................................................................> Just Clicked ! and my Index position " + position);
-                //Toast.makeText(view.getContext(), "Suivant just Clicked ! " + serviceAGGListData.getNumeroSuivantFile(), Toast.LENGTH_SHORT).show();
-
-//                {
-//                        "id":1,
-//                        "serviceDestinationid":1,
-//                        "nomServiceDestination":"nomServiceDestination",
-//                        "etablissementid":1
-//                }
-
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                //demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi()+"");
-                //demandeGeneric.setIdService(serviceAGGListData.getNomServiceDestination());
-                //demandeGeneric.setEtablissementid("1");//A determiner
-                //demandeGeneric.setServicesChoisi("672f9b05e434e738150a1cc2");
                 demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi());
                 demandeGeneric.setServicesChoisi(serviceAGGListData.getServicesChoisi());
                 demandeGeneric.setNomService(serviceAGGListData.getNomServiceDestination());
-                //demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));
                 System.out.println("------------------------------------------> : 672f9b05e434e738150a1cc2");
                 System.out.println("------------------------------------------> serviceAGGListData.getServicesChoisi() : " + serviceAGGListData.getServicesChoisi());
                 System.out.println("------------------------------------------> serviceAGGListData.getNumeroSuivantFile().getServicesChoisi() : " + serviceAGGListData.getNumeroSuivantFile().getServicesChoisi());
-
                 EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(demandeGeneric);
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
             }
@@ -113,35 +75,15 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
             @Override
             public void onClick(View view) {
                 System.out.println("txtAnnuler.................................................................> Just Clicked ! and my Index position " + position);
-                //Toast.makeText(view.getContext(), "Annuler just Clicked ! " + serviceAGGListData.getNumeroSuivantFile(), Toast.LENGTH_SHORT).show();
-                //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
-
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
                 demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi());
                 demandeGeneric.setServicesChoisi(serviceAGGListData.getServicesChoisi());
                 demandeGeneric.setNomService(serviceAGGListData.getNomServiceDestination());
-                //demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));
-                //demandeGeneric.setEtablissementid();//A determiner
-
                 EcranPrincipalMonitoringActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
             }
         });
     }
-
-//    @Override
-//    public static class ViewHolder extends RecyclerView.ViewHolder {
-//        public ImageView imageView;
-//        public TextView textView;
-//        public RelativeLayout relativeLayout;
-//
-//        public ViewHolder(View itemView) {
-//            super(itemView);
-//            this.imageView = (ImageView) itemView.findViewById(R.id.imageView);
-//            this.textView = (TextView) itemView.findViewById(R.id.textView);
-//            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
-//        }
-//    }
 
     public int getItemCount() {
         return listdata.size();
@@ -154,7 +96,6 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
         public TextView txtnumPatientSuivant;
         public TextView txtSuivant;
         public TextView txtAnnuler;
-        //public RelativeLayout relativeLayout;
         public LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
@@ -165,7 +106,6 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
             this.txtnumPatientSuivant = (TextView) itemView.findViewById(R.id.txtnumPatientSuivant);
             this.txtSuivant = (TextView) itemView.findViewById(R.id.txtSuivant);
             this.txtAnnuler = (TextView) itemView.findViewById(R.id.txtAnnuler);
-//            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
         }
     }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,10 +22,6 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
     GlobalSetOfExtra mGlobalSetOfExtra;
 
     private ArrayList<ServiceDestinationListData> listdata;
-
-//    public ServiceDestinationListDataAdapter(ArrayList<ServiceDestinationListData> listdata) {
-//        this.listdata = listdata;
-//    }
 
     public ServiceDestinationListDataAdapter(ArrayList<ServiceDestinationListData> listdata, GlobalSetOfExtra globalSetOfExtra) {
         this.listdata = listdata;
@@ -72,11 +69,6 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(view.getContext(),"click on item: "+ serviceDestinationListData.getNomService(),Toast.LENGTH_LONG).show();
-                //Intent intent = new Intent(context, EcranPrincipalActivity.class);
-
-                //GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra)getIntent().getSerializableExtra(Global.GLOBALSETOFEXTRA);
-                //view.getContext().inte
                 String serviceStatus = serviceDestinationListData.getStatutServiceDestination();
                 //if(!(serviceStatus.equalsIgnoreCase("Inactif") && serviceStatus.equalsIgnoreCase("Pause"))) {
                     Intent intent = new Intent(view.getContext(), EcranPrincipalActivity.class);

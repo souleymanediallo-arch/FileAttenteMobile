@@ -4,11 +4,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.soul.fileattente.model.DemandeGeneric;
-import com.soul.fileattente.model.DemandeNumeroFile;
 import com.soul.fileattente.model.Etablissement;
 import com.soul.fileattente.model.Login;
 import com.soul.fileattente.model.NumeroSuivantFile;
-import com.soul.fileattente.model.Param;
 import com.soul.fileattente.model.ServiceAGG;
 import com.soul.fileattente.model.ServiceDestination;
 import com.soul.fileattente.model.SmsMessageRetour;
@@ -28,7 +26,6 @@ public class UserViewModel extends ViewModel {
 
     private static MutableLiveData<Login> autheticationResultForAuthenticate = new MutableLiveData<>();
     private static MutableLiveData<Login> loginResultForLogin = new MutableLiveData<>();
-    private static MutableLiveData<List<Param>> listParamForDemandeAllParams = new MutableLiveData<>();
     private static MutableLiveData<Etablissement> etablissementFordemanderEtablissement  = new MutableLiveData<>();
     private static MutableLiveData<List<ServiceDestination>> listServiceDestinationForDemandeAllServicesDestination = new MutableLiveData<>();
     private static MutableLiveData<List<ServiceAGG>> listServiceAGGForDemandeAggregatAllServicesDestinationNumeroFiles = new MutableLiveData<>();

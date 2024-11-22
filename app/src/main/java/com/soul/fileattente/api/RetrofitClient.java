@@ -6,10 +6,8 @@ import static com.soul.fileattente.utils.ApplicationConstants.gottenTokenAfterLo
 import static com.soul.fileattente.utils.ApplicationConstants.readTimeoutDuration;
 import static com.soul.fileattente.utils.ApplicationConstants.userAgent;
 import static com.soul.fileattente.utils.ApplicationConstants.writeTimeoutDuration;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -24,19 +22,16 @@ public class RetrofitClient {
     private Api myApi;
 
     private RetrofitClient() {
-
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request originalRequest = chain.request();
-
                 //Add as many key value pairs as you want in the header below
                 Headers.Builder headers = new Headers.Builder();
                 headers.add("Authorization", gottenTokenAfterLoginOrRefresh); //When dealing with a token that expires
                 headers.add("Content-Type", "application/json"); //When precising the format of content to submit but with retrofit this might be implicit
                 headers.add("Accept", "application/json"); //When precising the format of content expected but with retrofit this might be implicit
                 headers.add("User-Agent", userAgent); //When dealing with a user Agent
-
                 Request.Builder builder = originalRequest.newBuilder().headers(headers.build());
                 Request newRequest = builder.build();
                 return chain.proceed(newRequest);

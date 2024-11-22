@@ -13,7 +13,6 @@ public class ServiceDestination implements Serializable {
     private Long tempsAttenteEstime;
     private String etablissementAssocie;
 
-
     public ServiceDestination() {
     }
 

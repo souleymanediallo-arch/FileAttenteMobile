@@ -8,7 +8,6 @@ public class ServiceDestinationListData extends ServiceDestination {
     private ServiceDestination serviceDestination;
 
     public ServiceDestinationListData(ServiceDestination serviceDestination, int imgId) {
-        //super.setLibelleServiceDestination(serviceDestination.getLibelleServiceDestination());
         super.setLibelleServiceDestination(serviceDestination.getPrefixeServiceAAfficher());
         super.setNomServiceDestination(serviceDestination.getNomServiceDestination());
         super.setStatutServiceDestination(serviceDestination.getStatutServiceDestination());

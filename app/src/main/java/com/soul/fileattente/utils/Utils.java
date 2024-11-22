@@ -14,20 +14,12 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import com.soul.fileattente.R;
-import com.soul.fileattente.model.Param;
 import java.util.List;
 import java.util.Locale;
 
 public class Utils {
 
     static int NBCAR = 15;
-
-    public static String getValueForKey(List<Param> mListParams, String key) {
-        for (Param param : mListParams) {
-            if (param.getKey().equalsIgnoreCase(key)) return param.getValue();
-        }
-        return null;
-    }
 
     public static String formatStringForView(String strValue) {
         int len = 0;
