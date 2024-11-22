@@ -11,6 +11,7 @@ public class DemandeGeneric {
     String medecinDeviceId;
     String nomService;
     String prefixeService;
+    String servicesChoisi;
 
 //    private Long id;
 //    //private Long idService;
@@ -118,5 +119,13 @@ public class DemandeGeneric {
 
     public void setMedecinDeviceId(String medecinDeviceId) {
         this.medecinDeviceId = medecinDeviceId;
+    }
+
+    public String getServicesChoisi() {
+        return servicesChoisi;
+    }
+
+    public void setServicesChoisi(String servicesChoisi) {
+        this.servicesChoisi = servicesChoisi;
     }
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.soul.fileattente.R;
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
+import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
 
 import java.util.ArrayList;
@@ -91,9 +92,17 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
 //                }
 
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi()+"");
-                demandeGeneric.setIdService(serviceAGGListData.getNomServiceDestination());
+                //demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi()+"");
+                //demandeGeneric.setIdService(serviceAGGListData.getNomServiceDestination());
                 //demandeGeneric.setEtablissementid("1");//A determiner
+                //demandeGeneric.setServicesChoisi("672f9b05e434e738150a1cc2");
+                demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi());
+                demandeGeneric.setServicesChoisi(serviceAGGListData.getServicesChoisi());
+                demandeGeneric.setNomService(serviceAGGListData.getNomServiceDestination());
+                //demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));
+                System.out.println("------------------------------------------> : 672f9b05e434e738150a1cc2");
+                System.out.println("------------------------------------------> serviceAGGListData.getServicesChoisi() : " + serviceAGGListData.getServicesChoisi());
+                System.out.println("------------------------------------------> serviceAGGListData.getNumeroSuivantFile().getServicesChoisi() : " + serviceAGGListData.getNumeroSuivantFile().getServicesChoisi());
 
                 EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(demandeGeneric);
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
@@ -108,8 +117,10 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(new DemandeGeneric());
 
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi()+"");
+                demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi());
+                demandeGeneric.setServicesChoisi(serviceAGGListData.getServicesChoisi());
                 demandeGeneric.setNomService(serviceAGGListData.getNomServiceDestination());
+                //demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));
                 //demandeGeneric.setEtablissementid();//A determiner
 
                 EcranPrincipalMonitoringActivityList.userViewModel.annulerAppelNumero(demandeGeneric);

@@ -92,6 +92,9 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 //demandeGeneric.setNomServiceDestination("nomServiceDestination");
                 //demandeGeneric.setIdEtablissement("1"); //TODO C'est l"objet qu'il faudra recuperer
                 demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
+                //System.out.println("------------------------------> ");
+                //System.out.println("------------------------------> " + listdata.get(position).);
+                //demandeGeneric.setServicesChoisi("672f9b05e434e738150a1cc2");
 
                 EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(demandeGeneric);
                 //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)

@@ -57,7 +57,8 @@ public interface Api {
     @POST("waiting-queues/call-next-waiting-number-in-waiting-queue-secretaire")
     Call<NumeroSuivantFile> appeler_numero_suivant_files(@Body DemandeGeneric demandeGeneric);
 
-    @POST("annuler-numero-precedent-files")
+    //@POST("annuler-numero-precedent-files")
+    @POST("waiting-queues/cancel-call-waiting-queue-secretaire")
     Call<NumeroSuivantFile> annuler_numero_precedent_files(@Body DemandeGeneric demandeGeneric);
 
     @POST("notification/send-sms")

@@ -1,7 +1,7 @@
 package com.soul.fileattente.model;
 
 import java.io.Serializable;
-import java.time.Instant;
+
 
 public class NumeroSuivantFile implements Serializable {
 
@@ -88,7 +88,7 @@ public class NumeroSuivantFile implements Serializable {
     private String dateHeureAppelMonitor;
     private String dateHeureAppelMedecin;
     private int nbAnnulation;
-    private Instant dateHeureDerniereAnnulation;
+    private String dateHeureDerniereAnnulation;
     private Long tempsAttenteMoyen;
     private Long tempsAttenteEstime;
     private Long tempsAttenteEffectif;
@@ -253,11 +253,11 @@ public class NumeroSuivantFile implements Serializable {
         this.nbAnnulation = nbAnnulation;
     }
 
-    public Instant getDateHeureDerniereAnnulation() {
+    public String getDateHeureDerniereAnnulation() {
         return dateHeureDerniereAnnulation;
     }
 
-    public void setDateHeureDerniereAnnulation(Instant dateHeureDerniereAnnulation) {
+    public void setDateHeureDerniereAnnulation(String dateHeureDerniereAnnulation) {
         this.dateHeureDerniereAnnulation = dateHeureDerniereAnnulation;
     }
 
