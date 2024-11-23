@@ -22,9 +22,6 @@
             android:exported="false">
 <!--            android:screenOrientation="landscape">-->
         </activity>
-        <activity
-            android:name=".view.EcranGenrationNumeroSuivantActivity"
-            android:exported="false"/>
 <!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".view.EcranResumeActivity"
