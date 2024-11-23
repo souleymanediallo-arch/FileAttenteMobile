@@ -118,23 +118,39 @@ public class LoginActivity extends AppCompatActivity {
         LoginActivity.this.startActivity(intent);
     }
 
+    private void navigateToEcranPrincipalTraitementActivityList() {
+        Intent intent = new Intent(LoginActivity.this, EcranPrincipalTraitementActivityList.class);
+
+        mGlobalSetOfExtra = new GlobalSetOfExtra();
+        mGlobalSetOfExtra.mLogin = mLogin;
+        mGlobalSetOfExtra.mLoginResult = mLoginResult;
+        mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
+        mGlobalSetOfExtra.mEtablissement = mEtablissement;
+        intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+        binding.progressBar.setVisibility(View.INVISIBLE);
+        LoginActivity.this.startActivity(intent);
+    }
+
 
     private void navigateToEcranDocteurActivityList() {
         binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
         binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
         binding.progressBar.setVisibility(View.INVISIBLE);
+        System.out.println("Fonctionnalité non encore mise en oeuvre...");
     }
 
     private void navigateToEcranAdministrateurActivityList() {
         binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
         binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
         binding.progressBar.setVisibility(View.INVISIBLE);
+        System.out.println("Fonctionnalité non encore mise en oeuvre...");
     }
 
     private void handleUsernameAndPasswordError() {
         binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
         binding.textErroMessage.setText("Login/Password et ou Profil Incorrect...");
         binding.progressBar.setVisibility(View.INVISIBLE);
+        System.out.println("Login/Password et ou Profil Incorrect...");
     }
 
     void processTaskWhenloginButtonClicked() {
@@ -200,7 +216,8 @@ public class LoginActivity extends AppCompatActivity {
                     navigateToEcranPrincipalActivityList();
                 }
                 if(chosenProfile.equalsIgnoreCase("Docteur"))  {
-                    navigateToEcranDocteurActivityList();
+                    //navigateToEcranDocteurActivityList();
+                    navigateToEcranPrincipalTraitementActivityList();
                 }
                 if(chosenProfile.equalsIgnoreCase("Administrateur"))  {
                     navigateToEcranAdministrateurActivityList();

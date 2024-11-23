@@ -1,0 +1,10 @@
+----
+fileattente/.view.LoginActivity
+fileattente/.view.EcranPrincipalActivityList
+fileattente/.view.EcranPrincipalActivity
+fileattente/.view.EcranResumeActivity
+ileattente/.view.EcranPrincipalActivityList
+----
+fileattente/.view.EcranPrincipalMonitoringActivityList
+----
+fileattente/.view.EcranPrincipalTraitementActivityList

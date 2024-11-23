@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
+public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
 
     public static UserViewModel userViewModel;
     private ActivityEcranPrincipalMonitoringListBinding binding;
@@ -64,31 +64,31 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         //Getting Instance of the viewModel that will manage the Business of the aapplication
-        userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(EcranPrincipalTraitementActivityList.this).get(UserViewModel.class);
         demandeGeneric = new DemandeGeneric();
         demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
-        userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+        userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
         //Process whenever there is a change
-        processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged();
+        processWhenListForDemandeMedecinAggregatAllServicesDestinationNumeroFilesChanged();
         //binding.recyclerView. - Managing the list of service List
         serviceAGGListData = new ArrayList<>();
-        serviceAGGMonitoringListDataAdapter = new ServiceAGGMonitoringListDataAdapter(serviceAGGListData, mGlobalSetOfExtra, Utils.SCREEN_MONITOR);//
+        serviceAGGMonitoringListDataAdapter = new ServiceAGGMonitoringListDataAdapter(serviceAGGListData, mGlobalSetOfExtra, Utils.SCREEN_MEDECIN);
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(serviceAGGMonitoringListDataAdapter);
         binding.progressBar.setVisibility(View.VISIBLE);
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
         connect(); // it will connect and subscribe if connextion is successuful..
-        processWhenNumeroSuivantFileForAppelerNumeroChanged();
-        processWhenNumeroSuivantFileForAnnulerAppelNumeroChanged();
+        processWhenNumeroSuivantFileForMedecinAppelerNumeroChanged ();
+        processWhenNumeroSuivantFileForMedecinAnnulerAppelNumeroChanged();
     }
 
-    void processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged() {
-        userViewModel.getListForDemandeAggregatAllServicesDestinationNumeroFiles().observe(this, new Observer<List<ServiceAGG>>() {
+    void processWhenListForDemandeMedecinAggregatAllServicesDestinationNumeroFilesChanged() {
+        userViewModel.getListForDemandeMedecinAggregatAllServicesDestinationNumeroFiles().observe(this, new Observer<List<ServiceAGG>>() {
             @Override
             public void onChanged(List<ServiceAGG> serviceAGGs) {
-                System.out.println("processWhenListForDemandeAggregatAllServicesDestinationNumeroFilesChanged Data Changed............................................" + serviceAGGs + "******");
+                System.out.println("processWhenListForDemandeMedecinAggregatAllServicesDestinationNumeroFilesChanged Data Changed............................................" + serviceAGGs + "******");
                 if (serviceAGGs != null) {
                     serviceAGGListData.clear();
                     for (ServiceAGG serviceAGG : serviceAGGs) {
@@ -136,7 +136,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EcranPrincipalTraitementActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
                             System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
                             //print(message.toString());
                             userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
@@ -171,11 +171,11 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     }
 
     //------- Suivant & Annuler
-    void processWhenNumeroSuivantFileForAppelerNumeroChanged() {
-        userViewModel.getNumeroSuivantFileForAppelerNumero().observe(this, new Observer<NumeroSuivantFile>() {
+    void processWhenNumeroSuivantFileForMedecinAppelerNumeroChanged() {
+        userViewModel.getNumeroSuivantFileForMedecinAppelerNumero().observe(this, new Observer<NumeroSuivantFile>() {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
-                userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomServiceDestination() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
                 String messageAnnonce =
                         "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
@@ -188,17 +188,17 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 System.out.println("numeroSuivantFile.getStatutNumSuivantFile() ----> " + numeroSuivantFile.getStatut());
                 //Cette ligne ci dessous pour que le bon message soit enoyé cote BACK (meme si en principe c'est deja le cas),
                 //Prevoir le traitement du retour de cet appel à l'afficher pour eventuellement alter sur les pbs d'envois de sms (technique, credit entre autres)
-                numeroSuivantFile.setStatut("Appele");
+                //numeroSuivantFile.setStatut("Appele");
                 userViewModel.sendSmsNotification(numeroSuivantFile);
             }
         });
     }
 
-    void processWhenNumeroSuivantFileForAnnulerAppelNumeroChanged() {
-        userViewModel.getNumeroSuivantFileForAnnulerAppelNumero().observe(this, new Observer<NumeroSuivantFile>() {
+    void processWhenNumeroSuivantFileForMedecinAnnulerAppelNumeroChanged() {
+        userViewModel.getNumeroSuivantFileForMedecinAnnulerAppelNumero().observe(this, new Observer<NumeroSuivantFile>() {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
-                userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
             }
         });
     }

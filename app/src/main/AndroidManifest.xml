@@ -36,11 +36,19 @@
             android:exported="false"/>
 <!--            android:screenOrientation="landscape" />-->
         <activity
+            android:name=".view.EcranPrincipalTraitementActivityList"
+            android:exported="false"/>
+        <!--            android:screenOrientation="landscape" />-->
+        <activity
             android:name=".view.EcranPrincipalActivity"
             android:exported="false"/>
 <!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".view.EcranPrincipalMonitoringNumeroFileActivityList"
+            android:exported="false"/>
+<!--            android:screenOrientation="landscape" />-->
+        <activity
+            android:name=".view.EcranPrincipalTraitementNumeroFileActivityList"
             android:exported="false"/>
 <!--            android:screenOrientation="landscape" />-->
         <activity

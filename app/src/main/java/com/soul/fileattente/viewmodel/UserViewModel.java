@@ -29,10 +29,13 @@ public class UserViewModel extends ViewModel {
     private static MutableLiveData<Etablissement> etablissementFordemanderEtablissement  = new MutableLiveData<>();
     private static MutableLiveData<List<ServiceDestination>> listServiceDestinationForDemandeAllServicesDestination = new MutableLiveData<>();
     private static MutableLiveData<List<ServiceAGG>> listServiceAGGForDemandeAggregatAllServicesDestinationNumeroFiles = new MutableLiveData<>();
+    private static MutableLiveData<List<ServiceAGG>> listServiceAGGForDemandeMedecinAggregatAllServicesDestinationNumeroFiles = new MutableLiveData<>();
     private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForDemandeNumerosSuivant = new MutableLiveData<>();
     private static MutableLiveData<List<NumeroSuivantFile>> listNumeroSuivantFileForGetAllNumerosSuivants = new MutableLiveData<>();
     private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForAppelerNumero = new MutableLiveData<>();
+    private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForMedecinAppelerNumero = new MutableLiveData<>();
     private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForAnnulerAppelNumero = new MutableLiveData<>();
+    private static MutableLiveData<NumeroSuivantFile> numeroSuivantFileForMedecinAnnulerAppelNumero = new MutableLiveData<>();
     private static MutableLiveData<List<NumeroSuivantFile>> listNumeroSuivantFileFordemandeAllNumerosSuivants = new MutableLiveData<>();
     private static MutableLiveData<SmsMessageRetour> strRetourSendSmsNotification = new MutableLiveData<>();
 
@@ -72,14 +75,29 @@ public class UserViewModel extends ViewModel {
         mFileAttenteRepository.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
+    public void demandeMedecinAggregatAllServicesDestinationNumeroFiles(DemandeGeneric demandeGeneric) {
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);//Inside and because it's async, the postValue is done inside
+    }
+
     public void appelerNumero(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.appelerNumero(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
+    public void appelerMedecinNumero(DemandeGeneric demandeGeneric) {
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.appelerMedecinNumero(demandeGeneric);//Inside and because it's async, the postValue is done inside
+    }
+
     public void annulerAppelNumero(DemandeGeneric demandeGeneric) {
         mFileAttenteRepository = FileAttenteRepository.getInstance();
         mFileAttenteRepository.annulerAppelNumero(demandeGeneric);//Inside and because it's async, the postValue is done inside
+    }
+
+    public void annulerAppelMedecinNumero(DemandeGeneric demandeGeneric) {
+        mFileAttenteRepository = FileAttenteRepository.getInstance();
+        mFileAttenteRepository.annulerMedecinAppelNumero(demandeGeneric);//Inside and because it's async, the postValue is done inside
     }
 
     public void demandeAllNumerosSuivants(DemandeGeneric demandeGeneric) {
@@ -112,6 +130,10 @@ public class UserViewModel extends ViewModel {
         return listServiceAGGForDemandeAggregatAllServicesDestinationNumeroFiles;
     }
 
+    public static MutableLiveData<List<ServiceAGG>> getListForDemandeMedecinAggregatAllServicesDestinationNumeroFiles() {
+        return listServiceAGGForDemandeMedecinAggregatAllServicesDestinationNumeroFiles;
+    }
+
     public static MutableLiveData<NumeroSuivantFile> getNumeroSuivantFileForDemandeNumerosSuivant() {
         return numeroSuivantFileForDemandeNumerosSuivant;
     }
@@ -124,8 +146,16 @@ public class UserViewModel extends ViewModel {
         return numeroSuivantFileForAppelerNumero;
     }
 
+    public static MutableLiveData<NumeroSuivantFile> getNumeroSuivantFileForMedecinAppelerNumero() {
+        return numeroSuivantFileForMedecinAppelerNumero;
+    }
+
     public static MutableLiveData<NumeroSuivantFile> getNumeroSuivantFileForAnnulerAppelNumero() {
         return numeroSuivantFileForAnnulerAppelNumero;
+    }
+
+    public static MutableLiveData<NumeroSuivantFile> getNumeroSuivantFileForMedecinAnnulerAppelNumero() {
+        return numeroSuivantFileForMedecinAnnulerAppelNumero;
     }
 
     public static MutableLiveData<List<NumeroSuivantFile>> getListNumeroSuivantFileFordemandeAllNumerosSuivants() {

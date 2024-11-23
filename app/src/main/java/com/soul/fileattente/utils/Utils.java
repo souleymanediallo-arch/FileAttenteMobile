@@ -19,6 +19,9 @@ import java.util.Locale;
 
 public class Utils {
 
+    public static String  SCREEN_MONITOR = "SCREEN_MONITOR";
+    public static String  SCREEN_MEDECIN = "SCREEN_MEDECIN";
+
     static int NBCAR = 15;
 
     public static String formatStringForView(String strValue) {

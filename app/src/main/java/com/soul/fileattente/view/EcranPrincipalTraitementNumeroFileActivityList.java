@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.soul.fileattente.R;
 import com.soul.fileattente.adapters.NumeroSuivantFileListData;
 import com.soul.fileattente.adapters.NumeroSuivantFileMonitoringListDataAdapter;
@@ -20,7 +21,7 @@ import com.soul.fileattente.viewmodel.UserViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatActivity {
+public class EcranPrincipalTraitementNumeroFileActivityList extends AppCompatActivity {
 
     public static UserViewModel userViewModel;
     private ActivityEcranNumeroSuivantFilesMonitorListBinding binding;
@@ -41,7 +42,7 @@ public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatAct
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         //Getting Instance of the viewModel that will manage the Business of the aapplication
-        userViewModel = new ViewModelProvider(EcranPrincipalMonitoringNumeroFileActivityList.this).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(EcranPrincipalTraitementNumeroFileActivityList.this).get(UserViewModel.class);
         DemandeGeneric demandeGeneric = new DemandeGeneric();
         demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
         userViewModel.demandeAllNumerosSuivants(demandeGeneric);
@@ -49,7 +50,7 @@ public class EcranPrincipalMonitoringNumeroFileActivityList extends AppCompatAct
         processWhenListNumerosFileForDemandeAllNumerosFileChanged();
         //binding.recyclerView. - Managing the list of service List
         numeroSuivantFileListData = new ArrayList<>();
-        numeroSuivantFileMonitoringListDataAdapter = new NumeroSuivantFileMonitoringListDataAdapter(numeroSuivantFileListData, mGlobalSetOfExtra, Utils.SCREEN_MONITOR);
+        numeroSuivantFileMonitoringListDataAdapter = new NumeroSuivantFileMonitoringListDataAdapter(numeroSuivantFileListData, mGlobalSetOfExtra, Utils.SCREEN_MEDECIN);
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(numeroSuivantFileMonitoringListDataAdapter);

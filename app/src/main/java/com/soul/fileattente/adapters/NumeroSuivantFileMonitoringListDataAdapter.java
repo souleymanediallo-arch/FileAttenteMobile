@@ -14,20 +14,24 @@ import com.soul.fileattente.databinding.NumeroSuivantFilesMonitorListItemBinding
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
+import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
 import com.soul.fileattente.view.EcranPrincipalMonitoringNumeroFileActivityList;
+import com.soul.fileattente.view.EcranPrincipalTraitementActivityList;
+import com.soul.fileattente.view.EcranPrincipalTraitementNumeroFileActivityList;
 
 import java.util.ArrayList;
 
 public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Adapter<NumeroSuivantFileMonitoringListDataAdapter.ViewHolder> {
 
-    GlobalSetOfExtra mGlobalSetOfExtra;
+    private GlobalSetOfExtra mGlobalSetOfExtra;
+    private ArrayList<NumeroSuivantFileListData> mlistdata;
+    private NumeroSuivantFilesMonitorListItemBinding binding;
+    private String mDisplayScreen;
 
-    private ArrayList<NumeroSuivantFileListData> listdata;
-    NumeroSuivantFilesMonitorListItemBinding binding;
-
-    public NumeroSuivantFileMonitoringListDataAdapter(ArrayList<NumeroSuivantFileListData> listdata, GlobalSetOfExtra globalSetOfExtra) {
-        this.listdata = listdata;
+    public NumeroSuivantFileMonitoringListDataAdapter(ArrayList<NumeroSuivantFileListData> listdata, GlobalSetOfExtra globalSetOfExtra, String displayScreen) {
+        this.mlistdata = listdata;
         this.mGlobalSetOfExtra = globalSetOfExtra;
+        this.mDisplayScreen = displayScreen;
     }
 
     @Override
@@ -40,7 +44,7 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
 
     @Override
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        final NumeroSuivantFileListData numeroSuivantFileListData = listdata.get(position);
+        final NumeroSuivantFileListData numeroSuivantFileListData = mlistdata.get(position);
         holder.txtServiceDestination.setText(Utils.formatStringForView(numeroSuivantFileListData.getNomServiceDestination()));
         holder.txtNumPatientCourant.setText(numeroSuivantFileListData.getNumeroDansFileAttente());
         holder.txtNumPatientSuivant.setText(numeroSuivantFileListData.getNumeroDansFileAttente());
@@ -55,7 +59,12 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 Toast.makeText(view.getContext(), "Suivant just Clicked ! ", Toast.LENGTH_SHORT).show();
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
                 demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
-                EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(demandeGeneric);
+                if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MONITOR)) {
+                    EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(demandeGeneric);
+                }
+                if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MEDECIN)) {
+                    EcranPrincipalTraitementNumeroFileActivityList.userViewModel.appelerMedecinNumero(demandeGeneric);
+                }
                 //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)
                 //A defaut faire +1 pour Suivant et -1 pour Annuler ey on Success ou meme cote Back en testant sur le meme ecran
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
@@ -70,7 +79,13 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 Toast.makeText(view.getContext(), "Annuler just Clicked ! ", Toast.LENGTH_SHORT).show();
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
                 demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
-                EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
+                //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
+                if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MONITOR)) {
+                    EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
+                }
+                if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MEDECIN)) {
+                    EcranPrincipalTraitementNumeroFileActivityList.userViewModel.annulerAppelMedecinNumero(demandeGeneric);
+                }
                 //Rafraichissement MQTT (a optimisert ou a faire passer par la Queue..)
                 //A defaut faire +1 pour Suivant et -1 pour Annuler ey on Success ou cote Back en testant sur le meme ecran
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
@@ -81,7 +96,7 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
 
     @Override
     public int getItemCount() {
-        return listdata.size();
+        return mlistdata.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

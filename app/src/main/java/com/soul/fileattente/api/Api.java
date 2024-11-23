@@ -31,6 +31,9 @@ public interface Api {
     @POST("waiting-queues/find-service-queue-aggregation-for-secretaire")
     Call<List<ServiceAGG>> demandeAggregatAllServicesDestinationNumeroFiles(@Body DemandeGeneric demandeGeneric);
 
+    @POST("waiting-queues/find-service-queue-aggregation-for-medecin")
+    Call<List<ServiceAGG>> demandeMedecinAggregatAllServicesDestinationNumeroFiles(@Body DemandeGeneric demandeGeneric);
+
     @POST("waiting-queues/get-next-number-for-given-service")
     Call<NumeroSuivantFile> demandeNumerosSuivant(@Body DemandeGeneric demandeGeneric);
 
@@ -43,8 +46,14 @@ public interface Api {
     @POST("waiting-queues/call-next-waiting-number-in-waiting-queue-secretaire")
     Call<NumeroSuivantFile> appeler_numero_suivant_files(@Body DemandeGeneric demandeGeneric);
 
+    @POST("waiting-queues/call-next-waiting-number-in-waiting-queue-medecin")
+    Call<NumeroSuivantFile> appeler_medecin_numero_suivant_files(@Body DemandeGeneric demandeGeneric);
+
     @POST("waiting-queues/cancel-call-waiting-queue-secretaire")
     Call<NumeroSuivantFile> annuler_numero_precedent_files(@Body DemandeGeneric demandeGeneric);
+
+    @POST("waiting-queues/cancel-call-waiting-queue-medecin")
+    Call<NumeroSuivantFile> annuler_medecin_numero_precedent_files(@Body DemandeGeneric demandeGeneric);
 
     @POST("notification/send-sms")
     Call<SmsMessageRetour> sendSmsNotification(@Body NumeroSuivantFile numeroSuivantFile);

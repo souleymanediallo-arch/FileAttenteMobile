@@ -17,18 +17,20 @@ import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
+import com.soul.fileattente.view.EcranPrincipalTraitementActivityList;
 
 import java.util.ArrayList;
 
 public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<ServiceAGGMonitoringListDataAdapter.ViewHolder> {
 
-    GlobalSetOfExtra mGlobalSetOfExtra;
+    private GlobalSetOfExtra mGlobalSetOfExtra;
+    private ArrayList<ServiceAGGListData> mListdata;
+    private String mDisplayScreen;
 
-    private ArrayList<ServiceAGGListData> listdata;
-
-    public ServiceAGGMonitoringListDataAdapter(ArrayList<ServiceAGGListData> listdata, GlobalSetOfExtra globalSetOfExtra) {
-        this.listdata = listdata;
+    public ServiceAGGMonitoringListDataAdapter(ArrayList<ServiceAGGListData> listdata, GlobalSetOfExtra globalSetOfExtra, String displayScreen) {
+        this.mListdata = listdata;
         this.mGlobalSetOfExtra = globalSetOfExtra;
+        this.mDisplayScreen = displayScreen;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
 
     @Override
     public void onBindViewHolder(ViewHolder holder,  @SuppressLint("RecyclerView") int position) {
-        final ServiceAGGListData serviceAGGListData = listdata.get(position);
+        final ServiceAGGListData serviceAGGListData = mListdata.get(position);
         //holder.txtServiceDestination.setText(Utils.formatStringForView(serviceAGGListData.getNomService()));
         holder.txtServiceDestination.setText(serviceAGGListData.getNomServiceDestination());
         holder.txtNbPatientServiceCourant.setText(serviceAGGListData.getNumberOfElementInQueue());
@@ -66,7 +68,13 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
                 System.out.println("------------------------------------------> : 672f9b05e434e738150a1cc2");
                 System.out.println("------------------------------------------> serviceAGGListData.getServicesChoisi() : " + serviceAGGListData.getServicesChoisi());
                 System.out.println("------------------------------------------> serviceAGGListData.getNumeroSuivantFile().getServicesChoisi() : " + serviceAGGListData.getNumeroSuivantFile().getServicesChoisi());
-                EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(demandeGeneric);
+
+                if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MONITOR)) {
+                    EcranPrincipalMonitoringActivityList.userViewModel.appelerNumero(demandeGeneric);
+                }
+                if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MEDECIN)) {
+                    EcranPrincipalTraitementActivityList.userViewModel.appelerMedecinNumero(demandeGeneric);
+                }
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
             }
         });
@@ -79,14 +87,20 @@ public class ServiceAGGMonitoringListDataAdapter extends RecyclerView.Adapter<Se
                 demandeGeneric.setIdService(serviceAGGListData.getServicesChoisi());
                 demandeGeneric.setServicesChoisi(serviceAGGListData.getServicesChoisi());
                 demandeGeneric.setNomService(serviceAGGListData.getNomServiceDestination());
-                EcranPrincipalMonitoringActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
+
+                if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MONITOR)) {
+                    EcranPrincipalMonitoringActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
+                }
+                if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MEDECIN)) {
+                    EcranPrincipalTraitementActivityList.userViewModel.annulerAppelMedecinNumero(demandeGeneric);
+                }
                 System.out.printf("serviceAGGListData.getNumeroSuivantFile() -----> " + serviceAGGListData.getNumeroSuivantFile());
             }
         });
     }
 
     public int getItemCount() {
-        return listdata.size();
+        return mListdata.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

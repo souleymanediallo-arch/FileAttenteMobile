@@ -155,6 +155,28 @@ public class FileAttenteRepository {
         });
     }
 
+    public void demandeMedecinAggregatAllServicesDestinationNumeroFiles(DemandeGeneric demandeGeneric) {
+        Call<List<ServiceAGG>> call = RetrofitClient.getInstance().getMyApi().demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+
+        System.out.println("-------------------------------------> Data Changed in demandeAggregatAllServicesDestinationNumeroFiles " );
+        call.enqueue(new Callback<List<ServiceAGG>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<List<ServiceAGG>> call, Response<List<ServiceAGG>> response) {
+                System.out.println("-------------------------------> response.code() : " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                System.out.println("-------------------------------> response.body().isEmpty() : " + response.body().isEmpty());
+                System.out.println("-------------------------------> response.body().size() : " + response.body().size());
+                response.body().forEach(s -> System.out.println(s));
+                UserViewModel.getListForDemandeMedecinAggregatAllServicesDestinationNumeroFiles().postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<ServiceAGG>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
     public void appelerNumero(DemandeGeneric demandeGeneric) {
         Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appeler_numero_suivant_files(demandeGeneric);
 
@@ -171,6 +193,25 @@ public class FileAttenteRepository {
             }
         });
     }
+
+    public void appelerMedecinNumero(DemandeGeneric demandeGeneric) {
+        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().appeler_medecin_numero_suivant_files(demandeGeneric);
+
+        call.enqueue(new Callback<NumeroSuivantFile>() {
+            @Override
+            public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getNumeroSuivantFileForMedecinAppelerNumero().postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<NumeroSuivantFile> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+
     public void annulerAppelNumero(DemandeGeneric demandeGeneric) {
         Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().annuler_numero_precedent_files(demandeGeneric);
 
@@ -179,6 +220,22 @@ public class FileAttenteRepository {
             public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
                 System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
                 UserViewModel.getNumeroSuivantFileForAnnulerAppelNumero().postValue(response.body());
+            }
+            @Override
+            public void onFailure(Call<NumeroSuivantFile> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+    public void annulerMedecinAppelNumero(DemandeGeneric demandeGeneric) {
+        Call<NumeroSuivantFile> call = RetrofitClient.getInstance().getMyApi().annuler_medecin_numero_precedent_files(demandeGeneric);
+
+        call.enqueue(new Callback<NumeroSuivantFile>() {
+            @Override
+            public void onResponse(Call<NumeroSuivantFile> call, Response<NumeroSuivantFile> response) {
+                System.out.println("-------------------------------> " + response.code() + "  --  \n" + response.toString() + "  --  \n" + response.body());
+                UserViewModel.getNumeroSuivantFileForMedecinAnnulerAppelNumero().postValue(response.body());
             }
 
             @Override
