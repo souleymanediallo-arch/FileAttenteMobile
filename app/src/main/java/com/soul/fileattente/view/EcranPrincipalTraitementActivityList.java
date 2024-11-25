@@ -5,11 +5,13 @@ import static com.soul.fileattente.utils.ApplicationConstants.publishTopic;
 import static com.soul.fileattente.utils.ApplicationConstants.serverURI;
 import static com.soul.fileattente.utils.ApplicationConstants.subscribeTopic;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,6 +38,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
 
@@ -48,6 +51,7 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
     DemandeGeneric demandeGeneric;
 
     TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
+    String nomServiceDestinationChoisi=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +62,23 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
         setContentView(view);
 
         //Getting GlobalSetOfExtra
+        System.out.println("---------------------------->EcranPrincipalTraitementActivityList<----------------------------");
         GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra) getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
+        System.out.println("------------> " + mGlobalSetOfExtra.mLogin.getProfil());
+        if(mGlobalSetOfExtra.mServiceDestination != null) {
+            nomServiceDestinationChoisi = mGlobalSetOfExtra.mServiceDestination.getNomServiceDestination();
+        }
+        System.out.println("------------> " + nomServiceDestinationChoisi);
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
+        System.out.println("---------------------------->EcranPrincipalTraitementActivityList<----------------------------");
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalTraitementActivityList.this).get(UserViewModel.class);
         demandeGeneric = new DemandeGeneric();
         demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
-        demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
+        demandeGeneric.setMedecinDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
         userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
         //Process whenever there is a change
         processWhenListForDemandeMedecinAggregatAllServicesDestinationNumeroFilesChanged();
@@ -86,11 +97,15 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
 
     void processWhenListForDemandeMedecinAggregatAllServicesDestinationNumeroFilesChanged() {
         userViewModel.getListForDemandeMedecinAggregatAllServicesDestinationNumeroFiles().observe(this, new Observer<List<ServiceAGG>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<ServiceAGG> serviceAGGs) {
                 System.out.println("processWhenListForDemandeMedecinAggregatAllServicesDestinationNumeroFilesChanged Data Changed............................................" + serviceAGGs + "******");
                 if (serviceAGGs != null) {
                     serviceAGGListData.clear();
+                    if(nomServiceDestinationChoisi != null) {
+                        serviceAGGs = serviceAGGs.stream().filter(s -> s.getNomServiceDestination().equalsIgnoreCase(nomServiceDestinationChoisi)).collect(Collectors.toList());
+                    }
                     for (ServiceAGG serviceAGG : serviceAGGs) {
                         System.out.println("------------> serviceAGG " + serviceAGG);
                         System.out.println("------------> serviceAGG.getNomServiceDestination() " + serviceAGG.getNomServiceDestination());

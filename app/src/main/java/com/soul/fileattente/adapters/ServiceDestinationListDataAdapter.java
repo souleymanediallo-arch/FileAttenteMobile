@@ -14,17 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.soul.fileattente.R;
 import com.soul.fileattente.view.EcranPrincipalActivity;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
+import com.soul.fileattente.view.EcranPrincipalTraitementActivityList;
 
 import java.util.ArrayList;
 
 public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<ServiceDestinationListDataAdapter.ViewHolder> {
 
     GlobalSetOfExtra mGlobalSetOfExtra;
-
-    private ArrayList<ServiceDestinationListData> listdata;
+    private ArrayList<ServiceDestinationListData> mListdata;
 
     public ServiceDestinationListDataAdapter(ArrayList<ServiceDestinationListData> listdata, GlobalSetOfExtra globalSetOfExtra) {
-        this.listdata = listdata;
+        this.mListdata = listdata;
         this.mGlobalSetOfExtra = globalSetOfExtra;
     }
 
@@ -38,7 +38,7 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final ServiceDestinationListData serviceDestinationListData = listdata.get(position);
+        final ServiceDestinationListData serviceDestinationListData = mListdata.get(position);
 //
 //        //holder.textView.setText(serviceDestinationListData.getNomServiceDestination() + " -- " + serviceDestinationListData.getStatutServiceDestination());
 //        String serviceStatus = serviceDestinationListData.getStatutServiceDestination();
@@ -71,11 +71,20 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
             public void onClick(View view) {
                 String serviceStatus = serviceDestinationListData.getStatutServiceDestination();
                 //if(!(serviceStatus.equalsIgnoreCase("Inactif") && serviceStatus.equalsIgnoreCase("Pause"))) {
-                    Intent intent = new Intent(view.getContext(), EcranPrincipalActivity.class);
-                    mGlobalSetOfExtra.mServiceDestination = serviceDestinationListData.getServiceDestination();
-                    intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
-                    //intent.putExtra(Global.SELECTED_SERVICE_DESTINATION_KEY, serviceDestinationListData.getServiceDestination());
-                    view.getContext().startActivity(intent);
+                    if(mGlobalSetOfExtra.mLogin.getProfil().equalsIgnoreCase("Patient")) {
+                        Intent intent = new Intent(view.getContext(), EcranPrincipalActivity.class);
+                        mGlobalSetOfExtra.mServiceDestination = serviceDestinationListData.getServiceDestination();
+                        intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+                        //intent.putExtra(Global.SELECTED_SERVICE_DESTINATION_KEY, serviceDestinationListData.getServiceDestination());
+                        view.getContext().startActivity(intent);
+                    }
+                    if(mGlobalSetOfExtra.mLogin.getProfil().equalsIgnoreCase("Docteur")) {
+                        Intent intent = new Intent(view.getContext(), EcranPrincipalTraitementActivityList.class);
+                        mGlobalSetOfExtra.mServiceDestination = serviceDestinationListData.getServiceDestination();
+                        intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+                        //intent.putExtra(Global.SELECTED_SERVICE_DESTINATION_KEY, serviceDestinationListData.getServiceDestination());
+                        view.getContext().startActivity(intent);
+                    }
                 //}
             }
         });
@@ -83,7 +92,7 @@ public class ServiceDestinationListDataAdapter extends RecyclerView.Adapter<Serv
 
     @Override
     public int getItemCount() {
-        return listdata.size();
+        return mListdata.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

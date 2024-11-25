@@ -86,16 +86,22 @@ public class LoginActivity extends AppCompatActivity {
         processTaskWhenloginButtonClicked();
     }
 
+    //<item>Patient</item>
+    //<item>Moniteur</item>
+    //<item>Docteur</item>
+    //<item>Administrateur</item>
+
     private void handleSpinner() {
-        String[] listProfiles = getResources().getStringArray(R.array.profile_array);;
+        String[] listProfiles = getResources().getStringArray(R.array.profile_array);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_item, listProfiles);
         binding.profilSpinnerEdtxt.setAdapter(adapter);
     }
 
-    private void navigateToEcranPrincipalActivityList() {
+    private void navigateToEcranPrincipalActivityListWithPatientProfil() {
         Intent intent = new Intent(LoginActivity.this, EcranPrincipalActivityList.class);
 
         mGlobalSetOfExtra = new GlobalSetOfExtra();
+        mLogin.setProfil("Patient");
         mGlobalSetOfExtra.mLogin = mLogin;
         mGlobalSetOfExtra.mLoginResult = mLoginResult;
         mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
@@ -108,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
     private void navigateToEcranPrincipalMonitoringActivityList() {
         Intent intent = new Intent(LoginActivity.this, EcranPrincipalMonitoringActivityList.class);
 
+        mLogin.setProfil("Moniteur");
         mGlobalSetOfExtra = new GlobalSetOfExtra();
         mGlobalSetOfExtra.mLogin = mLogin;
         mGlobalSetOfExtra.mLoginResult = mLoginResult;
@@ -118,9 +125,26 @@ public class LoginActivity extends AppCompatActivity {
         LoginActivity.this.startActivity(intent);
     }
 
+    private void navigateToEcranPrincipalActivityListWithDoctorProfil() {
+        Intent intent = new Intent(LoginActivity.this, EcranPrincipalActivityList.class);
+
+        mGlobalSetOfExtra = new GlobalSetOfExtra();
+        mLogin.setProfil("Docteur");
+        mGlobalSetOfExtra.mLogin = mLogin;
+        mGlobalSetOfExtra.mLoginResult = mLoginResult;
+        mGlobalSetOfExtra.mAuthenticationResult = mAuthenticationResult;
+        mGlobalSetOfExtra.mEtablissement = mEtablissement;
+        intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
+        binding.progressBar.setVisibility(View.INVISIBLE);
+        LoginActivity.this.startActivity(intent);
+    }
+
+    //private void navigateToEcranDocteurActivityList() {
     private void navigateToEcranPrincipalTraitementActivityList() {
         Intent intent = new Intent(LoginActivity.this, EcranPrincipalTraitementActivityList.class);
 
+        //mLogin.setProfil("Docteur");
+        mLogin.setProfil("Administrateur");
         mGlobalSetOfExtra = new GlobalSetOfExtra();
         mGlobalSetOfExtra.mLogin = mLogin;
         mGlobalSetOfExtra.mLoginResult = mLoginResult;
@@ -132,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void navigateToEcranDocteurActivityList() {
+    private void navigateToEcranDocteurActivityList_BeforeImpl() {
         binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
         binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
         binding.progressBar.setVisibility(View.INVISIBLE);
@@ -147,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleUsernameAndPasswordError() {
+
         binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
         binding.textErroMessage.setText("Login/Password et ou Profil Incorrect...");
         binding.progressBar.setVisibility(View.INVISIBLE);
@@ -213,14 +238,14 @@ public class LoginActivity extends AppCompatActivity {
                     navigateToEcranPrincipalMonitoringActivityList();
                 }
                 if(chosenProfile.equalsIgnoreCase("Patient"))  {
-                    navigateToEcranPrincipalActivityList();
+                    navigateToEcranPrincipalActivityListWithPatientProfil();
                 }
                 if(chosenProfile.equalsIgnoreCase("Docteur"))  {
-                    //navigateToEcranDocteurActivityList();
-                    navigateToEcranPrincipalTraitementActivityList();
+                    navigateToEcranPrincipalActivityListWithDoctorProfil();
                 }
                 if(chosenProfile.equalsIgnoreCase("Administrateur"))  {
-                    navigateToEcranAdministrateurActivityList();
+                    //navigateToEcranAdministrateurActivityList();
+                    navigateToEcranPrincipalTraitementActivityList();
                 }
             }
         });

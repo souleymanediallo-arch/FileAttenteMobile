@@ -8,15 +8,17 @@ public class Login implements Serializable {
     private String password;
     private String token;
     private String response;
+    private String profil;
 
     public Login() {
     }
 
-    public Login(String username, String password, String token, String response) {
+    public Login(String username, String password, String token, String response, String profil) {
         this.username = username;
         this.password = password;
         this.token = token;
         this.response = response;
+        this.profil = profil;
     }
 
     public String getUsername() {
@@ -49,5 +51,13 @@ public class Login implements Serializable {
 
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    public String getProfil() {
+        return profil;
+    }
+
+    public void setProfil(String profil) {
+        this.profil = profil;
     }
 }

@@ -63,11 +63,14 @@ public class EcranPrincipalActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //Getting GlobalSetOfExtra
         mGlobalSetOfExtra = (GlobalSetOfExtra) getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
+        System.out.println("---------------------------->EcranPrincipalActivity<----------------------------");
+        System.out.println("------------> " + mGlobalSetOfExtra.mLogin.getProfil());
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mServiceDestination.toString());
+        System.out.println("---------------------------->EcranPrincipalActivity<----------------------------");
 
         ServiceDestination selectedServiceDestination = mGlobalSetOfExtra.mServiceDestination;
         binding.buttonGenNumero.setTextColor(Color.WHITE);

@@ -34,10 +34,13 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
         setContentView(view);
         //Getting GlobalSetOfExtra
         GlobalSetOfExtra mGlobalSetOfExtra = (GlobalSetOfExtra) getIntent().getSerializableExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA);
+        System.out.println("-------------------------------------->EcranPrincipalActivityList<--------------------------------------");
+        System.out.println("------------> " + mGlobalSetOfExtra.mLogin.getProfil());
         System.out.println("------------> " + mGlobalSetOfExtra.mLogin.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mAuthenticationResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mLoginResult.toString());
         System.out.println("------------> " + mGlobalSetOfExtra.mEtablissement.toString());
+        System.out.println("-------------------------------------->EcranPrincipalActivityList<--------------------------------------");
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalActivityList.this).get(UserViewModel.class);
         DemandeGeneric demandeGeneric = new DemandeGeneric();
