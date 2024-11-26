@@ -154,7 +154,8 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
                             Toast.makeText(EcranPrincipalTraitementActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
                             System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
                             //print(message.toString());
-                            userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                            //userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                            userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                         }
                     });
                 }
