@@ -152,7 +152,7 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(EcranPrincipalTraitementActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
-                            System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
+                            System.out.println("subscribe Incoming Message EcranPrincipalTraitementActivityList --------------------------------------------------------------------->" + message.toString());
                             //print(message.toString());
                             //userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                             userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);

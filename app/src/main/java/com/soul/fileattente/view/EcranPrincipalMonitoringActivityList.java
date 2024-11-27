@@ -136,8 +136,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
-                            System.out.println("subscribe Incoming Message --------------------------------------------------------------------->" + message.toString());
+                            //Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
+                            System.out.println("subscribe Incoming Message EcranPrincipalMonitoringActivityList --------------------------------------------------------------------->" + message.toString());
                             //print(message.toString());
                             userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                         }
