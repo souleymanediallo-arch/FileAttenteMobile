@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.soul.fileattente.R;
+import com.soul.fileattente.databinding.ActivityLoginBinding;
 import com.soul.fileattente.databinding.NumeroSuivantFilesMonitorListItemBinding;
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
@@ -110,6 +111,12 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
 
         public ViewHolder(View itemView) {
             super(itemView);
+            //You could try to use Activty Binding
+            //NumeroSuivantFilesMonitorListItemBinding numeroSuivantFilesMonitorListItemBinding;
+            //numeroSuivantFilesMonitorListItemBinding = NumeroSuivantFilesMonitorListItemBinding.inflate(ViewHolder.getLayoutInflater());
+            //View view = binding.getRoot();
+            //setContentView(view);
+            //numeroSuivantFilesMonitorListItemBinding.imageView
             this.imageView = (ImageView) itemView.findViewById(R.id.imageView);
             this.txtServiceDestination = (TextView) itemView.findViewById(R.id.txtServiceDestination);
             this.txtNumPatientCourant = (TextView) itemView.findViewById(R.id.txtNbPatientServiceCourant);
