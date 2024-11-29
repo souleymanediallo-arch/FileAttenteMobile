@@ -21,6 +21,7 @@ import com.soul.fileattente.databinding.ActivityEcranPrincipalMonitoringListBind
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.NumeroSuivantFile;
 import com.soul.fileattente.model.ServiceAGG;
+import com.soul.fileattente.utils.ApplicationConstants;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
@@ -66,7 +67,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalMonitoringActivityList.this).get(UserViewModel.class);
         demandeGeneric = new DemandeGeneric();
-        demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setIdEtablissement(ApplicationConstants.IdEtablissementForThisMobileAPP); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setMonitorDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
         userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
         //Process whenever there is a change

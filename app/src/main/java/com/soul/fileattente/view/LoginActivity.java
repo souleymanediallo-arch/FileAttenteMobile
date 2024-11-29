@@ -18,6 +18,7 @@ import com.soul.fileattente.databinding.ActivityLoginBinding;
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.Etablissement;
 import com.soul.fileattente.model.Login;
+import com.soul.fileattente.utils.ApplicationConstants;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         userViewModel = new ViewModelProvider(LoginActivity.this).get(UserViewModel.class);
         adjustViewComponentsStatusBeforeEtablissementSyncCompleted();
         DemandeGeneric demandeGeneric = new DemandeGeneric();
-        demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setIdEtablissement(ApplicationConstants.IdEtablissementForThisMobileAPP); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setPatientDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
         userViewModel.demandeEtablissement(demandeGeneric);
         binding.btnRefresh.setOnClickListener(new View.OnClickListener() {

@@ -13,6 +13,7 @@ import com.soul.fileattente.R;
 import com.soul.fileattente.databinding.ActivityLoginBinding;
 import com.soul.fileattente.databinding.NumeroSuivantFilesMonitorListItemBinding;
 import com.soul.fileattente.model.DemandeGeneric;
+import com.soul.fileattente.utils.ApplicationConstants;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.view.EcranPrincipalMonitoringActivityList;
@@ -59,7 +60,7 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 System.out.println("txtSuivant.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Suivant just Clicked ! ", Toast.LENGTH_SHORT).show();
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
+                demandeGeneric.setIdEtablissement(ApplicationConstants.IdEtablissementForThisMobileAPP); //TODO C'est l"objet qu'il faudra recuperer
                 if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MONITOR)) {
                     EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.appelerNumero(demandeGeneric);
                 }
@@ -79,7 +80,7 @@ public class NumeroSuivantFileMonitoringListDataAdapter extends RecyclerView.Ada
                 System.out.println("txtAnnuler.................................................................> Just Clicked ! and my Index position " + position);
                 Toast.makeText(view.getContext(), "Annuler just Clicked ! ", Toast.LENGTH_SHORT).show();
                 DemandeGeneric demandeGeneric = new DemandeGeneric();
-                demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
+                demandeGeneric.setIdEtablissement(ApplicationConstants.IdEtablissementForThisMobileAPP); //TODO C'est l"objet qu'il faudra recuperer
                 //EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);
                 if(mDisplayScreen.trim().equalsIgnoreCase(Utils.SCREEN_MONITOR)) {
                     EcranPrincipalMonitoringNumeroFileActivityList.userViewModel.annulerAppelNumero(demandeGeneric);

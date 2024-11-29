@@ -14,6 +14,7 @@ import com.soul.fileattente.adapters.NumeroSuivantFileMonitoringListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranNumeroSuivantFilesMonitorListBinding;
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.NumeroSuivantFile;
+import com.soul.fileattente.utils.ApplicationConstants;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
@@ -44,7 +45,7 @@ public class EcranPrincipalTraitementNumeroFileActivityList extends AppCompatAct
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalTraitementNumeroFileActivityList.this).get(UserViewModel.class);
         DemandeGeneric demandeGeneric = new DemandeGeneric();
-        demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setIdEtablissement(ApplicationConstants.IdEtablissementForThisMobileAPP); //TODO C'est l"objet qu'il faudra recuperer
         userViewModel.demandeAllNumerosSuivants(demandeGeneric);
         //Process whenever there is a change
         processWhenListNumerosFileForDemandeAllNumerosFileChanged();

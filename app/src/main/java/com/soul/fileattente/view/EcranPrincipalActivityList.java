@@ -12,6 +12,7 @@ import com.soul.fileattente.adapters.ServiceDestinationListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalListBinding;
 import com.soul.fileattente.model.DemandeGeneric;
 import com.soul.fileattente.model.ServiceDestination;
+import com.soul.fileattente.utils.ApplicationConstants;
 import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
@@ -44,7 +45,7 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
         //Getting Instance of the viewModel that will manage the Business of the aapplication
         userViewModel = new ViewModelProvider(EcranPrincipalActivityList.this).get(UserViewModel.class);
         DemandeGeneric demandeGeneric = new DemandeGeneric();
-        demandeGeneric.setIdEtablissement("672f994ae434e738150a1cc1"); //TODO C'est l"objet qu'il faudra recuperer
+        demandeGeneric.setIdEtablissement(ApplicationConstants.IdEtablissementForThisMobileAPP); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setPatientDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
         userViewModel.demandeAllServicesDestination(demandeGeneric);
         binding.progressBar.setVisibility(View.VISIBLE);
