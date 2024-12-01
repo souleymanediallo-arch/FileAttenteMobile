@@ -197,7 +197,7 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
                 String messageAnnonce =
                         "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
                         "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroDansFileAttente()) + "\n" +
-                        "Votre tour est arrivé";
+                        "Votre tour est arrivé chez le medecin";
                 String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
                 initializedTextToSpeechInstance(messageAnnonce);
                 //Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
