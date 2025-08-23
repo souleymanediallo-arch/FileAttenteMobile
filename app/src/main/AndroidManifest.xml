@@ -9,6 +9,13 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--    Fixed 'java.lang.SecurityException with android.permission.SCHEDULE_EXACT_ALARM on android 14 -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_file_attente"
@@ -61,7 +68,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <!--        <service android:name="org.eclipse.paho.android.service.MqttService" />-->
+        <!--        <service android:name="org.eclipse.paho.android.service.MqttService" android:foregroundServiceType="dataSync" />-->
+        <service
+            android:name="com.somsakelect.android.mqtt.MqttService"
+            android:exported="false">
+        </service>
     </application>
 </manifest>

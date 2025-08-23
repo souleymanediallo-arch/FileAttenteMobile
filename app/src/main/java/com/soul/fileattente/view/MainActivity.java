@@ -23,7 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.soul.fileattente.R;
 import com.soul.fileattente.utils.Utils;
 
-import org.eclipse.paho.android.service.MqttAndroidClient;
+//import org.eclipse.paho.android.service.MqttAndroidClient;
+import com.somsakelect.android.mqtt.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
