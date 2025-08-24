@@ -1,5 +1,6 @@
 package com.soul.fileattente.view;
 
+import static com.soul.fileattente.utils.ApplicationConstants.STATUT_APPELE_SECRETAIRE;
 import static com.soul.fileattente.utils.ApplicationConstants.clientId;
 import static com.soul.fileattente.utils.ApplicationConstants.publishTopic;
 import static com.soul.fileattente.utils.ApplicationConstants.serverURI;
@@ -195,19 +196,25 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomServiceDestination() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
-                String messageAnnonce =
-                        "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
-                        "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroDansFileAttente()) + "\n" +
-                        "Votre tour est arrivé chez le medecin";
-                String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
-                initializedTextToSpeechInstance(messageAnnonce);
-                //Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
-                //numeroSuivantFile.setStatutNumSuivantFile(StatutNumSuivantFileEnum.Appele);
-                System.out.println("numeroSuivantFile.getStatutNumSuivantFile() ----> " + numeroSuivantFile.getStatut());
-                //Cette ligne ci dessous pour que le bon message soit enoyé cote BACK (meme si en principe c'est deja le cas),
-                //Prevoir le traitement du retour de cet appel à l'afficher pour eventuellement alter sur les pbs d'envois de sms (technique, credit entre autres)
-                //numeroSuivantFile.setStatut("Appele");
-                userViewModel.sendSmsNotification(numeroSuivantFile);
+
+                //if (numeroSuivantFile.getStatut().equalsIgnoreCase(STATUT_APPELE_SECRETAIRE) && numeroSuivantFile.getCalledByMonitor()==0) {
+                if (numeroSuivantFile.getCalledByMonitor()==0) {
+
+                    String messageAnnonce =
+                            "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
+                                    "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroDansFileAttente()) + "\n" +
+                                    "Votre tour est arrivé chez le medecin";
+                    String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
+                    initializedTextToSpeechInstance(messageAnnonce);
+                    //Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
+                    //numeroSuivantFile.setStatutNumSuivantFile(StatutNumSuivantFileEnum.Appele);
+                    System.out.println("numeroSuivantFile.getStatutNumSuivantFile() ----> " + numeroSuivantFile.getStatut());
+                    //Cette ligne ci dessous pour que le bon message soit enoyé cote BACK (meme si en principe c'est deja le cas),
+                    //Prevoir le traitement du retour de cet appel à l'afficher pour eventuellement alter sur les pbs d'envois de sms (technique, credit entre autres)
+                    //numeroSuivantFile.setStatut("Appele");
+                    userViewModel.sendSmsNotification(numeroSuivantFile);
+                    numeroSuivantFile.setCalledByMonitor(1);
+                }
             }
         });
     }

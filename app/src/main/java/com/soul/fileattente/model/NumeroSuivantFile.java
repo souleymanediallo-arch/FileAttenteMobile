@@ -29,6 +29,11 @@ public class NumeroSuivantFile implements Serializable {
     private String statut;
     private String errorMessageIfAny;
 
+    //
+    private int calledByMonitor = 0;
+    private int calledByMedecin = 0;
+    //
+
     public NumeroSuivantFile() {
     }
 
@@ -214,5 +219,22 @@ public class NumeroSuivantFile implements Serializable {
 
     public void setErrorMessageIfAny(String errorMessageIfAny) {
         this.errorMessageIfAny = errorMessageIfAny;
+    }
+
+
+    public int getCalledByMonitor() {
+        return calledByMonitor;
+    }
+
+    public void setCalledByMonitor(int calledByMonitor) {
+        this.calledByMonitor = calledByMonitor;
+    }
+
+    public int getCalledByMedecin() {
+        return calledByMedecin;
+    }
+
+    public void setCalledByMedecin(int calledByMedecin) {
+        this.calledByMedecin = calledByMedecin;
     }
 }

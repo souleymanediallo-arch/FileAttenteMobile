@@ -5,6 +5,7 @@ plugins {
 android {
     compileSdk 32
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.soul.fileattente"
         minSdk 23
         targetSdk 35

@@ -184,32 +184,42 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
                 System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomServiceDestination() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
 
-                if(numeroSuivantFile.getStatut().equalsIgnoreCase(STATUT_APPELE_SECRETAIRE)) {
-                    String messageAnnonce =
-                            "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
-                                    "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroDansFileAttente()) + "\n" +
-                                    "Votre tour est arrivé à l'acceuil pour les formalités administratives";
-                    String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
-                    initializedTextToSpeechInstance(messageAnnonce);
-                }
-                //Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
-                //numeroSuivantFile.setStatutNumSuivantFile(StatutNumSuivantFileEnum.Appele);
-                //
-                //Ici on recoit aussi la notif quand le patient est appele chez le medecin dont lire l invite chez le medecin, etant sur l'ecran de la secretaire
-                if(numeroSuivantFile.getStatut().equalsIgnoreCase(STATUT_APPELE_MEDECIN)) {
-                    String messageAnnonce =
-                            "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
-                                    "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroDansFileAttente()) + "\n" +
-                                    "Votre tour est arrivé chez le medecin";
-                    initializedTextToSpeechInstance(messageAnnonce);
-                }
-                //Ici on recoit aussi la notif quand le patient est appele chez le medecin dont lire l invite chez le medecin
-                //
-                System.out.println("numeroSuivantFile.getStatutNumSuivantFile() ----> " + numeroSuivantFile.getStatut());
-                //Cette ligne ci dessous pour que le bon message soit enoyé cote BACK (meme si en principe c'est deja le cas),
-                //Prevoir le traitement du retour de cet appel à l'afficher pour eventuellement alter sur les pbs d'envois de sms (technique, credit entre autres)
-                //numeroSuivantFile.setStatut("Appele");
-                userViewModel.sendSmsNotification(numeroSuivantFile);
+                System.out.println("---------------------------------------------------------------------> getNumeroSuivantFileForAppelerNumero = " + "Sms envoyé pour le service [" + numeroSuivantFile.getNomServiceDestination() + "] au numero [" + numeroSuivantFile.getTelephoneDemandeur() + "]");
+                //if (numeroSuivantFile.getTempsAttenteEstime() == 500L) {
+                    //if (numeroSuivantFile.getStatut().equalsIgnoreCase(STATUT_APPELE_SECRETAIRE)) {
+                    if (numeroSuivantFile.getStatut().equalsIgnoreCase(STATUT_APPELE_SECRETAIRE) && numeroSuivantFile.getCalledByMonitor()==0) {
+                        String messageAnnonce =
+                                "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
+                                        "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroDansFileAttente()) + "\n" +
+                                        "Votre tour est arrivé à l'acceuil pour les formalités administratives";
+                        String telephoneDemandeur = numeroSuivantFile.getTelephoneDemandeur();
+                        initializedTextToSpeechInstance(messageAnnonce);
+                        userViewModel.sendSmsNotification(numeroSuivantFile);
+                        numeroSuivantFile.setCalledByMonitor(1);
+                    }
+                    //Utils.sendTextAsSms(telephoneDemandeur, messageAnnonce);
+                    //numeroSuivantFile.setStatutNumSuivantFile(StatutNumSuivantFileEnum.Appele);
+                    //
+                    //Ici on recoit aussi la notif quand le patient est appele chez le medecin dont lire l invite chez le medecin, etant sur l'ecran de la secretaire
+                    //if (numeroSuivantFile.getStatut().equalsIgnoreCase(STATUT_APPELE_MEDECIN)) {
+                    if (numeroSuivantFile.getStatut().equalsIgnoreCase(STATUT_APPELE_MEDECIN) && numeroSuivantFile.getCalledByMedecin()==0) {
+                        String messageAnnonce =
+                                "Service " + numeroSuivantFile.getNomServiceDestination() + "\n" +
+                                        "Numero " + Utils.formatNumeroDemandeurForTextToVoice(numeroSuivantFile.getNumeroDansFileAttente()) + "\n" +
+                                        "Votre tour est arrivé chez le medecin";
+                        initializedTextToSpeechInstance(messageAnnonce);
+                        userViewModel.sendSmsNotification(numeroSuivantFile);
+                        numeroSuivantFile.setCalledByMedecin(1);
+                    }
+                    //Ici on recoit aussi la notif quand le patient est appele chez le medecin dont lire l invite chez le medecin
+                    //
+                    System.out.println("numeroSuivantFile.getStatutNumSuivantFile() ----> " + numeroSuivantFile.getStatut());
+                    //Cette ligne ci dessous pour que le bon message soit enoyé cote BACK (meme si en principe c'est deja le cas),
+                    //Prevoir le traitement du retour de cet appel à l'afficher pour eventuellement alter sur les pbs d'envois de sms (technique, credit entre autres)
+                    //numeroSuivantFile.setStatut("Appele");
+                    //userViewModel.sendSmsNotification(numeroSuivantFile);
+//                    numeroSuivantFile.setTempsAttenteEstime(0L);
+//                }
             }
         });
     }

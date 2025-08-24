@@ -125,7 +125,7 @@ public class EcranPrincipalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Text to Voice
                 //initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + binding.editTextPhone.getText().toString() + "]");
-                initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + Utils.formatSenegalTelephoneNumberForTextToVoice(binding.editTextPhone.getText().toString()) + "]");
+                //initializedTextToSpeechInstance("Sms envoyé pour le service [" + selectedServiceDestination.getNomServiceDestination() + "] au numero [" + Utils.formatSenegalTelephoneNumberForTextToVoice(binding.editTextPhone.getText().toString()) + "]");
                 //Text to Voice
                 Intent intent = new Intent(EcranPrincipalActivity.this, EcranResumeActivity.class);
                 intent.putExtra(GlobalSetOfExtra.GLOBALSETOFEXTRA, mGlobalSetOfExtra);
