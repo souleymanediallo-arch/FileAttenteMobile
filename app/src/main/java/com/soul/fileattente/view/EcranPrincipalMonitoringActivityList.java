@@ -8,16 +8,20 @@ import static com.soul.fileattente.utils.ApplicationConstants.STATUT_APPELE_SECR
 import static com.soul.fileattente.utils.ApplicationConstants.STATUT_APPELE_MEDECIN;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.soul.fileattente.R;
 import com.soul.fileattente.adapters.ServiceAGGListData;
 import com.soul.fileattente.adapters.ServiceAGGMonitoringListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalMonitoringListBinding;
@@ -33,8 +37,10 @@ import com.soul.fileattente.viewmodel.UserViewModel;
 import com.somsakelect.android.mqtt.MqttAndroidClient;
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -55,6 +61,12 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
     TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
 
+    //
+    private static final int MQTT_QOS_2 = 2;
+    private static final String TAG = "MQTT_EcranPrincipalMonitoringActivityList";
+    private final MqttConnectOptions connectOptions = new MqttConnectOptions();
+    String uniqueClientId;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +97,9 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         binding.recyclerView.setAdapter(serviceAGGMonitoringListDataAdapter);
         binding.progressBar.setVisibility(View.VISIBLE);
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
+        uniqueClientId = clientId + Utils.getUniqueId(this);
+        //client = new MqttAndroidClient(this, serverURI, uniqueClientId);
+        initMqttOptions();
         connect(); // it will connect and subscribe if connextion is successuful..
         processWhenNumeroSuivantFileForAppelerNumeroChanged();
         processWhenNumeroSuivantFileForAnnulerAppelNumeroChanged();
@@ -112,45 +127,118 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         });
     }
 
-    private void connect() {
-        MqttConnectOptions connectOptions = new MqttConnectOptions();
+    //
+//    private MqttConnectOptions initMqttOptions() {
+//        MqttConnectOptions connectOptions = new MqttConnectOptions();
+//        connectOptions.setAutomaticReconnect(true);
+//        connectOptions.setKeepAliveInterval(10);//To keep between 10->60 (which is default)
+//        //connectOptions.setCleanSession(false);
+//        connectOptions.setCleanSession(true);
+//        connectOptions.setUserName("admin");
+//        connectOptions.setPassword("admin".toCharArray());
+//        return connectOptions;
+//    }
+
+    private void initMqttOptions() {
         connectOptions.setAutomaticReconnect(true);
-        System.out.println("Utils.getUniqueId ----------------------------------> " + clientId + Utils.getUniqueId(this.getApplicationContext()));
-        client = new MqttAndroidClient(this, serverURI, clientId + Utils.getUniqueId(this.getApplicationContext()));
+        connectOptions.setCleanSession(false);
+        connectOptions.setUserName("admin");
+        connectOptions.setPassword("admin".toCharArray());
+    }
+
+
+    //private void updateUI(boolean isConnecting) {
+    private void updateUI() {
+        runOnUiThread(() -> {
+            boolean isConnected = client != null && client.isConnected();
+            binding.QueueConnectionStatus.setBackgroundColor(isConnected ? ContextCompat.getColor(getApplicationContext(), R.color.green_primary) : ContextCompat.getColor(getApplicationContext(), R.color.red));
+        });
+    }
+
+    private MqttCallbackExtended createMqttCallback() {
+        return new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean reconnect, String serverURI) {
+                Log.d(TAG, "Connection completed to: " + serverURI + ", reconnect: " + reconnect);
+                updateUI();
+            }
+
+            @Override
+            public void connectionLost(Throwable cause) {
+                Log.w(TAG, "Connection lost: " + cause.getMessage());
+                updateUI();
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage message) {
+                //Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
+                System.out.println("subscribe Incoming Message EcranPrincipalMonitoringActivityList --------------------------------------------------------------------->" + message.toString());
+                //print(message.toString());
+                userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken token) {
+                Log.d(TAG, "Message delivery completed");
+            }
+        };
+    }
+
+    //
+    private void connect() {
+//        MqttConnectOptions connectOptions = new MqttConnectOptions();
+//        connectOptions.setAutomaticReconnect(true);
+//        connectOptions = initMqttOptions();
+
+        //String clientId = BASE_CLIENT_ID + Utils.getUniqueId(this);
+        //client = new MqttAndroidClient(this, serverURI, uniqueClientId);
+        client = new MqttAndroidClient(this, serverURI, uniqueClientId);
+        client.setCallback(createMqttCallback());
+
+        //System.out.println("Utils.getUniqueId ----------------------------------> " + uniqueClientId);
+        //client = new MqttAndroidClient(this, serverURI, clientId + Utils.getUniqueId(this.getApplicationContext()));
+        //client.setCallback(createMqttCallback());
         try {
-            client.connect(connectOptions, new IMqttActionListener() {
+                client.connect(connectOptions, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     subscribe();
+                    //updateUI();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable e) {
                     e.printStackTrace();
+                    updateUI();
                 }
             });
         } catch (MqttException e) {
             e.printStackTrace();
+            updateUI();
         }
     }
 
     private void subscribe() {
         try {
-            client.subscribe(subscribeTopic, 0, new IMqttMessageListener() {
-                @Override
-                public void messageArrived(final String topic, final MqttMessage message) throws Exception {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
-                            System.out.println("subscribe Incoming Message EcranPrincipalMonitoringActivityList --------------------------------------------------------------------->" + message.toString());
-                            //print(message.toString());
-                            userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-                        }
-                    });
-                }
-            });
+
+            //client.subscribe(subscribeTopic, MQTT_QOS_2);
+            client.subscribe("android_client_notifications_inbox_dev3", MQTT_QOS_2);
+//            client.subscribe(subscribeTopic, MQTT_QOS_2, new IMqttMessageListener() {
+//                @Override
+//                public void messageArrived(final String topic, final MqttMessage message) throws Exception {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            //Toast.makeText(EcranPrincipalMonitoringActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
+//                            System.out.println("subscribe Incoming Message EcranPrincipalMonitoringActivityList --------------------------------------------------------------------->" + message.toString());
+//                            //print(message.toString());
+//                            userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+//                        }
+//                    });
+//                }
+//            });
         } catch (MqttException e) {
+            updateUI();
             e.printStackTrace();
         }
     }
