@@ -61,29 +61,29 @@
             android:name=".view.EcranPrincipalTraitementNumeroFileActivityList"
             android:exported="false"/>
 <!--            android:screenOrientation="landscape" />-->
-<!--        <activity-->
-<!--            android:name=".view.LoginActivity"-->
-<!--            android:exported="true">-->
-<!--&lt;!&ndash;            android:screenOrientation="landscape">&ndash;&gt;-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
         <activity
             android:name=".view.LoginActivity"
-            android:exported="false"/>
-
-
-        <activity
-            android:name=".view.MqttActivity3"
-            android:exported="true" >
+            android:exported="true">
+<!--            android:screenOrientation="landscape">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        <activity-->
+<!--            android:name=".view.LoginActivity"-->
+<!--            android:exported="false"/>-->
+
+
+<!--        <activity-->
+<!--            android:name=".view.MqttActivity3"-->
+<!--            android:exported="true" >-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
         <!--        <service android:name="org.eclipse.paho.android.service.MqttService" />-->
         <!--        <service android:name="org.eclipse.paho.android.service.MqttService" android:foregroundServiceType="dataSync" />-->

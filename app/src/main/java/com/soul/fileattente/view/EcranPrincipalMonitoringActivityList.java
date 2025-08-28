@@ -199,7 +199,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         //client = new MqttAndroidClient(this, serverURI, clientId + Utils.getUniqueId(this.getApplicationContext()));
         //client.setCallback(createMqttCallback());
         try {
-                client.connect(connectOptions, new IMqttActionListener() {
+            //client.connect(connectOptions, new IMqttActionListener() {
+            client.connect(connectOptions, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     subscribe();
