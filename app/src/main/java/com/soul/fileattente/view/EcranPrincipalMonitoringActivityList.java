@@ -139,9 +139,24 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 //        return connectOptions;
 //    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
+        Log.d(TAG, "Activity resumed");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disconnectClient();
+        Log.d(TAG, "Activity destroyed");
+    }
+
     private void initMqttOptions() {
         connectOptions.setAutomaticReconnect(true);
         connectOptions.setCleanSession(false);
+        connectOptions.setKeepAliveInterval(10);
         connectOptions.setUserName("admin");
         connectOptions.setPassword("admin".toCharArray());
     }
@@ -183,6 +198,18 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             }
         };
     }
+
+    private void disconnectClient() {
+        try {
+            if (client != null && client.isConnected()) {
+                client.disconnect();
+                updateUI();
+            }
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //
     private void connect() {
