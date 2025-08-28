@@ -1,23 +1,26 @@
 package com.soul.fileattente.view;
 
-import static com.soul.fileattente.utils.ApplicationConstants.STATUT_APPELE_SECRETAIRE;
 import static com.soul.fileattente.utils.ApplicationConstants.clientId;
 import static com.soul.fileattente.utils.ApplicationConstants.publishTopic;
 import static com.soul.fileattente.utils.ApplicationConstants.serverURI;
 import static com.soul.fileattente.utils.ApplicationConstants.subscribeTopic;
+import static com.soul.fileattente.utils.ApplicationConstants.STATUT_APPELE_SECRETAIRE;
+import static com.soul.fileattente.utils.ApplicationConstants.STATUT_APPELE_MEDECIN;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.soul.fileattente.R;
 import com.soul.fileattente.adapters.ServiceAGGListData;
 import com.soul.fileattente.adapters.ServiceAGGMonitoringListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalMonitoringListBinding;
@@ -29,11 +32,11 @@ import com.soul.fileattente.utils.GlobalSetOfExtra;
 import com.soul.fileattente.utils.Utils;
 import com.soul.fileattente.viewmodel.UserViewModel;
 
-//import org.eclipse.paho.android.service.MqttAndroidClient;
 import com.somsakelect.android.mqtt.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -49,12 +52,18 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
     private ActivityEcranPrincipalMonitoringListBinding binding;
     private ServiceAGGMonitoringListDataAdapter serviceAGGMonitoringListDataAdapter;
     private ArrayList<ServiceAGGListData> serviceAGGListData;
+    private DemandeGeneric demandeGeneric;
 
-    MqttAndroidClient client;
-    DemandeGeneric demandeGeneric;
+    private TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
 
-    TextToSpeech initializedTextToSpeechInstancefromCallingActivity;
-    String nomServiceDestinationChoisi=null;
+    private MqttAndroidClient client;
+    private static final int MQTT_QOS_2 = 2;
+    private static final String TAG = "MQTT_EcranPrincipalTraitementActivityList";
+    private final MqttConnectOptions connectOptions = new MqttConnectOptions();
+    String uniqueClientId;
+
+    private String nomServiceDestinationChoisi=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +102,26 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
         binding.recyclerView.setAdapter(serviceAGGMonitoringListDataAdapter);
         binding.progressBar.setVisibility(View.VISIBLE);
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
-        connect(); // it will connect and subscribe if connextion is successuful..
+        uniqueClientId = clientId + Utils.getUniqueId(this);
+        initMqttOptions();
+        //connect to mqtt queue and subscribe if connextion is successuful..
+        connect();
         processWhenNumeroSuivantFileForMedecinAppelerNumeroChanged ();
         processWhenNumeroSuivantFileForMedecinAnnulerAppelNumeroChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
+        Log.d(TAG, "Activity resumed");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disconnectClient();
+        Log.d(TAG, "Activity destroyed");
     }
 
     void processWhenListForDemandeMedecinAggregatAllServicesDestinationNumeroFilesChanged() {
@@ -124,47 +150,94 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
         });
     }
 
-    private void connect() {
-        MqttConnectOptions connectOptions = new MqttConnectOptions();
+    private void initMqttOptions() {
         connectOptions.setAutomaticReconnect(true);
-        System.out.println("Utils.getUniqueId ----------------------------------> " + clientId + Utils.getUniqueId(this.getApplicationContext()));
-        client = new MqttAndroidClient(this, serverURI, clientId + Utils.getUniqueId(this.getApplicationContext()));
-        try {
-            client.connect(connectOptions, new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    subscribe();
-                }
+        connectOptions.setCleanSession(false);
+        //connectOptions.setKeepAliveInterval(10);
+        connectOptions.setUserName("admin");
+        connectOptions.setPassword("admin".toCharArray());
+    }
 
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable e) {
-                    e.printStackTrace();
-                }
-            });
+    private void updateUI() {
+        runOnUiThread(() -> {
+            boolean isConnected = client != null && client.isConnected();
+            binding.QueueConnectionStatus.setBackgroundColor(isConnected ? ContextCompat.getColor(getApplicationContext(), R.color.green_primary) : ContextCompat.getColor(getApplicationContext(), R.color.red));
+        });
+    }
+
+    private MqttCallbackExtended createMqttCallback() {
+        return new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean reconnect, String serverURI) {
+                Log.d(TAG, "Connection completed to: " + serverURI + ", reconnect: " + reconnect);
+                updateUI();
+            }
+
+            @Override
+            public void connectionLost(Throwable cause) {
+                Log.w(TAG, "Connection lost: ");
+                updateUI();
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage message) {
+                Log.d(TAG, "message Arrived with content : " + message.toString());
+                //userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken token) {
+                Log.d(TAG, "Message delivery completed with token: " + token.toString());
+            }
+        };
+    }
+
+    private void disconnectClient() {
+        try {
+            if (client != null && client.isConnected()) {
+                client.disconnect();
+                //updateUI();
+            }
         } catch (MqttException e) {
             e.printStackTrace();
         }
     }
 
-    private void subscribe() {
+    private void connect() {
+        client = new MqttAndroidClient(this, serverURI, uniqueClientId);
+        client.setCallback(createMqttCallback());
         try {
-            client.subscribe(subscribeTopic, 0, new IMqttMessageListener() {
+            //Veiller bien a utiliser cette methode ci-dessous connect(connectOptions, null, new IMqttActionListener() {..}
+            // et surtout pas client.connect(connectOptions, new IMqttActionListener() {..}
+            //C'est ce qui fait la difference afin de permettre au client de prendre en compte la variable "connectOptions" et permettre
+            //ici la reconnection automatique configurée grace à connectOptions.setAutomaticReconnect(true);
+            //Cela m a fait perdre beaucoup de temps et a amener à se poser des questions sur le vrai fonctionnement de MQTT
+            client.connect(connectOptions, null, new IMqttActionListener() {
                 @Override
-                public void messageArrived(final String topic, final MqttMessage message) throws Exception {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //Toast.makeText(EcranPrincipalTraitementActivityList.this, message.toString(), Toast.LENGTH_SHORT).show();
-                            System.out.println("subscribe Incoming Message EcranPrincipalTraitementActivityList --------------------------------------------------------------------->" + message.toString());
-                            //print(message.toString());
-                            //userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-                            userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
-                        }
-                    });
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.d(TAG, "mqtt connection onSuccess: " + asyncActionToken.toString());
+                    subscribe();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable e) {
+                    Log.e(TAG, "mqtt connection onFailure: " + e.getMessage());
+                    updateUI();
                 }
             });
         } catch (MqttException e) {
-            e.printStackTrace();
+            Log.e(TAG, "connect - mqtt exception : " + e.getMessage());
+            updateUI();
+        }
+    }
+
+    private void subscribe() {
+        try {
+            client.subscribe(subscribeTopic, MQTT_QOS_2);
+        } catch (MqttException e) {
+            Log.e(TAG, "subscribe - mqtt exception : " + e.getMessage());
+            updateUI();
         }
     }
 
@@ -173,10 +246,9 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
         msg.setPayload(message.getBytes());
         try {
             client.publish(publishTopic, msg);
-            System.out.println("publishMessage Outgoing Message --------------------------------------------------------------------->" + message);
-            //print(message);
+            Log.d(TAG, "publishMessage - publish mqtt on publishTopic : " + publishTopic + " message : " + message);
         } catch (MqttException e) {
-            e.printStackTrace();
+            Log.e(TAG, "publishMessage - mqtt exception : " + e.getMessage());
         }
     }
 
@@ -184,7 +256,7 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //textResult.setText(textResult.getText().toString() + "\n" + message);
+                Log.d(TAG, "publishMessage - publish mqtt on publishTopic : " + publishTopic + " message : " + message);
             }
         });
     }
@@ -224,6 +296,7 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeMedecinAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                //Prevoir ici eventuellement la lecture du message d'annulation ainsi l envoi de sms approprié
             }
         });
     }

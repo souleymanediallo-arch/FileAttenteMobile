@@ -135,15 +135,19 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     private void initMqttOptions() {
         connectOptions.setAutomaticReconnect(true);
         connectOptions.setCleanSession(false);
-        connectOptions.setKeepAliveInterval(10);
+        //connectOptions.setKeepAliveInterval(10);
         connectOptions.setUserName("admin");
         connectOptions.setPassword("admin".toCharArray());
     }
 
     private void updateUI() {
         runOnUiThread(() -> {
-            boolean isConnected = client != null && client.isConnected();
-            binding.QueueConnectionStatus.setBackgroundColor(isConnected ? ContextCompat.getColor(getApplicationContext(), R.color.green_primary) : ContextCompat.getColor(getApplicationContext(), R.color.red));
+            try {
+                boolean isConnected = client != null && client.isConnected();
+                binding.QueueConnectionStatus.setBackgroundColor(isConnected ? ContextCompat.getColor(getApplicationContext(), R.color.green_primary) : ContextCompat.getColor(getApplicationContext(), R.color.red));
+            }catch (Exception e){
+                Log.e(TAG, "updateUI Exception " + (e != null? e.getMessage(): "exception object is null (which is strange)"));
+            }
         });
     }
 
@@ -157,7 +161,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
 
             @Override
             public void connectionLost(Throwable cause) {
-                Log.w(TAG, "Connection lost: " + cause.getMessage());
+                Log.w(TAG, "Connection lost: ");
                 updateUI();
             }
 
@@ -178,10 +182,10 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         try {
             if (client != null && client.isConnected()) {
                 client.disconnect();
-                updateUI();
+                //updateUI();
             }
         } catch (MqttException e) {
-            e.printStackTrace();
+            Log.e(TAG, "disconnectClient Exception " + (e != null? e.getMessage() : "exception object is null (which is strange)"));
         }
     }
 
@@ -295,6 +299,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
             @Override
             public void onChanged(NumeroSuivantFile numeroSuivantFile) {
                 userViewModel.demandeAggregatAllServicesDestinationNumeroFiles(demandeGeneric);
+                //Prevoir ici eventuellement la lecture du message d'annulation ainsi l envoi de sms approprié
             }
         });
     }
