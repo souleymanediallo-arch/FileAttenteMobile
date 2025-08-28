@@ -222,8 +222,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     private void subscribe() {
         try {
 
-            //client.subscribe(subscribeTopic, MQTT_QOS_2);
-            client.subscribe("android_client_notifications_inbox_dev3", MQTT_QOS_2);
+            client.subscribe(subscribeTopic, MQTT_QOS_2);
+//            client.subscribe("android_client_notifications_inbox_dev3", MQTT_QOS_2);
 //            client.subscribe(subscribeTopic, MQTT_QOS_2, new IMqttMessageListener() {
 //                @Override
 //                public void messageArrived(final String topic, final MqttMessage message) throws Exception {
