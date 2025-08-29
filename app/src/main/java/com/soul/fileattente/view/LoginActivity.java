@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -165,6 +166,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToEcranAdministrateurActivityList() {
+//        binding.txtInputLayoutEdtErroMessageFND.setVisibility(View.VISIBLE);
+//        binding.textErroMessageFND.setText("Fonctionnalité non encore mise en oeuvre...");
         binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
         binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
         binding.progressBar.setVisibility(View.INVISIBLE);
@@ -211,17 +214,24 @@ public class LoginActivity extends AppCompatActivity {
         userViewModel.getAutheticationResultForAuthenticate().observe(this, new Observer<Login>() {
             @Override
             public void onChanged(Login autheticationResult) {
-                System.out.println("AutheticationResultForAuthenticate Data Changed............................................");
+                System.out.println("AuthenticationResultForAuthenticate Data Changed............................................");
                 mAuthenticationResult = autheticationResult;
                 //Set new token after authentication or re-authentication so that query can be done...
                 //RetrofitClient.gottenTokenAfterLoginOrRefresh = autheticationResult.getId_token();
                 //System.out.println("Just set RetrofitClient.gottenTokenAfterLoginOrRefresh to ------------> " + RetrofitClient.gottenTokenAfterLoginOrRefresh );
                 //Then try to login after completion of Authetication successful
                 //mLogin = new Login("admin", "admin");
-                mLogin = new Login();
-                mLogin.setUsername("admin");
-                mLogin.setPassword("admin");
-                userViewModel.login(mLogin);
+                if(mAuthenticationResult != null) {
+                    mLogin = new Login();
+                    mLogin.setUsername("admin");
+                    mLogin.setPassword("admin");
+                    userViewModel.login(mLogin);
+                }else{
+                    //On a deja des problemes pour appeler la methode Autheticate -> Possiblement probleme d'internet
+                    binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
+                    binding.textErroMessage.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
+                    binding.progressBar.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
@@ -245,8 +255,9 @@ public class LoginActivity extends AppCompatActivity {
                     navigateToEcranPrincipalActivityListWithDoctorProfil();
                 }
                 if(chosenProfile.equalsIgnoreCase("Administrateur"))  {
-                    //navigateToEcranAdministrateurActivityList();
-                    navigateToEcranPrincipalTraitementActivityList();
+                    navigateToEcranAdministrateurActivityList();
+                    //navigateToEcranPrincipalTraitementActivityList();
+                    //.makeText(getApplicationContext(), "Fonctionnalité non encore mise en oeuvre...", Toast.LENGTH_LONG);
                 }
             }
         });

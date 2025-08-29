@@ -41,6 +41,8 @@ public class FileAttenteRepository {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 System.out.println(t.getMessage());
+                //On peut eventuellement tester le message t.geMessage -> "Failed to connect.."
+                UserViewModel.getAutheticationResultForAuthenticate().postValue(null);
             }
         });
     }
