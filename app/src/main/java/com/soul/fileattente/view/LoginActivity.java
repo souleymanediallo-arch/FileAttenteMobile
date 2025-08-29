@@ -168,10 +168,13 @@ public class LoginActivity extends AppCompatActivity {
     private void navigateToEcranAdministrateurActivityList() {
 //        binding.txtInputLayoutEdtErroMessageFND.setVisibility(View.VISIBLE);
 //        binding.textErroMessageFND.setText("Fonctionnalité non encore mise en oeuvre...");
-        binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
-        binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
-        binding.progressBar.setVisibility(View.INVISIBLE);
-        System.out.println("Fonctionnalité non encore mise en oeuvre...");
+//        binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
+//        binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
+//        binding.progressBar.setVisibility(View.INVISIBLE);
+//        System.out.println("Fonctionnalité non encore mise en oeuvre...");
+        Intent intent = new Intent(LoginActivity.this, EcranServiceDestinationActivityList.class);
+        LoginActivity.this.startActivity(intent);
+
     }
 
     private void handleUsernameAndPasswordError() {
@@ -258,6 +261,8 @@ public class LoginActivity extends AppCompatActivity {
                     navigateToEcranAdministrateurActivityList();
                     //navigateToEcranPrincipalTraitementActivityList();
                     //.makeText(getApplicationContext(), "Fonctionnalité non encore mise en oeuvre...", Toast.LENGTH_LONG);
+//                    Intent intent = new Intent(LoginActivity.this, EcranServiceDestinationActivityList.class);
+//                    LoginActivity.this.startActivity(intent);
                 }
             }
         });

@@ -61,6 +61,17 @@
             android:name=".view.EcranPrincipalTraitementNumeroFileActivityList"
             android:exported="false"/>
 <!--            android:screenOrientation="landscape" />-->
+
+        <activity
+            android:name=".view.EcranServiceDestinationActivityList"
+            android:exported="false"/>
+
+        <activity
+            android:name=".view.EcranServiceDestinationEditActivity"
+            android:exported="false"/>
+
+
+
         <activity
             android:name=".view.LoginActivity"
             android:exported="true">
