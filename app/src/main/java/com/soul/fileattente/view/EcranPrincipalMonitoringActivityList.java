@@ -61,6 +61,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.monitoring_activity_name);
 
         binding = ActivityEcranPrincipalMonitoringListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -87,6 +88,8 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(serviceAGGMonitoringListDataAdapter);
         binding.progressBar.setVisibility(View.VISIBLE);
+        //binding.currentActivityName.setText("[ Moniteur | Acceuil | Secretaire ]");
+
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
         uniqueClientId = clientId + Utils.getUniqueId(this);
         initMqttOptions();
@@ -144,7 +147,7 @@ public class EcranPrincipalMonitoringActivityList extends AppCompatActivity {
         runOnUiThread(() -> {
             try {
                 boolean isConnected = client != null && client.isConnected();
-                binding.QueueConnectionStatus.setBackgroundColor(isConnected ? ContextCompat.getColor(getApplicationContext(), R.color.green_primary) : ContextCompat.getColor(getApplicationContext(), R.color.red));
+                binding.queueConnectionStatus.setBackgroundColor(isConnected ? ContextCompat.getColor(getApplicationContext(), R.color.green_primary) : ContextCompat.getColor(getApplicationContext(), R.color.red));
             }catch (Exception e){
                 Log.e(TAG, "updateUI Exception " + (e != null? e.getMessage(): "exception object is null (which is strange)"));
             }

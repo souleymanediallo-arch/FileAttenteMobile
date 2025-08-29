@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.soul.fileattente.R;
 import com.soul.fileattente.adapters.ServiceDestinationListData;
 import com.soul.fileattente.adapters.ServiceDestinationListDataAdapter;
 import com.soul.fileattente.databinding.ActivityEcranPrincipalListBinding;
@@ -29,6 +31,7 @@ public class EcranPrincipalActivityList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setTitle(R.string.user_activity_name);
 
         binding = ActivityEcranPrincipalListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();

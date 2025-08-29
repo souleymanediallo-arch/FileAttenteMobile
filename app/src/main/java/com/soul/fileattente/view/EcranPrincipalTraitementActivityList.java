@@ -68,6 +68,7 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.traitement_activity_name);
 
         binding = ActivityEcranPrincipalMonitoringListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -101,6 +102,7 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(serviceAGGMonitoringListDataAdapter);
         binding.progressBar.setVisibility(View.VISIBLE);
+        //binding.currentActivityName.setText("[ Medecin | Traitement ]");
         System.out.println("ActiveMQ-------------------------------------------------------------------------------------------------------------->");
         uniqueClientId = clientId + Utils.getUniqueId(this);
         initMqttOptions();
@@ -160,10 +162,15 @@ public class EcranPrincipalTraitementActivityList extends AppCompatActivity {
 
     private void updateUI() {
         runOnUiThread(() -> {
-            boolean isConnected = client != null && client.isConnected();
-            binding.QueueConnectionStatus.setBackgroundColor(isConnected ? ContextCompat.getColor(getApplicationContext(), R.color.green_primary) : ContextCompat.getColor(getApplicationContext(), R.color.red));
+            try {
+                boolean isConnected = client != null && client.isConnected();
+                binding.queueConnectionStatus.setBackgroundColor(isConnected ? ContextCompat.getColor(getApplicationContext(), R.color.green_primary) : ContextCompat.getColor(getApplicationContext(), R.color.red));
+            }catch (Exception e){
+                Log.e(TAG, "updateUI Exception " + (e != null? e.getMessage(): "exception object is null (which is strange)"));
+            }
         });
     }
+
 
     private MqttCallbackExtended createMqttCallback() {
         return new MqttCallbackExtended() {
