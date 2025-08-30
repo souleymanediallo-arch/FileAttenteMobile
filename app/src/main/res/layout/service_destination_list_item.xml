@@ -10,10 +10,10 @@ android:layout_margin="2sp"
 app:cardElevation="10dp"
 app:cardCornerRadius="20dp">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+    android:layout_height="60dp"
     android:background="@drawable/border">
 
     <TextView
@@ -25,25 +25,24 @@ app:cardCornerRadius="20dp">
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-
+        android:textSize="16sp"
         android:adjustViewBounds="true"
-        android:maxWidth="60dp"
         android:layout_gravity="center"
-        android:maxHeight="60dp"
-        android:scaleType="fitCenter"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Cardiologie General"
         />
 
     <TextView
         android:id="@+id/textPrefix"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@id/textNom"
         android:layout_toRightOf="@id/textNom"
-        android:gravity="center_vertical"
-        android:textSize="16sp"
+        android:gravity="center|right"
         android:padding="14dp"
         android:textColor="@color/black"
+        android:textSize="16sp"
         android:textStyle="bold"
-        />
+        android:text="PPP"/>
 </RelativeLayout>
 </androidx.cardview.widget.CardView>

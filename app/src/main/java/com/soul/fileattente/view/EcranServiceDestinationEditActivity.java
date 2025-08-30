@@ -41,7 +41,7 @@ public class EcranServiceDestinationEditActivity extends AppCompatActivity {
                 setResult(RESULT_OK, result);
                 finish();
             } else {
-                Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "SVP, Veuillez remplir tous les champs...", Toast.LENGTH_SHORT).show();
             }
         });
     }

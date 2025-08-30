@@ -55,17 +55,91 @@ public class EcranServiceDestinationActivityList extends AppCompatActivity {
 
     private void loadData() {
         // TODO load actual data - sample dummy data
+        //services.add(new ServiceDestination("1", "Medecine", "MED", "Medecine General", true, 500, 500, "674999cad5d72103924e0d46"));
         ServiceDestination serviceDestination = new ServiceDestination();
         serviceDestination.setIdService("1");
-        serviceDestination.setNomServiceDestination("Medecine");
         serviceDestination.setLibelleServiceDestination("Medecine General");
+        serviceDestination.setNomServiceDestination("Medecine");
+        serviceDestination.setPrefixeServiceAAfficher("MED");
         serviceDestination.setStatutServiceDestination("true");
         serviceDestination.setTempsAttenteEstime(50L);
         serviceDestination.setTempsAttenteMoyen(50L);
-        serviceDestination.setPrefixeServiceAAfficher("MED");
         serviceDestination.setEtablissementAssocie("674999cad5d72103924e0d46");
-        //services.add(new ServiceDestination("1", "Medecine", "MED", "Medecine General", true, 500, 500, "674999cad5d72103924e0d46"));
         services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Analyse (Biologie)");
+        serviceDestination.setNomServiceDestination("Analyse (Biologie)");
+        serviceDestination.setPrefixeServiceAAfficher("ANB");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Chirurgie");
+        serviceDestination.setNomServiceDestination("Chirurgie");
+        serviceDestination.setPrefixeServiceAAfficher("CHI");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Anesthesie");
+        serviceDestination.setNomServiceDestination("Anesthesie");
+        serviceDestination.setPrefixeServiceAAfficher("ANE");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Medecine General");
+        serviceDestination.setNomServiceDestination("Analyse (Biologie)");
+        serviceDestination.setPrefixeServiceAAfficher("ANB");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Chirurgie Pediatrie");
+        serviceDestination.setNomServiceDestination("Chirurgie Pediatrie");
+        serviceDestination.setPrefixeServiceAAfficher("CHP");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Diabetologie");
+        serviceDestination.setNomServiceDestination("Diabetologie");
+        serviceDestination.setPrefixeServiceAAfficher("DIA");
+        services.add(serviceDestination);
+
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Analyse (Biologie)");
+        serviceDestination.setNomServiceDestination("Analyse (Biologie)");
+        serviceDestination.setPrefixeServiceAAfficher("ANB");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Chirurgie");
+        serviceDestination.setNomServiceDestination("Chirurgie");
+        serviceDestination.setPrefixeServiceAAfficher("CHI");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Anesthesie");
+        serviceDestination.setNomServiceDestination("Anesthesie");
+        serviceDestination.setPrefixeServiceAAfficher("ANE");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Medecine General");
+        serviceDestination.setNomServiceDestination("Analyse (Biologie)");
+        serviceDestination.setPrefixeServiceAAfficher("ANB");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Chirurgie Pediatrie");
+        serviceDestination.setNomServiceDestination("Chirurgie Pediatrie");
+        serviceDestination.setPrefixeServiceAAfficher("CHP");
+        services.add(serviceDestination);
+
+        serviceDestination = new ServiceDestination();
+        serviceDestination.setLibelleServiceDestination("Diabetologie");
+        serviceDestination.setNomServiceDestination("Diabetologie");
+        serviceDestination.setPrefixeServiceAAfficher("DIA");
+        services.add(serviceDestination);
+
         adapter.notifyDataSetChanged();
     }
 

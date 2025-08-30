@@ -23,6 +23,9 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:contentDescription="Add service"
-            android:src="@android:drawable/ic_input_add" />
+            android:src="@android:drawable/ic_input_add"
+            app:backgroundTint="@color/blue"
+            app:tint="@android:color/white"/>
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
