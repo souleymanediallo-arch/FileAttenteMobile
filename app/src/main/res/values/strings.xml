@@ -12,7 +12,7 @@
         <item>Patient</item>
         <item>Moniteur</item>
         <item>Docteur</item>
-        <item>Administrateur</item>
+<!--        <item>Administrateur</item>-->
     </string-array>
 
 </resources>
