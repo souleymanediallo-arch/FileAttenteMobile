@@ -17,6 +17,7 @@ public interface ApplicationConstants {
     public static final String STATUT_APPELE_SECRETAIRE ="Appele_Secretaire";
     public static final String STATUT_APPELE_MEDECIN ="Appele_Medecin";
     public static final String STATUT_ERROR ="Error";
+    public static final String GLOBAL_PREFERENCE_KEY_ID_ETABLISSEMENT = "global_preference_key_id_etablissement";
     //
 
 //    //Developpement (192.168.1.142 -> localhost), cela dit, il ne faut surtout pas remplacer par localhost qui renvoie au devide android lui meme

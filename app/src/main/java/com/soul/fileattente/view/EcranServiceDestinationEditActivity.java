@@ -1,7 +1,12 @@
 package com.soul.fileattente.view;
 
+import static com.soul.fileattente.utils.ApplicationConstants.GLOBAL_PREFERENCE_KEY_ID_ETABLISSEMENT;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +49,14 @@ public class EcranServiceDestinationEditActivity extends AppCompatActivity {
                 Toast.makeText(this, "SVP, Veuillez remplir tous les champs...", Toast.LENGTH_SHORT).show();
             }
         });
+
+        //Read ID_ETABLISSEMENT From Shred Preferences
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String idEtablissement = prefs.getString(GLOBAL_PREFERENCE_KEY_ID_ETABLISSEMENT, "");
+        Log.d("GLOBAL_PREFERENCE_KEY_ID_ETABLISSEMENT", idEtablissement);
+        binding.editEtablissementAssocie.setText(idEtablissement);
+        binding.editEtablissementAssocie.setEnabled(false);
+
     }
 
     private void fillForm(ServiceDestination s) {

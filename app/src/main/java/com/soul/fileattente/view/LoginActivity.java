@@ -42,12 +42,15 @@ public class LoginActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         //Getting Instance of the viewModel that will manage the Business of the aapplication
+
+
         userViewModel = new ViewModelProvider(LoginActivity.this).get(UserViewModel.class);
         adjustViewComponentsStatusBeforeEtablissementSyncCompleted();
         DemandeGeneric demandeGeneric = new DemandeGeneric();
         demandeGeneric.setIdEtablissement(ApplicationConstants.IdEtablissementForThisMobileAPP); //TODO C'est l"objet qu'il faudra recuperer
         demandeGeneric.setPatientDeviceId(Utils.getUniqueId(this.getApplicationContext()));//Infomations à calculer
         userViewModel.demandeEtablissement(demandeGeneric);
+
         binding.btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,7 +175,12 @@ public class LoginActivity extends AppCompatActivity {
 //        binding.textErroMessage.setText("Fonctionnalité non encore mise en oeuvre...");
 //        binding.progressBar.setVisibility(View.INVISIBLE);
 //        System.out.println("Fonctionnalité non encore mise en oeuvre...");
-        Intent intent = new Intent(LoginActivity.this, EcranServiceDestinationActivityList.class);
+
+        //Calling directly CRUD Services
+//        Intent intent = new Intent(LoginActivity.this, EcranServiceDestinationActivityList.class);
+//        LoginActivity.this.startActivity(intent);
+
+        Intent intent = new Intent(LoginActivity.this, EcranPrincipalEtablissementActivity.class);
         LoginActivity.this.startActivity(intent);
 
     }

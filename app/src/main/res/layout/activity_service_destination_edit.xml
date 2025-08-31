@@ -98,6 +98,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="8dp"
                         android:textStyle="bold"
+                        android:checked="true"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -144,7 +145,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         app:boxBackgroundColor="@color/white"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:enabled="false">
 
 
                         <com.google.android.material.textfield.TextInputEditText

@@ -4,7 +4,10 @@ package com.soul.fileattente.view;
 //}
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +18,8 @@ import com.soul.fileattente.model.ServiceDestination;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.soul.fileattente.utils.ApplicationConstants.GLOBAL_PREFERENCE_KEY_ID_ETABLISSEMENT;
 
 public class EcranServiceDestinationActivityList extends AppCompatActivity {
 
@@ -48,6 +53,12 @@ public class EcranServiceDestinationActivityList extends AppCompatActivity {
             Intent intent = new Intent(EcranServiceDestinationActivityList.this, EcranServiceDestinationEditActivity.class);
             startActivityForResult(intent, REQUEST_ADD);
         });
+
+
+        //Read ID_ETABLISSEMENT From Shred Preferences
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String idEtablissement = prefs.getString(GLOBAL_PREFERENCE_KEY_ID_ETABLISSEMENT, "");
+        Log.d("GLOBAL_PREFERENCE_KEY_ID_ETABLISSEMENT", idEtablissement);
 
         // Load from data source (DB, server, etc)
         loadData();
