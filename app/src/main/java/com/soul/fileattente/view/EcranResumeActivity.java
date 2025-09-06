@@ -60,8 +60,9 @@ public class EcranResumeActivity extends AppCompatActivity {
                 "Numero : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNumeroDansFileAttente() + "\n" +
                         "Service : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNomServiceDestination() + "\n" +
                         "Nb Pers en Attente : " + mGlobalSetOfExtra.mNumeroSuivantFile.getNbTotalDemandeursEnCours() + "\n" +
-                        "Temps Attente Moyen : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteMoyen() + "\n" +
-                        "Temps Attente Estime : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteEstime();
+                        "Temps Attente Moyen pour ce Service : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteMoyen() + "\n" +
+                        //"Temps Attente Estime au regard de votre Position : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteEstime(); //ici faudrait multiplier Temps moyen * nb personnes en attente
+                        "Temps Attente Estime au regard de votre Position : " + mGlobalSetOfExtra.mNumeroSuivantFile.getTempsAttenteMoyen() * mGlobalSetOfExtra.mNumeroSuivantFile.getNbTotalDemandeursEnCours() + " mins"; //ici faudrait multiplier Temps moyen * nb personnes en attente
         //Utils.sendTextAsSms(mGlobalSetOfExtra.mNumeroSuivantFile.getTelephoneDemandeur(), messToSend); //à decommenter à la livraison
         userViewModel = new ViewModelProvider(EcranResumeActivity.this).get(UserViewModel.class);
         userViewModel.sendSmsNotification(mGlobalSetOfExtra.mNumeroSuivantFile);
