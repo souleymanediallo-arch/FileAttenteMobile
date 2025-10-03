@@ -283,6 +283,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(Etablissement etablissement) {
                 if(etablissement == null){
                     System.out.println(" ERROR EtablissementFordemanderEtablissement Data Changed............................................");
+                    System.out.println(" PLease verify very carefully the ID of Etablissement you provide possibly do compare clipboard and what you expect, Id can be easily confused");
                     binding.txtInputLayoutEdtErroMessage.setVisibility(View.VISIBLE);
                     binding.textErroMessage.setText("Connection Impossible, Verifiez votre connetivite ou Remontez le probleme...");
                     binding.progressBar.setVisibility(View.INVISIBLE);

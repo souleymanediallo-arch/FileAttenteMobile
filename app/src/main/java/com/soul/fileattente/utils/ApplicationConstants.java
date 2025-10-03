@@ -10,7 +10,6 @@ public interface ApplicationConstants {
     public static final long writeTimeoutDuration = 50;
     public static final long readTimeoutDuration = 50;
     public static final long tempsAttenteAvantRetourListServices = 5*1000;
-    public static final String IdEtablissementForThisMobileAPP = "674999cad5d72103924e0d46";
     //Ce sont les memes definitions de statut qye cote BAck
     public static final String STATUT_NON_DEFINI ="Non_Defini";
     public static final String STATUT_ATTENTE ="Attente";
@@ -27,17 +26,19 @@ public interface ApplicationConstants {
 //    public static final String subscribeTopic = "android_client_inbox";
 //    public static final String BASE_URL = "http://192.168.1.142:8089/api/"; //Replace with your Port 8080
 
-    //Production-Test (37.187.90.58 -> serveur en ligne), mais sur une instance de test
-    public static final String serverURI = "tcp://37.187.90.58:1889"; //replace with your ip
-    public static final String clientId = "android_client_file_attente";
-    public static final String publishTopic = "android_client_outbox";
-    public static final String subscribeTopic = "android_client_inbox";
-    public static final String BASE_URL = "http://37.187.90.58:8089/api/";
-//
-//    //Production (37.187.90.58 -> serveur en ligne), sur la vraie instance de Production
-//    public static final String serverURI = "tcp://37.187.90.58:1883"; //replace with your ip
+//    //Production-Test (37.187.90.58 -> serveur en ligne), mais sur une instance de test
+//    public static final String IdEtablissementForThisMobileAPP = "674999cad5d72103924e0d46"; //For Backend on 8089 and Mongo 27019 -> Test VMC
+//    public static final String serverURI = "tcp://37.187.90.58:1889"; //replace with your ip
 //    public static final String clientId = "android_client_file_attente";
 //    public static final String publishTopic = "android_client_outbox";
 //    public static final String subscribeTopic = "android_client_inbox";
-//    public static final String BASE_URL = "http://37.187.90.58:8080/api/";
+//    public static final String BASE_URL = "http://37.187.90.58:8089/api/";
+
+    //Production (37.187.90.58 -> serveur en ligne), sur la vraie instance de Production
+    public static final String IdEtablissementForThisMobileAPP = "68dfd1444f28cd3fc9996dc6"; //For Backend on 8001 and Mongo 27001 -> Prod VMC
+    public static final String serverURI = "tcp://37.187.90.58:1801"; //replace with your ip
+    public static final String clientId = "android_client_id_vmc";
+    public static final String publishTopic = "android_client_outbox_vmc";
+    public static final String subscribeTopic = "android_client_inbox_vmc";
+    public static final String BASE_URL = "http://37.187.90.58:8001/api/";
 }
