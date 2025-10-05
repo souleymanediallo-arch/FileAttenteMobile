@@ -56,7 +56,7 @@ public interface Api {
     Call<NumeroSuivantFile> annuler_medecin_numero_precedent_files(@Body DemandeGeneric demandeGeneric);
 
     //Les endpoints du cote Baack sont (notification/send-sms-mock, notification/send-sms-orange, notification/send-sms qui seletion le 1er ou le 2eme en fonction du mode de lancement du back "prod" ou non)
-    //@POST("notification/send-sms")
-    @POST("notification/send-sms-broker")
+    @POST("notification/send-sms")
+    //@POST("notification/send-sms-broker")
     Call<SmsMessageRetour> sendSmsNotification(@Body NumeroSuivantFile numeroSuivantFile);
 }
